@@ -1,5 +1,6 @@
 package br.com.challenge.procurement.model;
 
+import br.com.challenge.procurement.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.model.DTO.FornecedorDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +21,7 @@ public class Fornecedor {
     private String telefone;
     private String email;
     @Embedded
-    private Endereco endereco;
+    private EnderecoDTO endereco;
 
     public Fornecedor(FornecedorDTO dto) {
         this.razao_social = dto.razao_social();
@@ -28,6 +29,7 @@ public class Fornecedor {
         this.nome_contato = dto.nome_contato();
         this.telefone = dto.telefone();
         this.email = dto.email();
+        this.endereco = dto.endereco();
     }
 
     public Fornecedor() {};

@@ -7,7 +7,8 @@ public record FornecedorDTO(
         String cnpj,
         String nome_contato,
         String telefone,
-        String email
+        String email,
+        EnderecoDTO endereco
 ) {
     public FornecedorDTO(Fornecedor fornecedor) {
         this(
@@ -15,7 +16,8 @@ public record FornecedorDTO(
                 fornecedor.getCnpj(),
                 fornecedor.getNome_contato(),
                 fornecedor.getTelefone(),
-                fornecedor.getEmail()
+                fornecedor.getEmail(),
+                fornecedor.getEndereco()
         );
     }
 }
