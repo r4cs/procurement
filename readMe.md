@@ -36,10 +36,3 @@
 * POST /api/fornecedores: Criar um novo fornecedor (201 Created, 400 Bad Request se a entrada for inválida).
 * PUT /api/fornecedores/{codigo_fornecedor}: Atualizar um fornecedor existente (200 OK, 404 Not Found se não encontrado).
 * DELETE /api/fornecedores/{codigo_fornecedor}: Excluir um fornecedor por código (204 No Content, 404 Not Found se não encontrado).
-
-### Entidade de Endereços:
-* GET /api/enderecos: Obter todos os endereços (200 OK, 404 Not Found se não houver endereços).
-* GET /api/enderecos/{codigo_endereco}: Obter um endereço por código (200 OK, 404 Not Found se não encontrado).
-* POST /api/enderecos: Criar um novo endereço (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT /api/enderecos/{codigo_endereco}: Atualizar um endereço existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/enderecos/{codigo_endereco}: Excluir um endereço por código (204 No Content, 404 Not Found se não encontrado).
