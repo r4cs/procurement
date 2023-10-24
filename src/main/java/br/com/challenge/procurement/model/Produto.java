@@ -9,15 +9,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity(name = "produto")
-@Table(name = "tb_produto_procurement")
+@Table(name = "produto_procurement")
 public class Produto {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.UUID, generator = "produto_seq")
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-//    @Column(name = "id", updatable = false, nullable = false)
     private String sku;
     private String nome_produto;
     private Integer qtde;

@@ -1,17 +1,16 @@
 package br.com.challenge.procurement.model;
 
 import br.com.challenge.procurement.model.DTO.EnderecoDTO;
-import br.com.challenge.procurement.model.baseEntity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
-@ToString
 @Getter
 @Setter
-@Entity(name="endereco")
-@Table(name = "tb_endereco_procurement")
-public class Endereco extends BaseEntity {
+//@Entity
+@Embeddable
+public class Endereco {
+
     private String logradouro;
     private String numero;
     private String complemento;

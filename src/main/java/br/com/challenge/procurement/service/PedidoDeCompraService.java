@@ -1,10 +1,7 @@
 package br.com.challenge.procurement.service;
 
-import br.com.challenge.procurement.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.model.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.model.Endereco;
 import br.com.challenge.procurement.model.PedidoDeCompra;
-import br.com.challenge.procurement.repositories.EnderecoRepo;
 import br.com.challenge.procurement.repositories.PedidoDeCompraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package br.com.challenge.procurement.model;
 import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
-import br.com.challenge.procurement.model.baseEntity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,8 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="solicitacao_compra")
-@Table(name = "tb_solicitacao_compra_procurement")
-public class SolicitacaoDeCompra extends BaseEntity {
+@Table(name = "solicitacao_compra_procurement")
+public class SolicitacaoDeCompra {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
+            generator = "solicitacao_procurement_seq")
+    Long id;
+
     // fk -> onetomany ??
     private String sku;
 

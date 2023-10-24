@@ -1,12 +1,7 @@
 package br.com.challenge.procurement.model;
 
-import br.com.challenge.procurement.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.model.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.model.baseEntity.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,8 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="pedido_compra")
-@Table(name = "pedido_de_compra_procurement")
-public class PedidoDeCompra extends BaseEntity {
+@Table(name = "pedido_procurement")
+public class PedidoDeCompra {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
+            generator = "pedido_procurement_seq")
+    Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_solicitacao_compra")
