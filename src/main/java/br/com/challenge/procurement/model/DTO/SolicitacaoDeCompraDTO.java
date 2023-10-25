@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 
 public record SolicitacaoDeCompraDTO(
         Produto sku,
-        int qtde,
-        Usuario solicitante,
-        Usuario aprovador,
+        int quantidade,
+        Usuario solicitante_id,
+        Usuario aprovador_id,
         @Embedded
         Status status,
         String motivo_recusado,
@@ -22,9 +22,9 @@ public record SolicitacaoDeCompraDTO(
     public SolicitacaoDeCompraDTO(SolicitacaoDeCompra solicitacaoDeCompra) {
         this(
                 solicitacaoDeCompra.getSku(),
-                solicitacaoDeCompra.getQtde(),
-                solicitacaoDeCompra.getSolicitante(),
-                solicitacaoDeCompra.getAprovador(),
+                solicitacaoDeCompra.getQuantidade(),
+                solicitacaoDeCompra.getSolicitante_id(),
+                solicitacaoDeCompra.getAprovador_id(),
                 solicitacaoDeCompra.getStatus(),
                 solicitacaoDeCompra.getMotivo_recusado(),
                 solicitacaoDeCompra.getData_solicitacao()

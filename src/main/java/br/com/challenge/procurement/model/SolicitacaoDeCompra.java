@@ -2,15 +2,13 @@ package br.com.challenge.procurement.model;
 import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @ToString
 @Getter
 @Setter
-@Entity(name="solicitacao_compra")
-@Table(name = "solicitacao_compra_procurement")
+@Entity(name="solicitacao")
+@Table(name = "solicitacao_procurement")
 public class SolicitacaoDeCompra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
@@ -19,18 +17,18 @@ public class SolicitacaoDeCompra {
 
 
     @OneToOne()
-    @JoinColumn(name = "produto")
+    @JoinColumn(name = "sku", foreignKey = @ForeignKey(name="sku"))
     private Produto sku;
 
-    private int qtde;
+    private int quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "solicitante")
-    private Usuario solicitante;
+    @JoinColumn(name = "solicitante_id")
+    private Usuario solicitante_id;
 
     @ManyToOne
-    @JoinColumn(name = "aprovador")
-    private Usuario aprovador;
+    @JoinColumn(name = "aprovador_id")
+    private Usuario aprovador_id;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -41,9 +39,9 @@ public class SolicitacaoDeCompra {
 
     public SolicitacaoDeCompra(SolicitacaoDeCompraDTO dto){
         this.sku = dto.sku();
-        this.qtde = dto.qtde();
-        this.solicitante = dto.solicitante();
-        this.aprovador = dto.aprovador();
+        this.quantidade = dto.quantidade();
+        this.solicitante_id = dto.solicitante_id();
+        this.aprovador_id = dto.aprovador_id();
         this.status = dto.status();
         this.motivo_recusado = dto.motivo_recusado();
         this.data_solicitacao = dto.data_solicitacao();

@@ -1,6 +1,8 @@
 package br.com.challenge.procurement.model;
 
 import br.com.challenge.procurement.model.DTO.ProdutoDTO;
+import br.com.challenge.procurement.repositories.ProdutoRepo;
+import br.com.challenge.procurement.service.ProdutoService;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,8 +17,6 @@ import java.math.BigDecimal;
 public class Produto {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String sku;
     private String nome_produto;
     private Integer estoque;
@@ -31,4 +31,6 @@ public class Produto {
     }
 
     public Produto() {}
+
 }
+

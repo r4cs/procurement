@@ -1,6 +1,5 @@
 package br.com.challenge.procurement.apiController;
 
-
 import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
 import br.com.challenge.procurement.model.SolicitacaoDeCompra;
 import br.com.challenge.procurement.service.SolicitacaoDeCompraService;
@@ -8,14 +7,11 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.System.*;
-
 @RestController
-@RequestMapping(value="/api/solicitacao_de_compra")
+@RequestMapping(value="/api/solicitacao")
 public class SolicitacaoDeCompraController {
 
     private final SolicitacaoDeCompraService solicitacaoDeCompraService;
@@ -28,7 +24,7 @@ public class SolicitacaoDeCompraController {
     @PostMapping
     @Transactional
     public void cadastrar(@RequestBody @Valid SolicitacaoDeCompraDTO dto) {
-        out.println("Dados solicitacao de compra: " + dto);
+        System.out.println("Dados solicitacao de compra: " + dto);
         solicitacaoDeCompraService.create(dto);
     }
 

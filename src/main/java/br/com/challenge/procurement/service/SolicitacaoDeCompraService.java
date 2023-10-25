@@ -40,9 +40,9 @@ public class SolicitacaoDeCompraService {
             SolicitacaoDeCompra solicitacaoDeCompra = solicitacaoAntiga.get();
 
             solicitacaoDeCompra.setSku(updatedSolicitacaoDeCompra.getSku());
-            solicitacaoDeCompra.setQtde(updatedSolicitacaoDeCompra.getQtde());
-            solicitacaoDeCompra.setSolicitante(updatedSolicitacaoDeCompra.getSolicitante());
-            solicitacaoDeCompra.setAprovador(updatedSolicitacaoDeCompra.getAprovador());
+            solicitacaoDeCompra.setQuantidade(updatedSolicitacaoDeCompra.getQuantidade());
+            solicitacaoDeCompra.setSolicitante_id(updatedSolicitacaoDeCompra.getSolicitante_id());
+            solicitacaoDeCompra.setAprovador_id(updatedSolicitacaoDeCompra.getAprovador_id());
             solicitacaoDeCompra.setStatus(updatedSolicitacaoDeCompra.getStatus());
             solicitacaoDeCompra.setMotivo_recusado(updatedSolicitacaoDeCompra.getMotivo_recusado());
             solicitacaoDeCompra.setData_solicitacao(updatedSolicitacaoDeCompra.getData_solicitacao());
