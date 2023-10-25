@@ -3,8 +3,6 @@ package br.com.challenge.procurement.service;
 import br.com.challenge.procurement.model.DTO.ProdutoDTO;
 import br.com.challenge.procurement.model.Produto;
 import br.com.challenge.procurement.repositories.ProdutoRepo;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class ProdutoService {
             Produto produto = prodAntigo.get();
 
             produto.setNome_produto(updatedProduto.getNome_produto());
-            produto.setQtde(updatedProduto.getQtde());
+            produto.setEstoque(updatedProduto.getEstoque());
 
             return produtoRepo.save(produto);
         } else {

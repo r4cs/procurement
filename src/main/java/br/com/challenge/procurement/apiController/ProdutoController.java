@@ -34,18 +34,18 @@ public class ProdutoController {
         return produtoService.list();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{sku}")
     public Optional<Produto> obterProduto(@PathVariable String sku) {
         return produtoService.getProdutoById(sku);
     }
 
-    @PatchMapping(value = "/{id}")
+    @PatchMapping(value = "/{sku}")
     @Transactional
     public void atualizarProduto(@PathVariable String sku, @RequestBody @Valid Produto novoProduto) {
         produtoService.update(sku, novoProduto);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{sku}")
     public void deletarProduto(@PathVariable String sku) {
         produtoService.delete(sku);
     }
