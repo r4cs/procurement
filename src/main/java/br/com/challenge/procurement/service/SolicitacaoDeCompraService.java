@@ -41,7 +41,6 @@ public class SolicitacaoDeCompraService {
 
             solicitacaoDeCompra.setSku(updatedSolicitacaoDeCompra.getSku());
             solicitacaoDeCompra.setQtde(updatedSolicitacaoDeCompra.getQtde());
-            solicitacaoDeCompra.setValor_unitario(updatedSolicitacaoDeCompra.getValor_unitario());
             solicitacaoDeCompra.setSolicitante(updatedSolicitacaoDeCompra.getSolicitante());
             solicitacaoDeCompra.setAprovador(updatedSolicitacaoDeCompra.getAprovador());
             solicitacaoDeCompra.setStatus(updatedSolicitacaoDeCompra.getStatus());

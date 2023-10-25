@@ -17,11 +17,12 @@ public class SolicitacaoDeCompra {
             generator = "solicitacao_procurement_seq")
     Long id;
 
-    // fk -> onetomany ??
-    private String sku;
+
+    @OneToOne()
+    @JoinColumn(name = "produto")
+    private Produto sku;
 
     private int qtde;
-    private BigDecimal valor_unitario;
 
     @ManyToOne
     @JoinColumn(name = "solicitante")
@@ -41,7 +42,6 @@ public class SolicitacaoDeCompra {
     public SolicitacaoDeCompra(SolicitacaoDeCompraDTO dto){
         this.sku = dto.sku();
         this.qtde = dto.qtde();
-        this.valor_unitario = dto.valor_unitario();
         this.solicitante = dto.solicitante();
         this.aprovador = dto.aprovador();
         this.status = dto.status();

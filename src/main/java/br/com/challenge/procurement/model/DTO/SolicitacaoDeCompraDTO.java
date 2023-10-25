@@ -1,5 +1,6 @@
 package br.com.challenge.procurement.model.DTO;
 
+import br.com.challenge.procurement.model.Produto;
 import br.com.challenge.procurement.model.SolicitacaoDeCompra;
 import br.com.challenge.procurement.model.Status;
 import br.com.challenge.procurement.model.Usuario;
@@ -9,9 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record SolicitacaoDeCompraDTO(
-        String sku,
+        Produto sku,
         int qtde,
-        BigDecimal valor_unitario,
         Usuario solicitante,
         Usuario aprovador,
         @Embedded
@@ -23,7 +23,6 @@ public record SolicitacaoDeCompraDTO(
         this(
                 solicitacaoDeCompra.getSku(),
                 solicitacaoDeCompra.getQtde(),
-                solicitacaoDeCompra.getValor_unitario(),
                 solicitacaoDeCompra.getSolicitante(),
                 solicitacaoDeCompra.getAprovador(),
                 solicitacaoDeCompra.getStatus(),
