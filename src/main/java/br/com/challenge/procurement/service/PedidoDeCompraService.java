@@ -35,7 +35,7 @@ public class PedidoDeCompraService {
 
         if (pedDeCompAntigo.isPresent()) {
             PedidoDeCompra pedidoDeCompra = pedDeCompAntigo.get();
-            pedidoDeCompra.setSolicitacaoCompra(updatedPedidoDeCompra.getSolicitacaoCompra());
+            pedidoDeCompra.setSolicitacao(updatedPedidoDeCompra.getSolicitacao());
             pedidoDeCompra.setFornecedor(updatedPedidoDeCompra.getFornecedor());
             pedidoDeCompra.setData_entrega_prevista(updatedPedidoDeCompra.getData_entrega_prevista());
             pedidoDeCompra.setData_pedido(updatedPedidoDeCompra.getData_pedido());

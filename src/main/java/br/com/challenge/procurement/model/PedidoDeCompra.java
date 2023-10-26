@@ -19,21 +19,21 @@ public class PedidoDeCompra {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_solicitacao_compra")
-    private SolicitacaoDeCompra solicitacaoCompra;
+    @JoinColumn(name = "solicitacao_id")
+    private SolicitacaoDeCompra solicitacao;
 
     @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
+    @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
     private LocalDateTime data_entrega_prevista;
     private LocalDateTime data_pedido;
 
     public PedidoDeCompra(PedidoDeCompraDTO dto) {
-        this.solicitacaoCompra = dto.solicitacaoDeCompra();
+        this.solicitacao = dto.solicitacaoDeCompra();
         this.fornecedor = dto.fornecedor();
         this.data_entrega_prevista = dto.data_entrega_prevista();
-        this.data_pedido = dto.data_pedido();
+        this.data_pedido = LocalDateTime.now();
     }
 
     public PedidoDeCompra() {

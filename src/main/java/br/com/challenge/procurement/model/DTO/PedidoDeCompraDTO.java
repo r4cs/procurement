@@ -15,7 +15,7 @@ public record PedidoDeCompraDTO(
 {
     public PedidoDeCompraDTO(PedidoDeCompra pedidoDeCompra) {
         this(
-                pedidoDeCompra.getSolicitacaoCompra(),
+                pedidoDeCompra.getSolicitacao(),
                 pedidoDeCompra.getFornecedor(),
                 pedidoDeCompra.getData_entrega_prevista(),
                 pedidoDeCompra.getData_pedido()

@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI geraDocumentacao() {
         Server devServer = new Server();
-        devServer.setUrl("http://localhost:8080/api");
+        devServer.setUrl("http://localhost:8080");
         devServer.description("Url de desenvolvimento local");
         Contact contact = new Contact();
         contact.setEmail("rm97373@fiap.com.br");

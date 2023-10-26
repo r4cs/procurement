@@ -24,7 +24,7 @@ public class PedidoDeCompraController {
     @PostMapping
     @Transactional
     public void cadastrar(@RequestBody @Valid PedidoDeCompraDTO dto) {
-        out.println("Dados pedido de compra: " + dto);
+        System.out.println("Dados pedido de compra: " + dto);
         pedidoDeCompraService.criarPedidoDeCompra(dto);
     }
 
