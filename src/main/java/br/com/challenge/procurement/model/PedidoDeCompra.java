@@ -4,6 +4,7 @@ import br.com.challenge.procurement.model.DTO.PedidoDeCompraDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @ToString
@@ -26,12 +27,12 @@ public class PedidoDeCompra {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-    private LocalDateTime data_entrega_prevista;
+    private LocalDate data_entrega_prevista;
     private LocalDateTime data_pedido;
 
     public PedidoDeCompra(PedidoDeCompraDTO dto) {
-        this.solicitacao = dto.solicitacaoDeCompra();
-        this.fornecedor = dto.fornecedor();
+        this.solicitacao = dto.solicitacao_id();
+        this.fornecedor = dto.fornecedor_id();
         this.data_entrega_prevista = dto.data_entrega_prevista();
         this.data_pedido = LocalDateTime.now();
     }

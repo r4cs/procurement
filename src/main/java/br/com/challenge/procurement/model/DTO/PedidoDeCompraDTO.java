@@ -4,12 +4,13 @@ import br.com.challenge.procurement.model.Fornecedor;
 import br.com.challenge.procurement.model.PedidoDeCompra;
 import br.com.challenge.procurement.model.SolicitacaoDeCompra;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record PedidoDeCompraDTO(
-        SolicitacaoDeCompra solicitacaoDeCompra,
-        Fornecedor fornecedor,
-        LocalDateTime data_entrega_prevista,
+        SolicitacaoDeCompra solicitacao_id,
+        Fornecedor fornecedor_id,
+        LocalDate data_entrega_prevista,
         LocalDateTime data_pedido
         )
 {

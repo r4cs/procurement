@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static java.lang.System.out;
 @RestController
-@RequestMapping(value="/api/pedido_de_compra")
+@RequestMapping(value="/api/pedido")
 public class PedidoDeCompraController {
 
     private final PedidoDeCompraService pedidoDeCompraService;
