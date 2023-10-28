@@ -1,12 +1,12 @@
-package br.com.challenge.procurement.service;
+package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
-import br.com.challenge.procurement.model.SolicitacaoDeCompra;
-import br.com.challenge.procurement.repositories.SolicitacaoDeCompraRepo;
-import jakarta.persistence.EntityManager;
+import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.repositories.SolicitacaoDeCompraRepo;
+import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,17 +35,20 @@ public class SolicitacaoDeCompraService {
 
     public SolicitacaoDeCompra update(Long id, SolicitacaoDeCompra updatedSolicitacaoDeCompra) {
         Optional<SolicitacaoDeCompra> solicitacaoAntiga = solicitacaoDeCompraRepo.findById(id);
-
+        // só forneceramos update para os seguintes atributos:
         if(solicitacaoAntiga.isPresent()){
             SolicitacaoDeCompra solicitacaoDeCompra = solicitacaoAntiga.get();
 
-            solicitacaoDeCompra.setSku(updatedSolicitacaoDeCompra.getSku());
-            solicitacaoDeCompra.setQuantidade(updatedSolicitacaoDeCompra.getQuantidade());
-            solicitacaoDeCompra.setSolicitante_id(updatedSolicitacaoDeCompra.getSolicitante_id());
-            solicitacaoDeCompra.setAprovador_id(updatedSolicitacaoDeCompra.getAprovador_id());
-            solicitacaoDeCompra.setStatus(updatedSolicitacaoDeCompra.getStatus());
-            solicitacaoDeCompra.setMotivo_recusado(updatedSolicitacaoDeCompra.getMotivo_recusado());
-            solicitacaoDeCompra.setData_solicitacao(updatedSolicitacaoDeCompra.getData_solicitacao());
+            if (updatedSolicitacaoDeCompra.getQuantidade() != null) {
+                solicitacaoDeCompra.setQuantidade(updatedSolicitacaoDeCompra.getQuantidade());
+            }
+            if (updatedSolicitacaoDeCompra.getStatus() != null) {
+                solicitacaoDeCompra.setStatus(updatedSolicitacaoDeCompra.getStatus());
+            }
+            if (updatedSolicitacaoDeCompra.getMotivo_recusado() != null) {
+                solicitacaoDeCompra.setMotivo_recusado(updatedSolicitacaoDeCompra.getMotivo_recusado());
+            }
+            solicitacaoDeCompra.setData_solicitacao(LocalDateTime.now());
 
             return solicitacaoDeCompraRepo.save(solicitacaoDeCompra);
         } else {

@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.model.DTO;
+package br.com.challenge.procurement.core.entities.DTO;
 
-import br.com.challenge.procurement.model.Usuario;
+import br.com.challenge.procurement.core.entities.Usuario;
 
 public record UsuarioDTO(
         String nome,

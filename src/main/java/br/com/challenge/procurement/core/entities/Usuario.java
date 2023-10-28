@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.model;
+package br.com.challenge.procurement.core.entities;
 
-import br.com.challenge.procurement.model.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
 

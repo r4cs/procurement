@@ -1,11 +1,8 @@
-package br.com.challenge.procurement.model;
+package br.com.challenge.procurement.core.entities;
 
-import br.com.challenge.procurement.model.DTO.ProdutoDTO;
-import br.com.challenge.procurement.repositories.ProdutoRepo;
-import br.com.challenge.procurement.service.ProdutoService;
+import br.com.challenge.procurement.core.entities.DTO.ProdutoDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 

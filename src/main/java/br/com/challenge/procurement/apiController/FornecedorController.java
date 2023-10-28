@@ -1,9 +1,9 @@
 package br.com.challenge.procurement.apiController;
 
 
-import br.com.challenge.procurement.model.DTO.FornecedorDTO;
-import br.com.challenge.procurement.model.Fornecedor;
-import br.com.challenge.procurement.service.FornecedorService;
+import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.entities.Fornecedor;
+import br.com.challenge.procurement.core.service.FornecedorService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

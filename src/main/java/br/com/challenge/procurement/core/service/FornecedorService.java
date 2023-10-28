@@ -1,9 +1,8 @@
-package br.com.challenge.procurement.service;
+package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.model.DTO.FornecedorDTO;
-import br.com.challenge.procurement.model.Endereco;
-import br.com.challenge.procurement.model.Fornecedor;
-import br.com.challenge.procurement.repositories.FornecedorRepo;
+import br.com.challenge.procurement.core.entities.Fornecedor;
+import br.com.challenge.procurement.core.repositories.FornecedorRepo;
+import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

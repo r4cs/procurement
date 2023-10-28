@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.model.DTO;
+package br.com.challenge.procurement.core.entities.DTO;
 
-import br.com.challenge.procurement.model.Endereco;
+import br.com.challenge.procurement.core.entities.Endereco;
 
 public record EnderecoDTO(
         String logradouro,

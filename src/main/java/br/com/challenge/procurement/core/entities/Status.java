@@ -1,4 +1,4 @@
-package br.com.challenge.procurement.model;
+package br.com.challenge.procurement.core.entities;
 
 public enum Status {
     PENDING("Pending", "O pedido está aguardando processamento."),

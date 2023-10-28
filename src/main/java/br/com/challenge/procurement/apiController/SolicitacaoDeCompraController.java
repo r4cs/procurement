@@ -1,8 +1,8 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
-import br.com.challenge.procurement.model.SolicitacaoDeCompra;
-import br.com.challenge.procurement.service.SolicitacaoDeCompraService;
+import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.service.SolicitacaoDeCompraService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

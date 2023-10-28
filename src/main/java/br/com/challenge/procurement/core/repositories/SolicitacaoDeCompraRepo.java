@@ -1,7 +1,7 @@
-package br.com.challenge.procurement.repositories;
+package br.com.challenge.procurement.core.repositories;
 
 
-import br.com.challenge.procurement.model.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SolicitacaoDeCompraRepo extends JpaRepository<SolicitacaoDeCompra, Long> {

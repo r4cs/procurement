@@ -1,11 +1,12 @@
-package br.com.challenge.procurement.service;
+package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.model.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.model.PedidoDeCompra;
-import br.com.challenge.procurement.repositories.PedidoDeCompraRepo;
+import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.repositories.PedidoDeCompraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,14 +33,15 @@ public class PedidoDeCompraService {
 
     public PedidoDeCompra updatePedidoDeCompra(Long id, PedidoDeCompra updatedPedidoDeCompra) {
         Optional<PedidoDeCompra> pedDeCompAntigo = pedidoDeCompraRepo.findById(id);
+        System.out.println("json do pedido de compra atualizado: "+ updatedPedidoDeCompra);
 
         if (pedDeCompAntigo.isPresent()) {
             PedidoDeCompra pedidoDeCompra = pedDeCompAntigo.get();
-            pedidoDeCompra.setSolicitacao(updatedPedidoDeCompra.getSolicitacao());
-            pedidoDeCompra.setFornecedor(updatedPedidoDeCompra.getFornecedor());
+            // apenas previsao da data de entrega pode ser alterada
             pedidoDeCompra.setData_entrega_prevista(updatedPedidoDeCompra.getData_entrega_prevista());
-            pedidoDeCompra.setData_pedido(updatedPedidoDeCompra.getData_pedido());
+            pedidoDeCompra.setData_pedido(LocalDateTime.now());
             return pedidoDeCompraRepo.save(pedidoDeCompra);
+
         } else {
             // throw  new EnderecoNotFoundException(id);
             System.out.println("criar classe PedidoDeCompraNotFoundException" );

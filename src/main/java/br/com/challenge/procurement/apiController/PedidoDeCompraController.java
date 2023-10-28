@@ -1,8 +1,8 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.model.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.model.PedidoDeCompra;
-import br.com.challenge.procurement.service.PedidoDeCompraService;
+import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.service.PedidoDeCompraService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.System.out;
 @RestController
 @RequestMapping(value="/api/pedido")
 public class PedidoDeCompraController {

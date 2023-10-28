@@ -1,10 +1,8 @@
-package br.com.challenge.procurement.service;
+package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.model.DTO.UsuarioDTO;
-import br.com.challenge.procurement.model.Usuario;
-import br.com.challenge.procurement.repositories.UsuarioRepo;
-import br.com.challenge.procurement.repositories.UsuarioRepo;
-import jakarta.persistence.EntityManager;
+import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.entities.Usuario;
+import br.com.challenge.procurement.core.repositories.UsuarioRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

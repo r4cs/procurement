@@ -1,5 +1,5 @@
-package br.com.challenge.procurement.model;
-import br.com.challenge.procurement.model.DTO.SolicitacaoDeCompraDTO;
+package br.com.challenge.procurement.core.entities;
+import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ public class SolicitacaoDeCompra {
     @JoinColumn(name = "sku", foreignKey = @ForeignKey(name="sku"))
     private Produto sku;
 
-    private int quantidade;
+    private Integer quantidade;
 
     @ManyToOne
     @JoinColumn(name = "solicitante_id")

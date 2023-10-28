@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.model.DTO;
+package br.com.challenge.procurement.core.entities.DTO;
 
-import br.com.challenge.procurement.model.Produto;
+import br.com.challenge.procurement.core.entities.Produto;
 
 import java.math.BigDecimal;
 
