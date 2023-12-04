@@ -20,5 +20,5 @@ public class SwaggerConfig {
         Info info = new Info().title("Checkpoint 1 e 2")
                 .version("0.1")
                 .contact(contact)
-                .description("Projeto referente a procurement");
+                .description("Projeto referente a procurement.dawio");
         return new OpenAPI().info(info).servers(List.of(devServer));  }}

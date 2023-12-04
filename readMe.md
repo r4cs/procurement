@@ -1,7 +1,11 @@
-## PITCH : https://www.youtube.com/watch?v=BVj8tq1eWTI&feature=youtu.be
+
+## Objetivo:
+
+#### Aplicação voltada para a área de procurement: fornecendo um conjunto completo de funcionalidades para facilitar o processo de aquisição de produtos e serviços.
+
+### [PITCH](https://www.youtube.com/watch?v=BVj8tq1eWTI&feature=youtu.be)
 
 ## Documentação de de endpoints:
-
 ### Use o [swagger](http://localhost:8080/swagger-ui/index.html) ou 
 
 ### Entidade de Usuários: http://localhost:8080
