@@ -3,6 +3,9 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
 import br.com.challenge.procurement.core.entities.Usuario;
 import br.com.challenge.procurement.core.repositories.UsuarioRepo;
+import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,19 +19,21 @@ public class UsuarioService {
         this.usuarioRepo = usuarioRepo;
     }
 
-    public void create(UsuarioDTO dto) {
+    @Transactional
+    public Usuario create(UsuarioDTO dto) {
         Usuario usuario = new Usuario(dto);
-        usuarioRepo.save(usuario);
+        return usuarioRepo.save(usuario);
     }
 
-    public List<Usuario> list() {
-        return usuarioRepo.findAll();
+    public Page<Usuario> list(Pageable pageable) {
+        return usuarioRepo.findAll(pageable);
     }
 
     public Optional<Usuario> getUsuarioById(Long id) {
         return usuarioRepo.findById(id);
     }
 
+    @Transactional
     public Usuario update(Long id, Usuario updatedUsuario) {
         Optional<Usuario> endAntigo = usuarioRepo.findById(id);
 
@@ -46,7 +51,8 @@ public class UsuarioService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         usuarioRepo.deleteById(id);
+        return "Usuário excluído.";
     }
 }

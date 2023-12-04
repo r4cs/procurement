@@ -3,6 +3,8 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.DTO.ProdutoDTO;
 import br.com.challenge.procurement.core.entities.Produto;
 import br.com.challenge.procurement.core.repositories.ProdutoRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +18,13 @@ public class ProdutoService {
     public ProdutoService(ProdutoRepo produtoRepo) {
         this.produtoRepo=produtoRepo;
     }
-    public void create(ProdutoDTO dto) {
+    public Produto create(ProdutoDTO dto) {
         Produto produto = new Produto(dto);
-        produtoRepo.save(produto);
+        return produtoRepo.save(produto);
     }
 
-    public List<Produto> list() {
-        return produtoRepo.findAll();
+    public Page<Produto> list(Pageable pageable) {
+        return produtoRepo.findAll(pageable);
     }
 
     public Optional<Produto> getProdutoById(String sku) {
@@ -45,8 +47,9 @@ public class ProdutoService {
         }
     }
 
-    public void delete(String sku) {
+    public String delete(String sku) {
         produtoRepo.deleteById(sku);
+        return "Produto excluído";
     }
 }
 

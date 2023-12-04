@@ -11,6 +11,7 @@ public record EnderecoDTO(
         String estado,
         String cep
 ) {
+
     public EnderecoDTO(Endereco endereco) {
         this(
                 endereco.getLogradouro(),

@@ -4,19 +4,22 @@ package br.com.challenge.procurement.apiController;
 import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.entities.Fornecedor;
 import br.com.challenge.procurement.core.service.FornecedorService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value="/api/fornecedor")
 public class FornecedorController {
 
-    private FornecedorService fornecedorService;
+    private final FornecedorService fornecedorService;
 
     @Autowired
     public FornecedorController(FornecedorService fornecedorService) {
@@ -24,30 +27,34 @@ public class FornecedorController {
     }
 
     @PostMapping
-    @Transactional
-    public void cadastrar(@RequestBody @Valid FornecedorDTO fornecedorDTO) {
+    public ResponseEntity<Fornecedor> cadastrar(@RequestBody @Valid FornecedorDTO fornecedorDTO) {
         System.out.println("dados fornecedor: " + fornecedorDTO);
-        fornecedorService.criar(fornecedorDTO);
+        return ResponseEntity.ok(fornecedorService.criar(fornecedorDTO));
     }
 
     @GetMapping
-    public List<Fornecedor> listarTodos() {
-        return fornecedorService.listaFornecedores();
+    public ResponseEntity<Page<Fornecedor>> listarTodos(Pageable pageable) {
+        Pageable defaultPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                10,
+                Sort.by("id")
+        );
+        Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
+        return ResponseEntity.ok(fornecedores);
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<Fornecedor> obterFornecedor(@PathVariable Long id){
-        return fornecedorService.getFornecedorById(id);
+    public ResponseEntity<Optional<Fornecedor>> obterFornecedor(@PathVariable Long id){
+        return ResponseEntity.ok(fornecedorService.getFornecedorById(id));
     }
 
     @PatchMapping(value = "/{id}")
-    @Transactional
-    public void atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
-        fornecedorService.updateFornecedor(id, novoFornecedor);
+    public ResponseEntity<Fornecedor> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
+        return ResponseEntity.ok(fornecedorService.updateFornecedor(id, novoFornecedor));
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deletarFornecedor(@PathVariable Long id) {
-        fornecedorService.deleteFornecedor(id);
+    public ResponseEntity<String> deletarFornecedor(@PathVariable Long id) {
+        return ResponseEntity.ok(fornecedorService.deleteFornecedor(id));
     }
 }

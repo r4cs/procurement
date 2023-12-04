@@ -3,7 +3,10 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,23 +16,29 @@ import java.util.Optional;
 public class FornecedorService {
     private final FornecedorRepo fornecedorRepo;
 
-    public FornecedorService(@Autowired FornecedorRepo fornecedorRepo) {
+    @Autowired
+    public FornecedorService( FornecedorRepo fornecedorRepo) {
         this.fornecedorRepo = fornecedorRepo;
     }
 
-    public void criar(FornecedorDTO dto) {
+
+    @Transactional
+    public Fornecedor criar(FornecedorDTO dto) {
         Fornecedor fornecedor = new Fornecedor(dto);
         fornecedorRepo.save(fornecedor);
+        return fornecedor;
     }
 
-    public List<Fornecedor> listaFornecedores() {
-        return fornecedorRepo.findAll();
+    public Page<Fornecedor> listaFornecedores(Pageable pageable) {
+        return fornecedorRepo.findAll(pageable);
     }
 
     public Optional<Fornecedor> getFornecedorById(Long id) {
         return fornecedorRepo.findById(id);
     }
 
+
+    @Transactional
     public Fornecedor updateFornecedor(Long id, Fornecedor updatedFornecedor) {
         Optional<Fornecedor> endAntigo = fornecedorRepo.findById(id);
 
@@ -46,7 +55,8 @@ public class FornecedorService {
         }
     }
 
-    public void deleteFornecedor(Long id) {
+    public String deleteFornecedor(Long id) {
         fornecedorRepo.deleteById(id);
+        return "Forncededor de id {%s} excluído.".formatted(id);
     }
 }

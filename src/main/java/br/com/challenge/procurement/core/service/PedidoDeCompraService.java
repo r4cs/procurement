@@ -3,7 +3,10 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.repositories.PedidoDeCompraRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,19 +15,20 @@ import java.util.Optional;
 
 @Service
 public class PedidoDeCompraService {
-    private PedidoDeCompraRepo pedidoDeCompraRepo;
+    private final PedidoDeCompraRepo pedidoDeCompraRepo;
 
     public PedidoDeCompraService(@Autowired PedidoDeCompraRepo pedidoDeCompraRepo) {
         this.pedidoDeCompraRepo = pedidoDeCompraRepo;
     }
 
-    public void criarPedidoDeCompra(PedidoDeCompraDTO dto) {
+    @Transactional
+    public PedidoDeCompra criarPedidoDeCompra(PedidoDeCompraDTO dto) {
         PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(dto);
-        pedidoDeCompraRepo.save(pedidoDeCompra);
+        return pedidoDeCompraRepo.save(pedidoDeCompra);
     }
 
-    public List<PedidoDeCompra> listarPedidosDeCompra() {
-        return pedidoDeCompraRepo.findAll();
+    public Page<PedidoDeCompra> listarPedidosDeCompra(Pageable pageable) {
+        return pedidoDeCompraRepo.findAll(pageable);
     }
 
     public Optional<PedidoDeCompra> getPedidoDeCompraById(Long id) {
@@ -49,8 +53,9 @@ public class PedidoDeCompraService {
         }
     }
 
-    public void deletePedidoDeCompra(Long id) {
+    public String deletePedidoDeCompra(Long id) {
         pedidoDeCompraRepo.deleteById(id);
+        return "Pedido de compra excluído";
     }
 
 }

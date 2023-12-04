@@ -3,7 +3,10 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.repositories.SolicitacaoDeCompraRepo;
 import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,19 +23,21 @@ public class SolicitacaoDeCompraService {
         this.solicitacaoDeCompraRepo = solicitacaoDeCompraRepo;
     }
 
-    public void create(SolicitacaoDeCompraDTO dto) {
+    @Transactional
+    public SolicitacaoDeCompra create(SolicitacaoDeCompraDTO dto) {
         SolicitacaoDeCompra solicitacaoDeCompra = new SolicitacaoDeCompra(dto);
-        solicitacaoDeCompraRepo.save(solicitacaoDeCompra);
+        return solicitacaoDeCompraRepo.save(solicitacaoDeCompra);
     }
 
-    public List<SolicitacaoDeCompra> list(){
-        return solicitacaoDeCompraRepo.findAll();
+    public Page<SolicitacaoDeCompra> list(Pageable pageable){
+        return solicitacaoDeCompraRepo.findAll(pageable);
     }
 
     public Optional<SolicitacaoDeCompra> getSolicitacaoDeCompraById(Long id) {
         return solicitacaoDeCompraRepo.findById(id);
     }
 
+    @Transactional
     public SolicitacaoDeCompra update(Long id, SolicitacaoDeCompra updatedSolicitacaoDeCompra) {
         Optional<SolicitacaoDeCompra> solicitacaoAntiga = solicitacaoDeCompraRepo.findById(id);
         // só forneceramos update para os seguintes atributos:
@@ -57,8 +62,9 @@ public class SolicitacaoDeCompraService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         solicitacaoDeCompraRepo.deleteById(id);
+        return "Solicitação de compra excluída";
     }
 
 }

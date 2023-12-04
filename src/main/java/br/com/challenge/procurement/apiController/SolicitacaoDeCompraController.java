@@ -6,6 +6,11 @@ import br.com.challenge.procurement.core.service.SolicitacaoDeCompraService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -22,31 +27,37 @@ public class SolicitacaoDeCompraController {
     }
 
     @PostMapping
-    @Transactional
-    public void cadastrar(@RequestBody @Valid SolicitacaoDeCompraDTO dto) {
+    public ResponseEntity<SolicitacaoDeCompra> cadastrar(@RequestBody @Valid SolicitacaoDeCompraDTO dto) {
         System.out.println("Dados solicitacao de compra: " + dto);
-        solicitacaoDeCompraService.create(dto);
+        return ResponseEntity.ok(solicitacaoDeCompraService.create(dto));
     }
 
     @GetMapping
-    public List<SolicitacaoDeCompra> listarTodos() {
-        return solicitacaoDeCompraService.list();
+    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(Pageable pageable) {
+        Pageable defaultPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                10,
+                Sort.by("id")
+        );
+
+        Page<SolicitacaoDeCompra> solicitacoes = solicitacaoDeCompraService.list(pageable);
+
+        return ResponseEntity.ok(solicitacoes);
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<SolicitacaoDeCompra> obterSolicitacaoDeCompra(@PathVariable Long id){
-        return solicitacaoDeCompraService.getSolicitacaoDeCompraById(id);
+    public ResponseEntity<Optional<SolicitacaoDeCompra>> obterSolicitacaoDeCompra(@PathVariable Long id){
+        return ResponseEntity.ok(solicitacaoDeCompraService.getSolicitacaoDeCompraById(id));
     }
 
     @PatchMapping(value = "/{id}")
-    @Transactional
-    public void atualizarSolicitacaoDeCompra(@PathVariable Long id, @RequestBody @Valid SolicitacaoDeCompra novaSolicitacao) {
-        solicitacaoDeCompraService.update(id, novaSolicitacao);
+    public ResponseEntity<SolicitacaoDeCompra> atualizarSolicitacaoDeCompra(@PathVariable Long id, @RequestBody @Valid SolicitacaoDeCompra novaSolicitacao) {
+        return ResponseEntity.ok(solicitacaoDeCompraService.update(id, novaSolicitacao));
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteSolicitacaoDeCompra(@PathVariable Long id) {
-        solicitacaoDeCompraService.delete(id);
+    public ResponseEntity<String> deleteSolicitacaoDeCompra(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoDeCompraService.delete(id));
     }
 
 }

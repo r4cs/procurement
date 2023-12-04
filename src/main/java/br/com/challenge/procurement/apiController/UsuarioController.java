@@ -6,6 +6,9 @@ import br.com.challenge.procurement.core.service.UsuarioService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,31 +29,29 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @Transactional
-    public void cadastrar(@RequestBody @Valid UsuarioDTO dto) {
-        out.println("Dados solicitacao de compra: " + dto);
-        usuarioService.create(dto);
+    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDTO dto) {
+        System.out.println("Dados solicitacao de compra: " + dto);
+        return ResponseEntity.ok(usuarioService.create(dto));
     }
 
     @GetMapping
-    public List<Usuario> listarTodos() {
-        return usuarioService.list();
+    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
+        return ResponseEntity.ok(usuarioService.list(pageable));
     }
 
     @GetMapping(value = "/{id}")
-    public Optional<Usuario> obterUsuario(@PathVariable Long id){
-        return usuarioService.getUsuarioById(id);
+    public ResponseEntity<Optional<Usuario>> obterUsuario(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.getUsuarioById(id));
     }
 
     @PatchMapping(value = "/{id}")
-    @Transactional
-    public void atualizarUsuario(@PathVariable Long id, @RequestBody @Valid Usuario novaSolicitacao) {
-        usuarioService.update(id, novaSolicitacao);
+    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid Usuario novaSolicitacao) {
+        return ResponseEntity.ok(usuarioService.update(id, novaSolicitacao));
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteUsuario(@PathVariable Long id) {
-        usuarioService.delete(id);
+    public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.delete(id));
     }
 
 }

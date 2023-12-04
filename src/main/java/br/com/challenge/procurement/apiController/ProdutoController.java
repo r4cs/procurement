@@ -6,6 +6,11 @@ import br.com.challenge.procurement.core.service.ProdutoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,47 +29,37 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid ProdutoDTO dto) {
+    public ResponseEntity<Produto> cadastrar(@RequestBody @Valid ProdutoDTO dto) {
         System.out.println("dados: "+ dto);
-        produtoService.create(dto);
+        return ResponseEntity.ok(produtoService.create(dto));
     }
 
     @GetMapping
-    public List<Produto> listarTodos() {
-        return produtoService.list();
+    public ResponseEntity<Page<Produto>> listarTodos(Pageable pageable) {
+        Pageable defaultPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                5,
+                Sort.by("id")
+        );
+
+        Page<Produto> produtos = produtoService.list(defaultPageable);
+        return ResponseEntity.ok(produtos);
     }
 
     @GetMapping(value = "/{sku}")
-    public Optional<Produto> obterProduto(@PathVariable String sku) {
-        return produtoService.getProdutoById(sku);
+    public ResponseEntity<Optional<Produto>> obterProduto(@PathVariable String sku) {
+        return ResponseEntity.ok(produtoService.getProdutoById(sku));
     }
 
     @PatchMapping(value = "/{sku}")
     @Transactional
-    public void atualizarProduto(@PathVariable String sku, @RequestBody @Valid Produto novoProduto) {
-        produtoService.update(sku, novoProduto);
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable String sku, @RequestBody @Valid Produto novoProduto) {
+        return ResponseEntity.ok(produtoService.update(sku, novoProduto));
     }
 
     @DeleteMapping(value = "/{sku}")
-    public void deletarProduto(@PathVariable String sku) {
-        produtoService.delete(sku);
+    public ResponseEntity<String> deletarProduto(@PathVariable String sku) {
+        return ResponseEntity.ok(produtoService.delete(sku));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
