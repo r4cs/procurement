@@ -1,6 +1,9 @@
 package br.com.challenge.procurement.core.service;
 
+import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.entities.Fornecedor;
+import br.com.challenge.procurement.core.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.entities.Status;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
 import jakarta.transaction.Transactional;
@@ -59,4 +62,5 @@ public class FornecedorService {
         fornecedorRepo.deleteById(id);
         return "Forncededor de id {%s} excluído.".formatted(id);
     }
+
 }

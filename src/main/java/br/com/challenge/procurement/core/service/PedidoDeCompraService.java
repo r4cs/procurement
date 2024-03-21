@@ -3,6 +3,8 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.repositories.PedidoDeCompraRepo;
+import br.com.challenge.procurement.core.service.strategy.AprovarPedidoStrategy;
+import br.com.challenge.procurement.core.service.strategy.RejeitarPedidoStrategy;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,15 +12,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PedidoDeCompraService {
     private final PedidoDeCompraRepo pedidoDeCompraRepo;
+    private final AprovarPedidoStrategy aprovarPedidoStrategy;
+    private final RejeitarPedidoStrategy rejeitarPedidoStrategy;
 
-    public PedidoDeCompraService(@Autowired PedidoDeCompraRepo pedidoDeCompraRepo) {
-        this.pedidoDeCompraRepo = pedidoDeCompraRepo;
+    @Autowired
+    public PedidoDeCompraService(PedidoDeCompraRepo pedidoDeCompraRepo,
+                                 AprovarPedidoStrategy aprovarPedidoStrategy,
+                                 RejeitarPedidoStrategy rejeitarPedidoStrategy)
+            {
+                this.pedidoDeCompraRepo = pedidoDeCompraRepo;
+                this.aprovarPedidoStrategy = aprovarPedidoStrategy;
+                this.rejeitarPedidoStrategy = rejeitarPedidoStrategy;
     }
 
     @Transactional

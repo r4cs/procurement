@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @Entity(name = "fornecedor")
 @Table(name = "fornecedor_procurement")
-public class Fornecedor {
+public class Fornecedor  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "fornecedor_procurement_seq")

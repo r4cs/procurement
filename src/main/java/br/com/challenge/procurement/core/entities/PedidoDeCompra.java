@@ -29,12 +29,14 @@ public class PedidoDeCompra {
 
     private LocalDate data_entrega_prevista;
     private LocalDateTime data_pedido;
+    private Status aprovado;
 
     public PedidoDeCompra(PedidoDeCompraDTO dto) {
         this.solicitacao = dto.solicitacao_id();
         this.fornecedor = dto.fornecedor_id();
         this.data_entrega_prevista = dto.data_entrega_prevista();
         this.data_pedido = LocalDateTime.now();
+        this.aprovado = dto.aprovado();
     }
 
     public PedidoDeCompra() {
