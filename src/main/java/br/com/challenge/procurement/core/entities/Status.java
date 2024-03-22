@@ -1,7 +1,8 @@
 package br.com.challenge.procurement.core.entities;
 
+
 public enum Status {
-    PENDING("Pending", "O pedido está aguardando processamento."),
+    PENDING("Pending", "O pedido está aguardando processamento e aprovação."),
     PROCESSING("Processing", "O pedido está sendo processado."),
     ANALYSIS("Analysis", "O pedido está em análise de aprovação."),
     SHIPPED("Shipped", "O pedido foi enviado para entrega."),

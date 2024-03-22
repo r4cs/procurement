@@ -40,7 +40,7 @@ public class SolicitacaoDeCompraService {
     @Transactional
     public SolicitacaoDeCompra update(Long id, SolicitacaoDeCompra updatedSolicitacaoDeCompra) {
         Optional<SolicitacaoDeCompra> solicitacaoAntiga = solicitacaoDeCompraRepo.findById(id);
-        // só forneceramos update para os seguintes atributos:
+        // só forneceremos update para os seguintes atributos:
         if(solicitacaoAntiga.isPresent()){
             SolicitacaoDeCompra solicitacaoDeCompra = solicitacaoAntiga.get();
 
@@ -66,5 +66,4 @@ public class SolicitacaoDeCompraService {
         solicitacaoDeCompraRepo.deleteById(id);
         return "Solicitação de compra excluída";
     }
-
 }

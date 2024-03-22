@@ -6,7 +6,6 @@ import lombok.*;
 
 @Getter
 @Setter
-//@Entity
 @Embeddable
 public class Endereco {
 
