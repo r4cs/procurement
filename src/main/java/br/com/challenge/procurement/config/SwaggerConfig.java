@@ -12,13 +12,15 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI geraDocumentacao() {
         Server devServer = new Server();
-        devServer.setUrl("http://localhost:8080");
-        devServer.description("Url de desenvolvimento local");
+        devServer.setUrl("https://app-procurement.azurewebsites.net");
+        devServer.description("Azure api web app");
         Contact contact = new Contact();
+
         contact.setEmail("rm97373@fiap.com.br");
         contact.setName("Raquel");
-        Info info = new Info().title("Checkpoint 1 e 2")
+
+        Info info = new Info().title("Checkpoint 5 Devops")
                 .version("0.1")
                 .contact(contact)
-                .description("Projeto referente a procurement.dawio");
+                .description("Api para procurement");
         return new OpenAPI().info(info).servers(List.of(devServer));  }}
