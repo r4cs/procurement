@@ -33,15 +33,13 @@ public class SolicitacaoDeCompraController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(Pageable pageable) {
+    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                10,
+                page,
+                size,
                 Sort.by("id")
         );
-
-        Page<SolicitacaoDeCompra> solicitacoes = solicitacaoDeCompraService.list(pageable);
-
+        Page<SolicitacaoDeCompra> solicitacoes = solicitacaoDeCompraService.list(defaultPageable);
         return ResponseEntity.ok(solicitacoes);
     }
 
