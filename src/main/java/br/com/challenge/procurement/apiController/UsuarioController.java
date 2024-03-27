@@ -38,20 +38,20 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.create(dto));
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
-//        return ResponseEntity.ok(usuarioService.list(pageable));
-//    }
-
     @GetMapping
-    public ResponseEntity<Page<Usuario>> listarTodos(
-            @PageableDefault(sort = "campo_desejado") Pageable pageable,
-            @Parameter(description = "Ordenação dos resultados") @SortDefault.SortDefaults({
-                    @SortDefault(sort = "campo_desejado", direction = Sort.Direction.ASC),
-                    @SortDefault(sort = "campo_secundario", direction = Sort.Direction.DESC)
-            }) Sort sort) {
+    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
         return ResponseEntity.ok(usuarioService.list(pageable));
     }
+
+//    @GetMapping
+//    public ResponseEntity<Page<Usuario>> listarTodos(
+//            @PageableDefault(sort = "campo_desejado") Pageable pageable,
+//            @Parameter(description = "Ordenação dos resultados") @SortDefault.SortDefaults({
+//                    @SortDefault(sort = "campo_desejado", direction = Sort.Direction.ASC),
+//                    @SortDefault(sort = "campo_secundario", direction = Sort.Direction.DESC)
+//            }) Sort sort) {
+//        return ResponseEntity.ok(usuarioService.list(pageable));
+//    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Usuario>> obterUsuario(@PathVariable Long id){
