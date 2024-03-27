@@ -49,6 +49,7 @@ public class UsuarioController {
         );
         Page<Usuario> usuarios = usuarioService.list(defaultPageable);
         return ResponseEntity.ok(usuarios);
+    }
 
 //    @GetMapping
 //    public ResponseEntity<Page<Usuario>> listarTodos(
