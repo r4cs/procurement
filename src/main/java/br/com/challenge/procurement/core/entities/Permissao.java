@@ -1,13 +1,13 @@
 package br.com.challenge.procurement.core.entities;
 
 public enum Permissao {
-    SOLICITANTE("Solicitante"),
-    APROVADOR("Aprovador");
+    SOLICITANTE("SOLICITANTE"),
+    APROVADOR("APROVADOR");
 
     private final String tipoDePermissao;
 
     Permissao(String tipoDePermissao){
-        this.tipoDePermissao = tipoDePermissao;
+        this.tipoDePermissao = tipoDePermissao.toUpperCase();
     };
 
     public String getTipoDePermissao() {
