@@ -40,6 +40,7 @@ public class UsuarioService {
             Usuario usuario = endAntigo.get();
 
             usuario.setNome(updatedUsuario.getNome());
+            usuario.setPermissao(updatedUsuario.getPermissao());
             usuario.setEmail(updatedUsuario.getEmail());
             usuario.setSenha(updatedUsuario.getSenha());
             return usuarioRepo.save(usuario);
