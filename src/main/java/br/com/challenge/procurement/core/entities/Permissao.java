@@ -7,7 +7,7 @@ public enum Permissao {
     private final String tipoDePermissao;
 
     Permissao(String tipoDePermissao){
-        this.tipoDePermissao = tipoDePermissao.toUpperCase();
+        this.tipoDePermissao = tipoDePermissao;
     };
 
     public String getTipoDePermissao() {

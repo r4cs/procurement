@@ -3,6 +3,7 @@ package br.com.challenge.procurement.apiController;
 import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
 import br.com.challenge.procurement.core.entities.Usuario;
 import br.com.challenge.procurement.core.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<Page<Usuario>> listarTodos(
-            @PageableDefault(sort = "campo_desejado: id, nome, etc") Pageable pageable,
-            @SortDefault.SortDefaults({
+            @PageableDefault(sort = "campo_desejado") Pageable pageable,
+            @Parameter(description = "Ordenação dos resultados") @SortDefault.SortDefaults({
                     @SortDefault(sort = "campo_desejado", direction = Sort.Direction.ASC),
                     @SortDefault(sort = "campo_secundario", direction = Sort.Direction.DESC)
             }) Sort sort) {
