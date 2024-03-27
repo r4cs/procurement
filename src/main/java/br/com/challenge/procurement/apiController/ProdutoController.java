@@ -39,7 +39,7 @@ public class ProdutoController {
         Pageable defaultPageable = PageRequest.of(
                 pageable.getPageNumber(),
                 5,
-                Sort.by("id")
+                Sort.by("sku")
         );
 
         Page<Produto> produtos = produtoService.list(defaultPageable);
