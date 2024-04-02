@@ -50,9 +50,8 @@ public class PedidoDeCompraService {
 
         if (pedDeCompAntigo.isPresent()) {
             PedidoDeCompra pedidoDeCompra = pedDeCompAntigo.get();
-            // apenas previsao da data de entrega pode ser alterada
-            pedidoDeCompra.setData_entrega_prevista(updatedPedidoDeCompra.getData_entrega_prevista());
             pedidoDeCompra.setData_pedido(LocalDateTime.now());
+            pedidoDeCompra.setSolicitacao(pedidoDeCompra.getSolicitacao());
             return pedidoDeCompraRepo.save(pedidoDeCompra);
 
         } else {
