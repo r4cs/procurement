@@ -9,23 +9,19 @@ import jakarta.persistence.Embedded;
 import java.time.LocalDateTime;
 
 public record SolicitacaoDeCompraDTO(
-        Produto sku,
+        Produto produto,
         Integer quantidade,
-        Usuario solicitante_id,
-        Usuario aprovador_id,
+        Usuario solicitante,
         @Embedded
         Status status,
-        String motivo_recusado,
         LocalDateTime data_solicitacao
 ) {
     public SolicitacaoDeCompraDTO(SolicitacaoDeCompra solicitacaoDeCompra) {
         this(
-                solicitacaoDeCompra.getSku(),
+                solicitacaoDeCompra.getProduto(),
                 solicitacaoDeCompra.getQuantidade(),
-                solicitacaoDeCompra.getSolicitante_id(),
-                solicitacaoDeCompra.getAprovador_id(),
+                solicitacaoDeCompra.getSolicitante(),
                 solicitacaoDeCompra.getStatus(),
-                solicitacaoDeCompra.getMotivo_recusado(),
                 solicitacaoDeCompra.getData_solicitacao()
         );
     }

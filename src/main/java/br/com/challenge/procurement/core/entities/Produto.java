@@ -10,21 +10,25 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity(name = "produto")
-@Table(name = "produto_procurement")
+@Table(name = "produto_procurement_sprint3")
 public class Produto {
 
     @Id
-    private String sku;
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
+            generator = "produto_procurement_seq_sprint3")
+    private Long id;
     private String nome_produto;
-    private Integer estoque;
-    private BigDecimal valor_unitario;
+    private String modelo;
+    private String marca;
+    private String especificacoes;
 
 
     public Produto(ProdutoDTO dto) {
-        this.sku = dto.sku();
+        this.id = dto.id();
         this.nome_produto = dto.nome_produto();
-        this.estoque = dto.estoque();
-        this.valor_unitario = dto.valor_unitario();
+        this.modelo = dto.modelo();
+        this.marca = dto.marca();
+        this.especificacoes = dto.especificacoes();
     }
 
     public Produto() {}

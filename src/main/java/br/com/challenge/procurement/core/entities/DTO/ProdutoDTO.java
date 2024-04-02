@@ -5,17 +5,18 @@ import br.com.challenge.procurement.core.entities.Produto;
 import java.math.BigDecimal;
 
 public record ProdutoDTO(
-        String sku,
+        Long id,
         String nome_produto,
-        Integer estoque,
-        BigDecimal valor_unitario
-) {
+        String modelo,
+        String marca,
+        String especificacoes) {
     public ProdutoDTO(Produto produto) {
         this(
-                produto.getSku(),
+                produto.getId(),
                 produto.getNome_produto(),
-                produto.getEstoque(),
-                produto.getValor_unitario()
+                produto.getModelo(),
+                produto.getMarca(),
+                produto.getEspecificacoes()
         );
     }
 }
