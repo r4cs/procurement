@@ -37,6 +37,6 @@ public class SolicitacaoDeCompra {
         this.quantidade = dto.quantidade();
         this.solicitante = dto.solicitante();
         this.status = dto.status();
-        this.data_solicitacao = dto.data_solicitacao();
+        this.data_solicitacao = LocalDateTime.now();
     }
 }

@@ -38,7 +38,6 @@ public class ProdutoService {
             Produto produto = prodAntigo.get();
 
             produto.setNome_produto(updatedProduto.getNome_produto());
-            produto.setEstoque(updatedProduto.getEstoque());
 
             return produtoRepo.save(produto);
         } else {

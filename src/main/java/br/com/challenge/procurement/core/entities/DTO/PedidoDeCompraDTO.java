@@ -9,14 +9,12 @@ import java.time.LocalDateTime;
 
 public record PedidoDeCompraDTO(
         SolicitacaoDeCompra solicitacao_id,
-        Fornecedor fornecedor_id,
         LocalDateTime data_pedido
         )
 {
     public PedidoDeCompraDTO(PedidoDeCompra pedidoDeCompra) {
         this(
                 pedidoDeCompra.getSolicitacao(),
-                pedidoDeCompra.getFornecedor(),
                 pedidoDeCompra.getData_pedido()
         );
 

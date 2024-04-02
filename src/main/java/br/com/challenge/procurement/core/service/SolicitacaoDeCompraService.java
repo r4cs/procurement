@@ -50,9 +50,6 @@ public class SolicitacaoDeCompraService {
             if (updatedSolicitacaoDeCompra.getStatus() != null) {
                 solicitacaoDeCompra.setStatus(updatedSolicitacaoDeCompra.getStatus());
             }
-            if (updatedSolicitacaoDeCompra.getMotivo_recusado() != null) {
-                solicitacaoDeCompra.setMotivo_recusado(updatedSolicitacaoDeCompra.getMotivo_recusado());
-            }
             solicitacaoDeCompra.setData_solicitacao(LocalDateTime.now());
 
             return solicitacaoDeCompraRepo.save(solicitacaoDeCompra);

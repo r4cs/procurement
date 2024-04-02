@@ -23,15 +23,11 @@ public class PedidoDeCompra {
     @JoinColumn(name = "solicitacao_id")
     private SolicitacaoDeCompra solicitacao;
 
-    @ManyToOne
-    @JoinColumn(name = "fornecedor_id")
-    private Fornecedor fornecedor;
 
     private LocalDateTime data_pedido;
 
     public PedidoDeCompra(PedidoDeCompraDTO dto) {
         this.solicitacao = dto.solicitacao_id();
-        this.fornecedor = dto.fornecedor_id();
         this.data_pedido = LocalDateTime.now();
     }
 
