@@ -9,11 +9,11 @@ import lombok.*;
 @Getter
 @Setter
 @Entity(name = "fornecedor")
-@Table(name = "fornecedor_procurement")
+@Table(name = "fornecedor_procurement_sprint3")
 public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "fornecedor_procurement_seq")
+            generator = "fornecedor_procurement_seq_sprint3")
     Long id;
     private String razao_social;
     private String cnpj;

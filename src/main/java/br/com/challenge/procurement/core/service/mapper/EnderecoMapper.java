@@ -5,7 +5,7 @@ import br.com.challenge.procurement.core.entities.Endereco;
 
 public class EnderecoMapper {
 
-    public Endereco toEntity(EnderecoDTO enderecoDTO) {
+    public static Endereco toEntity(EnderecoDTO enderecoDTO) {
         Endereco endereco = new Endereco();
         endereco.setLogradouro(enderecoDTO.logradouro());
         endereco.setNumero(enderecoDTO.numero());

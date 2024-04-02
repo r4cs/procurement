@@ -8,12 +8,12 @@ import lombok.*;
 @Getter
 @Setter
 @Entity(name="usuario")
-@Table(name = "usuario_procurement")
+@Table(name = "usuario_procurement_sprint3")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "usuario_procurement_seq")
-    Long id;
+            generator = "usuario_procurement_seq_sprint3")
+    private Long id;
     private String nome;
     private String senha;
     private String email;

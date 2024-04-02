@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="pedido_compra")
-@Table(name = "pedido_procurement")
+@Table(name = "pedido_procurement_sprint3")
 public class PedidoDeCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "pedido_procurement_seq")
+            generator = "pedido_procurement_seq_sprint3")
     Long id;
 
     @ManyToOne
@@ -27,13 +27,11 @@ public class PedidoDeCompra {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-    private LocalDate data_entrega_prevista;
     private LocalDateTime data_pedido;
 
     public PedidoDeCompra(PedidoDeCompraDTO dto) {
         this.solicitacao = dto.solicitacao_id();
         this.fornecedor = dto.fornecedor_id();
-        this.data_entrega_prevista = dto.data_entrega_prevista();
         this.data_pedido = LocalDateTime.now();
     }
 

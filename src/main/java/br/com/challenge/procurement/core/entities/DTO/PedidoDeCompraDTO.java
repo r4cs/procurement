@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public record PedidoDeCompraDTO(
         SolicitacaoDeCompra solicitacao_id,
         Fornecedor fornecedor_id,
-        LocalDate data_entrega_prevista,
         LocalDateTime data_pedido
         )
 {
@@ -18,7 +17,6 @@ public record PedidoDeCompraDTO(
         this(
                 pedidoDeCompra.getSolicitacao(),
                 pedidoDeCompra.getFornecedor(),
-                pedidoDeCompra.getData_entrega_prevista(),
                 pedidoDeCompra.getData_pedido()
         );
 
