@@ -1,14 +1,11 @@
-package br.com.challenge.procurement.core.entities.DTO;
+package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.entities.PropostaDeVenda;
-import br.com.challenge.procurement.core.entities.Fornecedor;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
+import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.Currency;
-import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public record PropostaDeVendaDTO(
         Long id,

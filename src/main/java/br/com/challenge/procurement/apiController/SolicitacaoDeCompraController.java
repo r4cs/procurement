@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.service.SolicitacaoDeCompraService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.Optional;
 
 @RestController

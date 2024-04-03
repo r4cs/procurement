@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.core.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.model.entities.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.service.PedidoDeCompraService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

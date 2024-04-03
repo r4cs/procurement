@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.entities.DTO.PropostaDeVendaDTO;
-import br.com.challenge.procurement.core.entities.PropostaDeVenda;
+import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.repositories.PropostaDeVendaRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

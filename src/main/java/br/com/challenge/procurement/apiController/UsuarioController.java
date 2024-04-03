@@ -1,9 +1,8 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
-import br.com.challenge.procurement.core.entities.Usuario;
+import br.com.challenge.procurement.core.model.entities.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.service.UsuarioService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-
-import static java.lang.System.out;
 
 
 @RestController

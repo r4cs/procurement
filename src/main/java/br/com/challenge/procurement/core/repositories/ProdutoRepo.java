@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.repositories;
 
-import br.com.challenge.procurement.core.entities.Produto;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
