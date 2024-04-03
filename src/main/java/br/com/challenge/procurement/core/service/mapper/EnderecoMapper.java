@@ -1,8 +1,5 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-import br.com.challenge.procurement.core.entities.DTO.EnderecoDTO;
-import br.com.challenge.procurement.core.entities.Endereco;
-
 public class EnderecoMapper {
 
 //    public static Endereco toEntity(EnderecoDTO enderecoDTO) {

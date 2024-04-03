@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.apiController;
 
-import br.com.challenge.procurement.core.entities.DTO.ProdutoDTO;
-import br.com.challenge.procurement.core.entities.Produto;
+import br.com.challenge.procurement.core.model.entities.DTO.ProdutoDTO;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.service.ProdutoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController

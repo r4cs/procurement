@@ -1,4 +1,4 @@
-package br.com.challenge.procurement.core.entities;
+package br.com.challenge.procurement.core.model.entities;
 
 
 public enum Status {

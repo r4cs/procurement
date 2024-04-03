@@ -1,10 +1,8 @@
-package br.com.challenge.procurement.core.entities.DTO;
+package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.entities.Fornecedor;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
-import br.com.challenge.procurement.core.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record PedidoDeCompraDTO(

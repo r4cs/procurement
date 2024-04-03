@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.core.entities.DTO;
+package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.entities.Fornecedor;
+import br.com.challenge.procurement.core.model.entities.Fornecedor;
 
 public record FornecedorDTO(
         String razao_social,

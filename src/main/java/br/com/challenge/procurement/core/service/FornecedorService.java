@@ -1,18 +1,14 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.entities.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.core.entities.Fornecedor;
-import br.com.challenge.procurement.core.entities.PedidoDeCompra;
-import br.com.challenge.procurement.core.entities.Status;
+import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
-import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.model.entities.DTO.FornecedorDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,5 +58,4 @@ public class FornecedorService {
         fornecedorRepo.deleteById(id);
         return "Forncededor de id {%s} excluído.".formatted(id);
     }
-
 }

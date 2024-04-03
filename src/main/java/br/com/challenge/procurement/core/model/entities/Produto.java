@@ -1,10 +1,8 @@
-package br.com.challenge.procurement.core.entities;
+package br.com.challenge.procurement.core.model.entities;
 
-import br.com.challenge.procurement.core.entities.DTO.ProdutoDTO;
+import br.com.challenge.procurement.core.model.entities.DTO.ProdutoDTO;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @ToString
 @Getter

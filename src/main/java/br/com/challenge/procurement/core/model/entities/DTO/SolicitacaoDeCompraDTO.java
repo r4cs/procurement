@@ -1,9 +1,9 @@
-package br.com.challenge.procurement.core.entities.DTO;
+package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.entities.Produto;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
-import br.com.challenge.procurement.core.entities.Status;
-import br.com.challenge.procurement.core.entities.Usuario;
+import br.com.challenge.procurement.core.model.entities.Produto;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.model.entities.Status;
+import br.com.challenge.procurement.core.model.entities.Usuario;
 import jakarta.persistence.Embedded;
 
 import java.time.LocalDateTime;

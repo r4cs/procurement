@@ -1,13 +1,12 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.entities.DTO.ProdutoDTO;
-import br.com.challenge.procurement.core.entities.Produto;
+import br.com.challenge.procurement.core.model.entities.DTO.ProdutoDTO;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.repositories.ProdutoRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

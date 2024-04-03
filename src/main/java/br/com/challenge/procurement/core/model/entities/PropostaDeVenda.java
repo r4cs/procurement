@@ -1,13 +1,12 @@
-package br.com.challenge.procurement.core.entities;
+package br.com.challenge.procurement.core.model.entities;
 
-import br.com.challenge.procurement.core.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @ToString
 @Getter

@@ -1,9 +1,5 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-import br.com.challenge.procurement.core.entities.DTO.FornecedorDTO;
-import br.com.challenge.procurement.core.entities.Endereco;
-import br.com.challenge.procurement.core.entities.Fornecedor;
-
 public class FornecedorMapper {
 
 //    public Fornecedor toEntity(FornecedorDTO fornecedorDTO) {

@@ -1,8 +1,5 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-import br.com.challenge.procurement.core.entities.DTO.SolicitacaoDeCompraDTO;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
-
 public class SolicitacaoDeCompraMapper {
 
 //    SolicitacaoDeCompra toEntity(SolicitacaoDeCompraDTO dto) {

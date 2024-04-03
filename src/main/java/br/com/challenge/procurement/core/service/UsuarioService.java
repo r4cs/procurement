@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.entities.DTO.UsuarioDTO;
-import br.com.challenge.procurement.core.entities.Usuario;
+import br.com.challenge.procurement.core.model.entities.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.repositories.UsuarioRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;

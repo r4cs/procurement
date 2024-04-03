@@ -1,8 +1,6 @@
-package br.com.challenge.procurement.core.entities.DTO;
+package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.entities.Produto;
-
-import java.math.BigDecimal;
+import br.com.challenge.procurement.core.model.entities.Produto;
 
 public record ProdutoDTO(
         Long id,
