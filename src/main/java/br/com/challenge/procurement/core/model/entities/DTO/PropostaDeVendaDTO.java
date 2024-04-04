@@ -10,20 +10,18 @@ import java.math.BigDecimal;
 public record PropostaDeVendaDTO(
         Long id,
         @NotBlank
-//        @NumberFormat
-        SolicitacaoDeCompra solicitacao_de_compra,
+        SolicitacaoDeCompra pedido_compra,
         @NotBlank
         BigDecimal valor_unitario,
         @NotBlank
         BigDecimal valor_total,
-
         @NotBlank
         Fornecedor fornecedor) {
 
     public PropostaDeVendaDTO(PropostaDeVenda propostaDeVenda) {
         this(
                 propostaDeVenda.getId(),
-                propostaDeVenda.getSolicitacao_compra(),
+                propostaDeVenda.getPedido_compra(),
                 propostaDeVenda.getValor_unitario(),
                 propostaDeVenda.getValor_total(),
                 propostaDeVenda.getFornecedor()
