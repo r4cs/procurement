@@ -1,14 +1,18 @@
 package br.com.challenge.procurement.core.model.entities.DTO;
 
-import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.model.entities.TipoDePagamento;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 
 public record PedidoDeCompraDTO(
+        @NotBlank
         SolicitacaoDeCompra solicitacao_id,
+        @NotBlank
         TipoDePagamento tipoDePagamento,
+        @NotBlank
         LocalDateTime data_pedido
         )
 {

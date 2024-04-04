@@ -1,7 +1,9 @@
 package br.com.challenge.procurement.core.service.strategy;
 
-import java.math.BigDecimal;
+import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+@Component
 public class NegociacaoPrecoPadrao implements NegociacaoPrecoStrategy {
     @Override
     public BigDecimal negociarPreco(BigDecimal precoAtual, BigDecimal desconto) {

@@ -27,7 +27,6 @@ public class ProdutoController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<Produto> cadastrar(@RequestBody @Valid ProdutoDTO dto) {
         System.out.println("dados: "+ dto);
         return ResponseEntity.ok(produtoService.create(dto));
@@ -45,20 +44,19 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
-    @GetMapping(value = "/{sku}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Produto>> obterProduto(@PathVariable String sku) {
         return ResponseEntity.ok(produtoService.getProdutoById(sku));
     }
 
-    @PatchMapping(value = "/{sku}")
-    @Transactional
-    public ResponseEntity<Produto> atualizarProduto(@PathVariable String sku, @RequestBody @Valid Produto novoProduto) {
-        return ResponseEntity.ok(produtoService.update(sku, novoProduto));
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody @Valid Produto novoProduto) {
+        return ResponseEntity.ok(produtoService.update(String.valueOf(id), novoProduto));
     }
 
-    @DeleteMapping(value = "/{sku}")
-    public ResponseEntity<String> deletarProduto(@PathVariable String sku) {
-        return ResponseEntity.ok(produtoService.delete(sku));
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deletarProduto(@PathVariable Long id) {
+        return ResponseEntity.ok(produtoService.delete(String.valueOf(id)));
     }
 
 }

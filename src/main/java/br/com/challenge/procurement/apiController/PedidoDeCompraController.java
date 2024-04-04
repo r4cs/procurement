@@ -48,7 +48,6 @@ public class PedidoDeCompraController {
     }
 
     @PatchMapping(value = "/{id}")
-    @Transactional
     public ResponseEntity<PedidoDeCompra> atualizarPedidoDeCompra(@PathVariable Long id, @RequestBody @Valid PedidoDeCompra novaPedido) {
         return ResponseEntity.ok(pedidoDeCompraService.updatePedidoDeCompra(id, novaPedido));
     }
@@ -57,6 +56,4 @@ public class PedidoDeCompraController {
     public ResponseEntity<String> deletePedidoDeCompra(@PathVariable Long id) {
         return ResponseEntity.ok(pedidoDeCompraService.deletePedidoDeCompra(id));
     }
-
-
 }
