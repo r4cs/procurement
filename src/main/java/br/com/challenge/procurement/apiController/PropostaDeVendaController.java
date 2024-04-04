@@ -47,7 +47,6 @@ public class PropostaDeVendaController {
         return ResponseEntity.ok(propostaDeVendas);
     }
 
-    @Transactional
     @PatchMapping(value = "{id}")
     public ResponseEntity<Optional<PropostaDeVenda>> atualizarPropostaDeVenda(@PathVariable Long id, @Valid PropostaDeVenda novaPropostaDeVenda) {
         return ResponseEntity.ok(propostaDeVendaService.update(id, novaPropostaDeVenda));

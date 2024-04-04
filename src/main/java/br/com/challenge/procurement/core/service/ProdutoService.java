@@ -6,6 +6,7 @@ import br.com.challenge.procurement.core.repositories.ProdutoRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ public class ProdutoService {
     public ProdutoService(ProdutoRepo produtoRepo) {
         this.produtoRepo=produtoRepo;
     }
+    @Transactional
     public Produto create(ProdutoDTO dto) {
         Produto produto = new Produto(dto);
         return produtoRepo.save(produto);
@@ -30,6 +32,7 @@ public class ProdutoService {
         return produtoRepo.findById(sku);
     }
 
+    @Transactional
     public Produto update(String sku, Produto updatedProduto) {
         Optional<Produto> prodAntigo = produtoRepo.findById(sku);
 
@@ -45,6 +48,7 @@ public class ProdutoService {
         }
     }
 
+    @Transactional
     public String delete(String sku) {
         produtoRepo.deleteById(sku);
         return "Produto excluído";

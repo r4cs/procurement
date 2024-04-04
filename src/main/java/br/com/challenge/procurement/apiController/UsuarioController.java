@@ -49,5 +49,4 @@ public class UsuarioController {
     public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.delete(id));
     }
-
 }

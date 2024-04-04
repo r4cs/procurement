@@ -1,13 +1,13 @@
 package br.com.challenge.procurement.core.service;
 
+import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.repositories.SolicitacaoDeCompraRepo;
-import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -21,6 +21,7 @@ public class SolicitacaoDeCompraService {
     public SolicitacaoDeCompraService(SolicitacaoDeCompraRepo solicitacaoDeCompraRepo) {
         this.solicitacaoDeCompraRepo = solicitacaoDeCompraRepo;
     }
+
 
     @Transactional
     public SolicitacaoDeCompra create(SolicitacaoDeCompraDTO dto) {
@@ -58,6 +59,7 @@ public class SolicitacaoDeCompraService {
         }
     }
 
+    @Transactional
     public String delete(Long id) {
         solicitacaoDeCompraRepo.deleteById(id);
         return "Solicitação de compra excluída";

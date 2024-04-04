@@ -27,7 +27,6 @@ public class SolicitacaoDeCompraController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<SolicitacaoDeCompra> cadastrar(@RequestBody @Valid SolicitacaoDeCompraDTO dto) {
         System.out.println("Dados solicitacao de compra: " + dto);
         return ResponseEntity.ok(solicitacaoDeCompraService.create(dto));
@@ -51,7 +50,6 @@ public class SolicitacaoDeCompraController {
         return ResponseEntity.ok(solicitacaoDeCompraService.getSolicitacaoDeCompraById(id));
     }
 
-    @Transactional
     @PatchMapping(value = "/{id}")
     public ResponseEntity<SolicitacaoDeCompra> atualizarSolicitacaoDeCompra(@PathVariable Long id, @RequestBody @Valid SolicitacaoDeCompra novaSolicitacao) {
         return ResponseEntity.ok(solicitacaoDeCompraService.update(id, novaSolicitacao));
@@ -61,5 +59,4 @@ public class SolicitacaoDeCompraController {
     public ResponseEntity<String> deleteSolicitacaoDeCompra(@PathVariable Long id) {
         return ResponseEntity.ok(solicitacaoDeCompraService.delete(id));
     }
-
 }

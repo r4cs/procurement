@@ -3,11 +3,11 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.model.entities.DTO.FornecedorDTO;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,7 +19,6 @@ public class FornecedorService {
     public FornecedorService( FornecedorRepo fornecedorRepo) {
         this.fornecedorRepo = fornecedorRepo;
     }
-
 
     @Transactional
     public Fornecedor criar(FornecedorDTO dto) {
@@ -54,6 +53,7 @@ public class FornecedorService {
         }
     }
 
+    @Transactional
     public String deleteFornecedor(Long id) {
         fornecedorRepo.deleteById(id);
         return "Forncededor de id {%s} excluído.".formatted(id);

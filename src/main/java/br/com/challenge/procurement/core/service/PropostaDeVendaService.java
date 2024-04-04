@@ -1,16 +1,17 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
-import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
+import br.com.challenge.procurement.core.model.entities.TipoDePagamento;
 import br.com.challenge.procurement.core.repositories.PropostaDeVendaRepo;
+import br.com.challenge.procurement.core.service.strategy.PagamentoBoletoPadrao;
+import br.com.challenge.procurement.core.service.strategy.PagamentoCartaoPadrao;
 import br.com.challenge.procurement.core.service.strategy.PagamentoPixPadrao;
-import br.com.challenge.procurement.core.service.strategy.PagamentoPixStrategy;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,15 +19,19 @@ import java.util.Optional;
 public class PropostaDeVendaService {
 
     private final PropostaDeVendaRepo repo;
-    private final PedidoDeCompraService pedidoDeCompraService;
-    private final PagamentoPixStrategy pagamentoPixStrategy;
     private final PagamentoPixPadrao pagamentoPix;
+    private final PagamentoBoletoPadrao pagamentoBoleto;
+    private final PagamentoCartaoPadrao pagamentoCartao;
 
     @Autowired
     public PropostaDeVendaService(PropostaDeVendaRepo repo,
-                                  PedidoDeCompraService pedidoDeCompraService) {
+                                  PagamentoPixPadrao pagamentoPix,
+                                  PagamentoBoletoPadrao pagamentoBoleto,
+                                  PagamentoCartaoPadrao pagamentoCartao) {
         this.repo = repo;
-        this.pedidoDeCompraService = pedidoDeCompraService;
+        this.pagamentoPix = pagamentoPix;
+        this.pagamentoBoleto = pagamentoBoleto;
+        this.pagamentoCartao = pagamentoCartao;
     };
 
     @Transactional
@@ -55,32 +60,43 @@ public class PropostaDeVendaService {
             propostaDeVendaAtualizada.setValor_total(novoPropostaDeVenda.getValor_total());
             return Optional.of(repo.save(propostaDeVendaAtualizada));
         } else {
-            System.out.println("Nao encontrado");
+            System.out.println("Proposta não encontrada");
             return Optional.empty();
         }
     }
+
     @Transactional
     public String delete(Long id) {
         repo.deleteById(id);
         return "Proposta de venda de id {%s} atualizado.".formatted(id);
     }
 
-    public void processPayment(PropostaDeVendaDTO dto) {
-        Optional<PedidoDeCompra> pedidoDeCompra = Optional.of(pedidoDeCompraService.getPedidoDeCompraById(dto.id()).orElseThrow());
-//        switch (dto.getTipoPagamento()) {
-        switch (pedidoDeCompra.get().getTipoDePagamento()) {
-            case PIX:
-                pagamentoPixStrategy.processarPagamento(dto.getValorTotal());
+    public void processPayment(PropostaDeVendaDTO dto, TipoDePagamento tipoDePagamento) {
+        // !!!!!!
+        // deverá haver uma tela de preenchimento desses dados, por hora teremos um dummie input
+        // !!!!!!
+//        switch (pedidoDeCompra.get().getTipoDePagamento()) {
+        switch (tipoDePagamento) {
+            case PIX: // valor total e chave pix (email) como parametros
+                pagamentoPix.processarPagamentoPix(dto.valor_total(), dto.pedido_compra().getSolicitante().getEmail());
                 break;
+
             case CARTAO:
-                pagamentoCartaoStrategy.processarPagamento(dto.getValorTotal());
+                pagamentoCartao.processarPagamentoCartao(dto.valor_total(),
+                                                "credito",
+                                             "0000 0000 0000 0000",
+                                                          dto.pedido_compra().getSolicitante().getNome(),
+                                              "07/2033",
+                                                     "499");
                 break;
             case BOLETO:
-                pagamentoBoletoStrategy.processarPagamento(dto.getValorTotal());
+                pagamentoBoleto.gerarBoleto(dto.valor_total(),
+                                            dto.pedido_compra().getSolicitante().getNome(),
+                                  "043.783.336-22");
                 break;
-            default:
-                throw new IllegalArgumentException("Tipo de pagamento inválido: " + dto.getTipoPagamento());
-        }
 
+            default:
+                throw new IllegalArgumentException("Tipo de pagamento inválido: " + tipoDePagamento);
+        }
     }
 }

@@ -19,11 +19,9 @@ public class PropostaDeVenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "proposta_venda_procurement_seq_sprint3")
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "pedido_compra_id")
     private SolicitacaoDeCompra pedido_compra;
-
     private BigDecimal valor_unitario;
     private BigDecimal valor_total;
 
