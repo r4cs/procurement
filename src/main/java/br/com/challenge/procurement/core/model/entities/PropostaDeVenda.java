@@ -21,8 +21,8 @@ public class PropostaDeVenda {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "solicitacao_compra_id")
-    private SolicitacaoDeCompra solicitacao_compra;
+    @JoinColumn(name = "pedido_compra_id")
+    private SolicitacaoDeCompra pedido_compra;
 
     private BigDecimal valor_unitario;
     private BigDecimal valor_total;
@@ -35,7 +35,7 @@ public class PropostaDeVenda {
 
     public PropostaDeVenda(PropostaDeVendaDTO dto) {
         this.id = dto.id();
-        this.solicitacao_compra = dto.solicitacao_de_compra();
+        this.pedido_compra = dto.pedido_compra();
         this.valor_unitario = dto.valor_unitario();
         this.valor_total = dto.valor_total();
         this.fornecedor = dto.fornecedor();

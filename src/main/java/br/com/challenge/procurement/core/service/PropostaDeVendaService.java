@@ -40,7 +40,7 @@ public class PropostaDeVendaService {
 
         if (antigaEnviarProposta.isPresent()) {
             PropostaDeVenda propostaDeVendaAtualizada = new PropostaDeVenda();
-            propostaDeVendaAtualizada.setSolicitacao_compra(novoPropostaDeVenda.getSolicitacao_compra());
+            propostaDeVendaAtualizada.setPedido_compra(novoPropostaDeVenda.getPedido_compra());
             propostaDeVendaAtualizada.setValor_unitario(novoPropostaDeVenda.getValor_unitario());
             propostaDeVendaAtualizada.setValor_total(novoPropostaDeVenda.getValor_total());
             return Optional.of(repo.save(propostaDeVendaAtualizada));
@@ -53,5 +53,24 @@ public class PropostaDeVendaService {
     public String delete(Long id) {
         repo.deleteById(id);
         return "Proposta de venda de id {%s} atualizado.".formatted(id);
+    }
+
+    public void processPayment(PropostaDeVendaDTO dto) {
+
+//        switch (dto.getTipoPagamento()) {
+        switch () {
+            case PIX:
+                pagamentoPixStrategy.processarPagamento(dto.getValorTotal());
+                break;
+            case CARTAO:
+                pagamentoCartaoStrategy.processarPagamento(dto.getValorTotal());
+                break;
+            case BOLETO:
+                pagamentoBoletoStrategy.processarPagamento(dto.getValorTotal());
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de pagamento inválido: " + dto.getTipoPagamento());
+        }
+
     }
 }
