@@ -1,8 +1,11 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.repositories.PropostaDeVendaRepo;
+import br.com.challenge.procurement.core.service.strategy.PagamentoPixPadrao;
+import br.com.challenge.procurement.core.service.strategy.PagamentoPixStrategy;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,9 +18,16 @@ import java.util.Optional;
 public class PropostaDeVendaService {
 
     private final PropostaDeVendaRepo repo;
+    private final PedidoDeCompraService pedidoDeCompraService;
+    private final PagamentoPixStrategy pagamentoPixStrategy;
+    private final PagamentoPixPadrao pagamentoPix;
 
     @Autowired
-    public PropostaDeVendaService(PropostaDeVendaRepo repo) {this.repo = repo;};
+    public PropostaDeVendaService(PropostaDeVendaRepo repo,
+                                  PedidoDeCompraService pedidoDeCompraService) {
+        this.repo = repo;
+        this.pedidoDeCompraService = pedidoDeCompraService;
+    };
 
     @Transactional
     public PropostaDeVenda criar(PropostaDeVendaDTO dto) {
@@ -56,9 +66,9 @@ public class PropostaDeVendaService {
     }
 
     public void processPayment(PropostaDeVendaDTO dto) {
-
+        Optional<PedidoDeCompra> pedidoDeCompra = Optional.of(pedidoDeCompraService.getPedidoDeCompraById(dto.id()).orElseThrow());
 //        switch (dto.getTipoPagamento()) {
-        switch () {
+        switch (pedidoDeCompra.get().getTipoDePagamento()) {
             case PIX:
                 pagamentoPixStrategy.processarPagamento(dto.getValorTotal());
                 break;
