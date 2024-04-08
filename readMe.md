@@ -22,46 +22,6 @@
 "email": "user@example.com"
 }
 
-
-### Entidade de Solicitações de Compra:
-#### Endpoint Base: http://localhost:8080/api/solicitacao
-* GET /api/solicitacao: Obter todas as solicitações de compra (200 OK, 404 Not Found se não houver solicitações).
-* GET /api/solicitacao/{codigo_solicitacao}: Obter uma solicitação de compra por código (200 OK, 404 Not Found se não encontrado).
-* POST /api/solicitacao: Criar uma nova solicitação de compra (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT /api/solicitacao/{codigo_solicitacao}: Atualizar uma solicitação de compra existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/solicitacao/{codigo_solicitacao}: Excluir uma solicitação de compra por código (204 No Content, 404 Not Found se não encontrado).
-#### Exemplo de JSON para criação de solicitação de compra:
-{
-"sku": { "sku": "SMTVLGOLED4K" },
-"quantidade": 7,
-"solicitante_id": { "id": 4 },
-"aprovador_id": { "id": 2 },
-"status": "PENDING",
-"motivo_recusado": "",
-"data_solicitacao": "2024-10-25T19:09:17"
-}
-
-
-
-### Entidade de Pedidos de Compra:
-#### Endpoint Base: http://localhost:8080/api/pedido
-* GET /api/pedido: Obter todos os pedidos de compra (200 OK, 404 Not Found se não houver pedidos).
-* GET /api/pedido/{codigo_pedido}: Obter um pedido de compra por código (200 OK, 404 Not Found se não encontrado).
-* POST /api/pedido: Criar um novo pedido de compra (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT /api/pedido/{codigo_pedido}: Atualizar um pedido de compra existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/pedido/{codigo_pedido}: Excluir um pedido de compra por código (204 No Content, 404 Not Found se não encontrado).
-#### Exemplo genérico de pedido de compra:
-{
-"solicitacao_id": {
-"id": 2
-},
-"fornecedor_id": {
-"id": 3
-},
-"data_entrega_prevista": "2023-11-20"
-}
-
-
 ### Entidade de Produtos:
 * GET /api/produtos: Obter todos os produtos (200 OK, 404 Not Found se não houver produtos).
 * GET /api/produtos/{sku}: Obter um produto por SKU (200 OK, 404 Not Found se não encontrado).
@@ -79,10 +39,10 @@
 
 ### Entidade de Fornecedores:
 * GET    /api/fornecedor:                     Obter todos os fornecedores (200 OK, 404 Not Found se não houver fornecedores).
-* GET    /api/fornecedor/{codigo_fornecedor}: Obter um fornecedor por código (200 OK, 404 Not Found se não encontrado).
+* GET    /api/fornecedor/{id_fornecedor}: Obter um fornecedor por código (200 OK, 404 Not Found se não encontrado).
 * POST   /api/fornecedor:                     Criar um novo fornecedor (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT    /api/fornecedor/{codigo_fornecedor}: Atualizar um fornecedor existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/fornecedor/{codigo_fornecedor}: Excluir um fornecedor por código (204 No Content, 404 Not Found se não encontrado).
+* PUT    /api/fornecedor/{id_fornecedor}: Atualizar um fornecedor existente (200 OK, 404 Not Found se não encontrado).
+* DELETE /api/fornecedor/{id_fornecedor}: Excluir um fornecedor por código (204 No Content, 404 Not Found se não encontrado).
 
 {
 "razao_social": "Fornecedor FORNECE LTDA",
@@ -91,12 +51,54 @@
 "telefone": "(11) 444-1234",
 "email": "maria@fornecedora.com",
 "endereco": {
-"logradouro": "rua dos fornecedores",
-"numero": 55,
-"complemento": "nao",
-"bairro": "fornecedores",
-"cidade": "sao paulo",
-"estado": "SP",
-"cep": "0535-001"
+    "logradouro": "rua dos fornecedores",
+    "numero": 55,
+    "complemento": "nao",
+    "bairro": "fornecedores",
+    "cidade": "sao paulo",
+    "estado": "SP",
+    "cep": "0535-001"
+    }
 }
+
+### Entidade de Solicitações de Compra:
+#### Endpoint Base: http://localhost:8080/api/solicitacao
+* GET /api/solicitacao: Obter todas as solicitações de compra (200 OK, 404 Not Found se não houver solicitações).
+* GET /api/solicitacao/{codigo_solicitacao}: Obter uma solicitação de compra por código (200 OK, 404 Not Found se não encontrado).
+* POST /api/solicitacao: Criar uma nova solicitação de compra (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/solicitacao/{codigo_solicitacao}: Atualizar uma solicitação de compra existente (200 OK, 404 Not Found se não encontrado).
+* DELETE /api/solicitacao/{codigo_solicitacao}: Excluir uma solicitação de compra por código (204 No Content, 404 Not Found se não encontrado).
+#### Exemplo de JSON para criação de solicitação de compra:
+{
+"produto": { "id": 1 },
+"quantidade": 7,
+"solicitante": { "id": 4 },
+"status": "PENDING"
+}
+
+### Entidade de Pedidos de Compra:
+#### Endpoint Base: http://localhost:8080/api/pedido
+* GET /api/pedido: Obter todos os pedidos de compra (200 OK, 404 Not Found se não houver pedidos).
+* GET /api/pedido/{codigo_pedido}: Obter um pedido de compra por código (200 OK, 404 Not Found se não encontrado).
+* POST /api/pedido: Criar um novo pedido de compra (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/pedido/{codigo_pedido}: Atualizar um pedido de compra existente (200 OK, 404 Not Found se não encontrado).
+* DELETE /api/pedido/{codigo_pedido}: Excluir um pedido de compra por código (204 No Content, 404 Not Found se não encontrado).
+#### Exemplo genérico de pedido de compra:
+{
+"solicitacao": { "id": 2 },
+"tipo_de_pagamento": "PIX"
+}
+
+### Entidade de Propostas de Venda:
+#### Endpoint Base: http://localhost:8080/api/proposta-venda
+* #### GET /api/proposta-venda: Obter todas as propostas de venda (200 OK, 404 Not Found se não houver propostas).
+* #### GET /api/proposta-venda/{codigo_proposta}: Obter uma proposta de venda por código (200 OK, 404 Not Found se não encontrado).
+* #### POST /api/proposta-venda: Criar uma nova proposta de venda (201 Created, 400 Bad Request se a entrada for inválida).
+* #### PUT /api/proposta-venda/{codigo_proposta}: Atualizar uma proposta de venda existente (200 OK, 404 Not Found se não encontrado).
+* #### DELETE /api/proposta-venda/{codigo_proposta}: Excluir uma proposta de venda por código (204 No Content, 404 Not Found se não encontrado).
+#### Exemplo de JSON para criação de proposta de venda:
+{
+"pedido_compra": { "id": 1 },
+"valor_unitario": 53.54,
+"fornecedor": { "id": 1 }
 }
