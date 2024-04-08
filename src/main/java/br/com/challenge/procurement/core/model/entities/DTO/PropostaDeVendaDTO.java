@@ -4,18 +4,17 @@ import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 
 public record PropostaDeVendaDTO(
         Long id,
-        @NotBlank
         SolicitacaoDeCompra pedido_compra,
-        @NotBlank
+        @NumberFormat
         BigDecimal valor_unitario,
-        @NotBlank
+        @NumberFormat
         BigDecimal valor_total,
-        @NotBlank
         Fornecedor fornecedor) {
 
     public PropostaDeVendaDTO(PropostaDeVenda propostaDeVenda) {

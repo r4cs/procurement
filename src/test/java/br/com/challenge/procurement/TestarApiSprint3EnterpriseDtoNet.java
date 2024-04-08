@@ -1,15 +1,17 @@
 package br.com.challenge.procurement;
 
-import br.com.challenge.procurement.core.model.entities.Usuario;
 import com.github.javafaker.Faker;
-import com.google.gson.Gson;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.web.util.UriComponentsBuilder;
+import com.google.gson.JsonObject;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,39 +23,66 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestarApiSprint3EnterpriseDtoNet {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     private static Faker faker = new Faker();
 
 
     @Test
     @Order(1)
     public void testarCriarUsuario() throws URISyntaxException {
-        final String baseUrl = "http://localhost:5028/user/register";
+        final String baseUrl = "http://localhost:5028/User/register";
         URI uri = new URI(baseUrl);
+        JsonObject user = new JsonObject();
+        user.addProperty("name", faker.zelda().character());
+        user.addProperty("email", faker.internet().emailAddress());
+        user.addProperty("password", faker.beer().style());
 
-        // Criar um objeto de usuário para enviar como JSON
-        Usuario user = new Usuario();
-        user.setId(null);
-        user.setNome(faker.zelda().character());
-        user.setEmail(faker.internet().emailAddress());
-        user.setSenha(faker.beer().style());
-        System.out.println("User de teste: " + user);
+        // Configurando o cabeçalho com Content-Type: application/json
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Converter o objeto de usuário para JSON usando a biblioteca GSON
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
+        // Criando uma entidade HttpEntity com o JSON e o cabeçalho
+        HttpEntity<String> requestEntity = new HttpEntity<>(user.toString(), headers);
 
-        System.out.println("User gson de teste: " + user);
+        // Enviando a solicitação POST com o JSON e o cabeçalho para o endpoint da API
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(uri, requestEntity, String.class);
 
-        // Enviar a solicitação POST com o JSON para o endpoint da API
-        String response = restTemplate.postForObject(uri, json, String.class);
+        // Verificando se a resposta não é nula
+        assertNotNull(responseEntity.getBody());
 
-        // Verificar se a resposta não é nula
-        assertNotNull(response);
+        // Verificando se a resposta contém uma mensagem de sucesso
+        assertEquals("Teste concluído: ", HttpStatus.OK, responseEntity.getStatusCode());
+    }
 
-        // Verificar se a resposta contém uma mensagem de sucesso
-        assertEquals("Teste concluído com sucesso","Usuário criado com sucesso", response);
+    @Test
+    @Order(2)
+    public void testarLoginUsuario() throws JSONException {
+        final String baseUrl = "http://localhost:5028/User/login";
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl)
+                .queryParam("email", "aaaaa@example.com")
+                .queryParam("password", "string");
+
+        // Configurando os cabeçalhos
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("email", "aaaaa@example.com");
+        headers.add("password", "string");
+
+        // Criando uma entidade HttpEntity com os cabeçalhos
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        // Enviando a solicitação GET para o endpoint da API
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(builder.toUriString(), String.class, requestEntity);
+
+        // Verificando se a resposta não é nula
+        assertNotNull(responseEntity.getBody());
+
+        // Verificando se a resposta contém o email e a senha
+        JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
+        String email = jsonResponse.getString("email");
+        String password = jsonResponse.getString("password");
+
+        // Verificando se o email e a senha correspondem ao esperado
+        assertEquals("Teste concluído com sucesso", "email: aaaaa@example.com, password: string", "email: " + email + ", password: " + password);
     }
 }

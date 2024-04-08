@@ -16,6 +16,7 @@ public class Usuario {
     private Long id;
     private String nome;
     private String senha;
+    @Column(unique = true)
     private String email;
 
     public Usuario() {}

@@ -8,11 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public record PedidoDeCompraDTO(
-        @NotBlank
         SolicitacaoDeCompra solicitacao_id,
-        @NotBlank
         TipoDePagamento tipoDePagamento,
-        @NotBlank
         LocalDateTime data_pedido
         )
 {

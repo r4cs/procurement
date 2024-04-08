@@ -29,6 +29,5 @@ public record EnderecoDTO(
                 endereco.getEstado(),
                 endereco.getCep()
         );
-
     }
 }
