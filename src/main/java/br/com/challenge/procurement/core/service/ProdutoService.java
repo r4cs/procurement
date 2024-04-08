@@ -28,8 +28,8 @@ public class ProdutoService {
         return produtoRepo.findAll(pageable);
     }
 
-    public Optional<Produto> getProdutoById(String sku) {
-        return produtoRepo.findById(sku);
+    public Optional<Produto> getProdutoById(Long id) {
+        return produtoRepo.findById(String.valueOf(id));
     }
 
     @Transactional

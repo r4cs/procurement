@@ -24,7 +24,7 @@ public class FornecedorService {
     public String criar(FornecedorDTO dto) {
         Fornecedor fornecedor = new Fornecedor(dto);
         fornecedorRepo.save(fornecedor);
-        return "Fornecedor criado com sucesso:" + fornecedor.toString();
+        return "Fornecedor criado com sucesso.";
     }
 
     public Page<Fornecedor> listaFornecedores(Pageable pageable) {
@@ -53,7 +53,7 @@ public class FornecedorService {
             Optional.ofNullable(updatedFornecedor.getEmail())
                     .ifPresent(fornecedor::setEmail);
             fornecedorRepo.save(fornecedor);
-            return "Fornecedor alterado com sucesso: " + fornecedor.toString();
+            return "Fornecedor alterado com sucesso";
         } else {
             System.out.println("criar classe FornecedorNotFoundException" );
             return "Algo deu errado, verifique os dados inseridos";
