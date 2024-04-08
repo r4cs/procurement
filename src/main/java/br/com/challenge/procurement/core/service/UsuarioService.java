@@ -19,9 +19,10 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario create(UsuarioDTO dto) {
+    public String create(UsuarioDTO dto) {
         Usuario usuario = new Usuario(dto);
-        return usuarioRepo.save(usuario);
+        usuarioRepo.save(usuario);
+        return "Usuário cadastrado com sucesso";
     }
 
     public Page<Usuario> list(Pageable pageable) {
@@ -33,20 +34,23 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario update(Long id, Usuario updatedUsuario) {
+    public String update(Long id, Usuario updatedUsuario) {
         Optional<Usuario> endAntigo = usuarioRepo.findById(id);
 
         if (endAntigo.isPresent()) {
             Usuario usuario = endAntigo.get();
-
-            usuario.setNome(updatedUsuario.getNome());
-            usuario.setEmail(updatedUsuario.getEmail());
-            usuario.setSenha(updatedUsuario.getSenha());
-            return usuarioRepo.save(usuario);
+            Optional.ofNullable(updatedUsuario.getNome())
+                    .ifPresent(usuario::setNome);
+            Optional.ofNullable(updatedUsuario.getEmail())
+                    .ifPresent(usuario::setEmail);
+            Optional.ofNullable(updatedUsuario.getSenha())
+                    .ifPresent(usuario::setSenha);
+            usuarioRepo.save(usuario);
+            return "Usuário alterado com sucesso: " + usuario.toString();
         } else {
             // throw  new UsuarioNotFoundException(id);
             System.out.println("criar classe UsuarioNotFoundException" );
-            return null;
+            return "Não foi possível alterar usuário, verifique seus dados de entrada.";
         }
     }
 

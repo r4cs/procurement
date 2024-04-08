@@ -21,10 +21,10 @@ public class FornecedorService {
     }
 
     @Transactional
-    public Fornecedor criar(FornecedorDTO dto) {
+    public String criar(FornecedorDTO dto) {
         Fornecedor fornecedor = new Fornecedor(dto);
         fornecedorRepo.save(fornecedor);
-        return fornecedor;
+        return "Fornecedor criado com sucesso:" + fornecedor.toString();
     }
 
     public Page<Fornecedor> listaFornecedores(Pageable pageable) {
@@ -37,19 +37,26 @@ public class FornecedorService {
 
 
     @Transactional
-    public Fornecedor updateFornecedor(Long id, Fornecedor updatedFornecedor) {
-        Optional<Fornecedor> endAntigo = fornecedorRepo.findById(id);
+    public String updateFornecedor(Long id, Fornecedor updatedFornecedor) {
+        Optional<Fornecedor> fornecedorAntigo = fornecedorRepo.findById(id);
 
-        if (endAntigo.isPresent()) {
-            Fornecedor fornecedor = endAntigo.get();
-            fornecedor.setRazao_social(updatedFornecedor.getRazao_social());
-            fornecedor.setCnpj(updatedFornecedor.getCnpj());
-            fornecedor.setTelefone(updatedFornecedor.getTelefone());
-            fornecedor.setEmail(updatedFornecedor.getEmail());
-            return fornecedorRepo.save(fornecedor);
+        if (fornecedorAntigo.isPresent()) {
+            Fornecedor fornecedor = fornecedorAntigo.get();
+            Optional.ofNullable(updatedFornecedor.getRazao_social())
+                    .ifPresent(fornecedor::setRazao_social);
+            Optional.ofNullable(updatedFornecedor.getCnpj())
+                    .ifPresent(fornecedor::setCnpj);
+            Optional.ofNullable(updatedFornecedor.getNome_contato())
+                    .ifPresent(fornecedor::setNome_contato);
+            Optional.ofNullable(updatedFornecedor.getTelefone())
+                    .ifPresent(fornecedor::setTelefone);
+            Optional.ofNullable(updatedFornecedor.getEmail())
+                    .ifPresent(fornecedor::setEmail);
+            fornecedorRepo.save(fornecedor);
+            return "Fornecedor alterado com sucesso: " + fornecedor.toString();
         } else {
             System.out.println("criar classe FornecedorNotFoundException" );
-            return null;
+            return "Algo deu errado, verifique os dados inseridos";
         }
     }
 

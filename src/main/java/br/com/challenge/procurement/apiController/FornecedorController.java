@@ -27,7 +27,7 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public ResponseEntity<Fornecedor> cadastrar(@RequestBody @Valid FornecedorDTO fornecedorDTO) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid FornecedorDTO fornecedorDTO) {
         System.out.println("dados fornecedor: " + fornecedorDTO);
         return ResponseEntity.ok(fornecedorService.criar(fornecedorDTO));
     }
@@ -60,7 +60,7 @@ public class FornecedorController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Fornecedor> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
+    public ResponseEntity<String> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
         return ResponseEntity.ok(fornecedorService.updateFornecedor(id, novoFornecedor));
     }
 
