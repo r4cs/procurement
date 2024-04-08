@@ -26,16 +26,13 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+
     @PostMapping
-    public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid UsuarioDTO dto) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid UsuarioDTO dto) {
         System.out.println("Dados solicitacao de compra: " + dto);
         return ResponseEntity.ok(usuarioService.create(dto));
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
-//        return ResponseEntity.ok(usuarioService.list(pageable));
-//    }
     @GetMapping
     public ResponseEntity<Page<Usuario>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(
@@ -53,7 +50,7 @@ public class UsuarioController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid Usuario novaSolicitacao) {
+    public ResponseEntity<String> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid Usuario novaSolicitacao) {
         return ResponseEntity.ok(usuarioService.update(id, novaSolicitacao));
     }
 
