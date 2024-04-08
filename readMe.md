@@ -1,61 +1,56 @@
 
 ## Objetivo:
 
-#### Aplicação voltada para a área de procurement: fornecendo um conjunto completo de funcionalidades para facilitar o processo de aquisição de produtos e serviços.
+#### Aplicação voltada para a área de procurement: fornecendo um conjunto de funcionalidades para facilitar o processo de aquisição de produtos e serviços.
 
 ### [PITCH](https://www.youtube.com/watch?v=BVj8tq1eWTI&feature=youtu.be)
 
 ## Documentação de de endpoints:
-### Use o [swagger](http://localhost:8080/swagger-ui/index.html) ou 
+### Use o [swagger](http://localhost:8080/swagger-ui/index.html) + documentação abaixo: 
 
-### Entidade de Usuários: http://localhost:8080
-* GET    /api/usuario:                  Obter todos os usuários (200 OK, 404 Not Found se não houver usuários).
-* GET    /api/usuario/{codigo_usuario}: Obter um usuário por código (200 OK, 404 Not Found se não encontrado).
-* POST   /api/usuario:                  Criar um novo usuário (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT    /api/usuario/{codigo_usuario}: Atualizar um usuário existente (200 OK, 404 Not Found se não encontrado).
+### Entidade de Usuários:
+#### Endpoint Base: http://localhost:8080/api/usuario
+* GET /api/usuario: Obter todos os usuários (200 OK, 404 Not Found se não houver usuários).
+* GET /api/usuario/{codigo_usuario}: Obter um usuário por código (200 OK, 404 Not Found se não encontrado).
+* POST /api/usuario: Criar um novo usuário (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/usuario/{codigo_usuario}: Atualizar um usuário existente (200 OK, 404 Not Found se não encontrado).
 * DELETE /api/usuario/{codigo_usuario}: Excluir um usuário por código (204 No Content, 404 Not Found se não encontrado).
-
-ex genérico json:
+#### Exemplo de JSON para criação de usuário:
 {
-"nome": "Nome do usuario",
+"nome": "Nome do usuário",
 "senha": "p@ssw0rd",
 "email": "user@example.com"
 }
 
 
 ### Entidade de Solicitações de Compra:
-* GET    /api/solicitacao:                         Obter todas as solicitações de compra (200 OK, 404 Not Found se não houver solicitações).
-* GET    /api/solicitacao/{codigo_solicitacao}:    Obter uma solicitação de compra por código (200 OK, 404 Not Found se não encontrado).
-* POST   /api/solicitacao:                         Criar uma nova solicitação de compra (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT    /api/solicitacao/{codigo_solicitacao}:    Atualizar uma solicitação de compra existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/solicitacao/{codigo_solicitacao}:    Excluir uma solicitação de compra por código (204 No Content, 404 Not Found se não encontrado).
-
-ex genérico json:
+#### Endpoint Base: http://localhost:8080/api/solicitacao
+* GET /api/solicitacao: Obter todas as solicitações de compra (200 OK, 404 Not Found se não houver solicitações).
+* GET /api/solicitacao/{codigo_solicitacao}: Obter uma solicitação de compra por código (200 OK, 404 Not Found se não encontrado).
+* POST /api/solicitacao: Criar uma nova solicitação de compra (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/solicitacao/{codigo_solicitacao}: Atualizar uma solicitação de compra existente (200 OK, 404 Not Found se não encontrado).
+* DELETE /api/solicitacao/{codigo_solicitacao}: Excluir uma solicitação de compra por código (204 No Content, 404 Not Found se não encontrado).
+#### Exemplo de JSON para criação de solicitação de compra:
 {
-"sku": {
-"sku": "SMTVLGOLED4K"
-},
+"sku": { "sku": "SMTVLGOLED4K" },
 "quantidade": 7,
-"solicitante_id": {
-"id": 4
-},
-"aprovador_id": {
-"id": 2
-},
+"solicitante_id": { "id": 4 },
+"aprovador_id": { "id": 2 },
 "status": "PENDING",
 "motivo_recusado": "",
 "data_solicitacao": "2024-10-25T19:09:17"
 }
 
 
-### Entidade de Pedidos de Compra:
-* GET    /api/pedido:                 Obter todos os pedidos de compra (200 OK, 404 Not Found se não houver pedidos).
-* GET    /api/pedido/{codigo_pedido}: Obter um pedido de compra por código (200 OK, 404 Not Found se não encontrado).
-* POST   /api/pedido:                 Criar um novo pedido de compra (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT    /api/pedido/{codigo_pedido}: Atualizar um pedido de compra existente (200 OK, 404 Not Found se não encontrado).
-* DELETE /api/pedido/{codigo_pedido}: Excluir um pedido de compra por código (204 No Content, 404 Not Found se não encontrado).
 
-ex genérico de pedido de compra:
+### Entidade de Pedidos de Compra:
+#### Endpoint Base: http://localhost:8080/api/pedido
+* GET /api/pedido: Obter todos os pedidos de compra (200 OK, 404 Not Found se não houver pedidos).
+* GET /api/pedido/{codigo_pedido}: Obter um pedido de compra por código (200 OK, 404 Not Found se não encontrado).
+* POST /api/pedido: Criar um novo pedido de compra (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/pedido/{codigo_pedido}: Atualizar um pedido de compra existente (200 OK, 404 Not Found se não encontrado).
+* DELETE /api/pedido/{codigo_pedido}: Excluir um pedido de compra por código (204 No Content, 404 Not Found se não encontrado).
+#### Exemplo genérico de pedido de compra:
 {
 "solicitacao_id": {
 "id": 2
@@ -68,13 +63,13 @@ ex genérico de pedido de compra:
 
 
 ### Entidade de Produtos:
-* GET    /api/produtos:       Obter todos os produtos (200 OK, 404 Not Found se não houver produtos).
-* GET    /api/produtos/{sku}: Obter um produto por SKU (200 OK, 404 Not Found se não encontrado).
-* POST   /api/produtos:       Criar um novo produto (201 Created, 400 Bad Request se a entrada for inválida).
-* PUT    /api/produtos/{sku}: Atualizar um produto existente (200 OK, 404 Not Found se não encontrado).
+* GET /api/produtos: Obter todos os produtos (200 OK, 404 Not Found se não houver produtos).
+* GET /api/produtos/{sku}: Obter um produto por SKU (200 OK, 404 Not Found se não encontrado).
+* POST /api/produtos: Criar um novo produto (201 Created, 400 Bad Request se a entrada for inválida).
+* PUT /api/produtos/{sku}: Atualizar um produto existente (200 OK, 404 Not Found se não encontrado).
 * DELETE /api/produtos/{sku}: Excluir um produto por SKU (204 No Content, 404 Not Found se não encontrado).
-
-ex genérico de produto:
+* Exemplo genérico de produto:
+#### Exemplo genérico de produto
 {
 "nome_produto": "Laptop Dell XPS 13",
 "estoque": 50,

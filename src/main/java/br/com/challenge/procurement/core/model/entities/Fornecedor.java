@@ -19,6 +19,7 @@ public class Fornecedor {
     private String cnpj;
     private String nome_contato;
     private String telefone;
+    @Column(unique = true)
     private String email;
     @Embedded
     private EnderecoDTO endereco;

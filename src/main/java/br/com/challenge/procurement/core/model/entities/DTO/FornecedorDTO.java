@@ -1,7 +1,10 @@
 package br.com.challenge.procurement.core.model.entities.DTO;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.UniqueElements;
 
 public record FornecedorDTO(
         @NotBlank
@@ -13,8 +16,8 @@ public record FornecedorDTO(
         @NotBlank
         String telefone,
         @NotBlank
+        @Email
         String email,
-        @NotBlank
         EnderecoDTO endereco
 ) {
     public FornecedorDTO(Fornecedor fornecedor) {
