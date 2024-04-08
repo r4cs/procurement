@@ -1,6 +1,6 @@
 package br.com.challenge.procurement;
 
-import br.com.challenge.procurement.core.model.entities.DTO.*;
+import br.com.challenge.procurement.core.model.DTO.*;
 import br.com.challenge.procurement.core.model.entities.*;
 import br.com.challenge.procurement.core.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;

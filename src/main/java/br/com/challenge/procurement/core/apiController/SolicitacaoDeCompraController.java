@@ -1,6 +1,6 @@
-package br.com.challenge.procurement.apiController;
+package br.com.challenge.procurement.core.apiController;
 
-import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.service.SolicitacaoDeCompraService;
 import jakarta.validation.Valid;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;

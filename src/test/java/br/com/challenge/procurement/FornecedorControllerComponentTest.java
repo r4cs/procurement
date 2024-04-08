@@ -1,8 +1,8 @@
 package br.com.challenge.procurement;
 
-import br.com.challenge.procurement.apiController.FornecedorController;
-import br.com.challenge.procurement.core.model.entities.DTO.EnderecoDTO;
-import br.com.challenge.procurement.core.model.entities.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.apiController.FornecedorController;
+import br.com.challenge.procurement.core.model.DTO.EnderecoDTO;
+import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.service.FornecedorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

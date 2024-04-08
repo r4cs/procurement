@@ -1,9 +1,8 @@
-package br.com.challenge.procurement.apiController;
+package br.com.challenge.procurement.core.apiController;
 
-import br.com.challenge.procurement.core.model.entities.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.service.PedidoDeCompraService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

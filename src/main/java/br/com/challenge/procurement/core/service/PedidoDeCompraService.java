@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.model.entities.DTO.PedidoDeCompraDTO;
-import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
 import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.repositories.PedidoDeCompraRepo;
 import br.com.challenge.procurement.core.service.strategy.PagamentoBoletoPadrao;

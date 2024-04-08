@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.model.entities.DTO.ProdutoDTO;
+import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
 import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.repositories.ProdutoRepo;
 import org.springframework.data.domain.Page;

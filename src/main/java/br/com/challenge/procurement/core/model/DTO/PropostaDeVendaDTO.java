@@ -1,9 +1,8 @@
-package br.com.challenge.procurement.core.model.entities.DTO;
+package br.com.challenge.procurement.core.model.DTO;
 
-import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;

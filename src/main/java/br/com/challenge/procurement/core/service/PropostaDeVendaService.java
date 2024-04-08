@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.TipoDePagamento;
 import br.com.challenge.procurement.core.repositories.PropostaDeVendaRepo;

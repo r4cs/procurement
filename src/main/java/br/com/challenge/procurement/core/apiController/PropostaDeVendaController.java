@@ -1,8 +1,7 @@
-package br.com.challenge.procurement.apiController;
+package br.com.challenge.procurement.core.apiController;
 
-import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
-import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.service.PropostaDeVendaService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
