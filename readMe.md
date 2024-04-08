@@ -1,9 +1,18 @@
+### Integrantes:
+* #### RM 97373 Raquel Calmon
+* #### RM 97306 Lau Costa
+* #### RM 96553 Felipe Seiji
+* #### RM 97041 Johan Marzolla
+* #### RM 96542 Gustavo Ballogh
+
 
 ## Objetivo:
 
 #### Aplicação voltada para a área de procurement: fornecendo um conjunto de funcionalidades para facilitar o processo de aquisição de produtos e serviços.
 
 ### [PITCH](https://www.youtube.com/watch?v=BVj8tq1eWTI&feature=youtu.be)
+### [Apresentação Sprint3 Youtube](https://youtu.be/U9ta7AEbD8M)
+### [Link github](https://github.com/r4cs/procurement/tree/sprint3)
 
 ## Documentação de de endpoints:
 ### Use o [swagger](http://localhost:8080/swagger-ui/index.html) + documentação abaixo: 

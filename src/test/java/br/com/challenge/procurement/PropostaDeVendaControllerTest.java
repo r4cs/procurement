@@ -56,7 +56,7 @@ public class PropostaDeVendaControllerTest {
     public PropostaDeVendaControllerTest(MockMvc mockMvc, PropostaDeVendaService propostaDeVendaService) {
         this.mockMvc = mockMvc;
         this.propostaDeVendaService=propostaDeVendaService;
-        // Necessidade de configurar o Jackson (pasta config) para serialização/desserialização do LocalDateTime
+        // Foi necessário configurar o Jackson (pasta config) para serialização/desserialização do LocalDateTime
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         objectMapper.registerModule(javaTimeModule);
@@ -125,7 +125,7 @@ public class PropostaDeVendaControllerTest {
 
         PropostaDeVenda propostaDeVenda = new PropostaDeVenda(propostaDeVendaDTO);
 
-        // Mock dos serviços e repositórios
+        // Mock dos serviços
         Mockito.when(fornecedorService.criar(any(FornecedorDTO.class)))
                 .thenReturn(String.valueOf("Fornecedor criado com sucesso."));
 
@@ -144,6 +144,7 @@ public class PropostaDeVendaControllerTest {
         when(propostaDeVendaService.criar(any(PropostaDeVendaDTO.class)))
                 .thenReturn(propostaDeVenda);
 
+        // Teste
         mockMvc.perform(MockMvcRequestBuilders.post("/api/proposta-fornecedor")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(propostaDeVendaDTO)))
