@@ -6,7 +6,9 @@ import br.com.challenge.procurement.core.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +32,19 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.create(dto));
     }
 
+//    @GetMapping
+//    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
+//        return ResponseEntity.ok(usuarioService.list(pageable));
+//    }
     @GetMapping
-    public ResponseEntity<Page<Usuario>> listarTodos(Pageable pageable) {
-        return ResponseEntity.ok(usuarioService.list(pageable));
+    public ResponseEntity<Page<Usuario>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
+        Pageable defaultPageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("id")
+        );
+        Page<Usuario> usuarios = usuarioService.list(defaultPageable);
+        return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping(value = "/{id}")

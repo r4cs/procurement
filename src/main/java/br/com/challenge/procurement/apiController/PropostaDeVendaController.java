@@ -2,6 +2,7 @@ package br.com.challenge.procurement.apiController;
 
 import br.com.challenge.procurement.core.model.entities.DTO.PropostaDeVendaDTO;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
+import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.service.PropostaDeVendaService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -35,18 +36,27 @@ public class PropostaDeVendaController {
         return ResponseEntity.ok(propostaDeVendaService.getById(id));
     }
 
+//    @GetMapping
+//    public ResponseEntity<Page<PropostaDeVenda>> listarTodos(Pageable pageable) {
+//        Pageable defaultPageable = PageRequest.of(
+//                pageable.getPageNumber(),
+//                10,
+//                Sort.by("id")
+//        );
+//
+//        Page<PropostaDeVenda> propostaDeVendas = propostaDeVendaService.listar(pageable);
+//        return ResponseEntity.ok(propostaDeVendas);
+//    }
     @GetMapping
-    public ResponseEntity<Page<PropostaDeVenda>> listarTodos(Pageable pageable) {
+    public ResponseEntity<Page<PropostaDeVenda>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                10,
+                page,
+                size,
                 Sort.by("id")
         );
-
-        Page<PropostaDeVenda> propostaDeVendas = propostaDeVendaService.listar(pageable);
-        return ResponseEntity.ok(propostaDeVendas);
+        Page<PropostaDeVenda> proposta = propostaDeVendaService.listar(defaultPageable);
+        return ResponseEntity.ok(proposta);
     }
-
     @PatchMapping(value = "{id}")
     public ResponseEntity<Optional<PropostaDeVenda>> atualizarPropostaDeVenda(@PathVariable Long id, @Valid PropostaDeVenda novaPropostaDeVenda) {
         return ResponseEntity.ok(propostaDeVendaService.update(id, novaPropostaDeVenda));

@@ -32,11 +32,22 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedorService.criar(fornecedorDTO));
     }
 
+    // formato json
+//    @GetMapping
+//    public ResponseEntity<Page<Fornecedor>> listarTodos(Pageable pageable) {
+//        Pageable defaultPageable = PageRequest.of(
+//                pageable.getPageNumber(),
+//                10,
+//                Sort.by("id")
+//        );
+//        Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
+//        return ResponseEntity.ok(fornecedores);
+//    }
     @GetMapping
-    public ResponseEntity<Page<Fornecedor>> listarTodos(Pageable pageable) {
+    public ResponseEntity<Page<Fornecedor>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                10,
+                page,
+                size,
                 Sort.by("id")
         );
         Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
