@@ -32,14 +32,25 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.create(dto));
     }
 
+//    @GetMapping
+//    public ResponseEntity<Page<Produto>> listarTodos(Pageable pageable) {
+//        Pageable defaultPageable = PageRequest.of(
+//                pageable.getPageNumber(),
+//                5,
+//                Sort.by("id")
+//        );
+//
+//        Page<Produto> produtos = produtoService.list(defaultPageable);
+//        return ResponseEntity.ok(produtos);
+//    }
+
     @GetMapping
-    public ResponseEntity<Page<Produto>> listarTodos(Pageable pageable) {
+    public ResponseEntity<Page<Produto>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(
-                pageable.getPageNumber(),
-                5,
+                page,
+                size,
                 Sort.by("id")
         );
-
         Page<Produto> produtos = produtoService.list(defaultPageable);
         return ResponseEntity.ok(produtos);
     }
