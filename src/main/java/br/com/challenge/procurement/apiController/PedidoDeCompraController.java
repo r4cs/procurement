@@ -25,7 +25,7 @@ public class PedidoDeCompraController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDeCompra> cadastrar(@RequestBody @Valid PedidoDeCompraDTO dto) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid PedidoDeCompraDTO dto) {
         System.out.println("Dados pedido de compra: " + dto);
         return ResponseEntity.ok(pedidoDeCompraService.criarPedidoDeCompra(dto));
     }
@@ -59,7 +59,7 @@ public class PedidoDeCompraController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<PedidoDeCompra> atualizarPedidoDeCompra(@PathVariable Long id, @RequestBody @Valid PedidoDeCompra novaPedido) {
+    public ResponseEntity<String> atualizarPedidoDeCompra(@PathVariable Long id, @RequestBody @Valid PedidoDeCompra novaPedido) {
         return ResponseEntity.ok(pedidoDeCompraService.updatePedidoDeCompra(id, novaPedido));
     }
 

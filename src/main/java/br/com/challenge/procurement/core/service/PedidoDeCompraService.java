@@ -36,10 +36,11 @@ public class PedidoDeCompraService {
 
 
     @Transactional
-    public PedidoDeCompra criarPedidoDeCompra(PedidoDeCompraDTO dto) {
+    public String criarPedidoDeCompra(PedidoDeCompraDTO dto) {
         PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(dto);
 
-        return pedidoDeCompraRepo.save(pedidoDeCompra);
+        pedidoDeCompraRepo.save(pedidoDeCompra);
+        return "Pedido de compra criado com sucesso.";
     }
 
     public Page<PedidoDeCompra> listarPedidosDeCompra(Pageable pageable) {
@@ -51,19 +52,21 @@ public class PedidoDeCompraService {
     }
 
     @Transactional
-    public PedidoDeCompra updatePedidoDeCompra(Long id, PedidoDeCompra updatedPedidoDeCompra) {
+    public String updatePedidoDeCompra(Long id, PedidoDeCompra updatedPedidoDeCompra) {
         Optional<PedidoDeCompra> pedDeCompAntigo = pedidoDeCompraRepo.findById(id);
         System.out.println("json do pedido de compra atualizado: "+ updatedPedidoDeCompra);
 
         if (pedDeCompAntigo.isPresent()) {
             PedidoDeCompra pedidoDeCompra = pedDeCompAntigo.get();
+            Optional.ofNullable(updatedPedidoDeCompra.getSolicitacao())
+                    .ifPresent(pedidoDeCompra::setSolicitacao);
             pedidoDeCompra.setData_pedido(LocalDateTime.now());
-            pedidoDeCompra.setSolicitacao(pedidoDeCompra.getSolicitacao());
-            return pedidoDeCompraRepo.save(pedidoDeCompra);
+            pedidoDeCompraRepo.save(pedidoDeCompra);
+            return "Pedido de compra alterado com sucesso";
         } else {
             // throw  new EnderecoNotFoundException(id);
             System.out.println("criar classe PedidoDeCompraNotFoundException" );
-            return null;
+            return "Algo deu errado, verifique os dados inseridos.";
         }
     }
 

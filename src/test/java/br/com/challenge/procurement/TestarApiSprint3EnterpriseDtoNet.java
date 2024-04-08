@@ -29,7 +29,7 @@ public class TestarApiSprint3EnterpriseDtoNet {
     @Test
     @Order(1)
     public void testarCriarUsuario() throws URISyntaxException {
-        final String baseUrl = "http://localhost:5028/User/register";
+        final String baseUrl = "http://localhost:5028/v1/User/register";
         URI uri = new URI(baseUrl);
         JsonObject user = new JsonObject();
         user.addProperty("name", faker.zelda().character());
@@ -57,7 +57,7 @@ public class TestarApiSprint3EnterpriseDtoNet {
     @Test
     @Order(2)
     public void testarLoginUsuario() throws JSONException {
-        final String baseUrl = "http://localhost:5028/User/login";
+        final String baseUrl = "http://localhost:5028/v1/User/login";
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl)
                 .queryParam("email", "aaaaa@example.com")
                 .queryParam("password", "string");

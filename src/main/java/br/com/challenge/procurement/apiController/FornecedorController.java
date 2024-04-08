@@ -43,6 +43,7 @@ public class FornecedorController {
 //        Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
 //        return ResponseEntity.ok(fornecedores);
 //    }
+    //formato com parametros
     @GetMapping
     public ResponseEntity<Page<Fornecedor>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
         Pageable defaultPageable = PageRequest.of(

@@ -56,8 +56,8 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<Produto>> obterProduto(@PathVariable String sku) {
-        return ResponseEntity.ok(produtoService.getProdutoById(sku));
+    public ResponseEntity<Optional<Produto>> obterProduto(@PathVariable Long id) {
+        return ResponseEntity.ok(produtoService.getProdutoById(id));
     }
 
     @PatchMapping(value = "/{id}")
