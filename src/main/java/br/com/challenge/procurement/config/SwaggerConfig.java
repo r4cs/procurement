@@ -21,4 +21,5 @@ public class SwaggerConfig {
                 .version("0.1")
                 .contact(contact)
                 .description("Projeto referente a procurement.drawio.dawio");
-        return new OpenAPI().info(info).servers(List.of(devServer));  }}
+        return new OpenAPI().info(info).servers(List.of(devServer));  }
+}
