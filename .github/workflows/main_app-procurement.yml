@@ -1,4 +1,4 @@
-# tentativa 4: = tentativa 3 com debug
+# tentativa 5: = tentativa 4 com debug + alteracao path do jar
 
 name: Build and deploy JAR app to Azure Web App - app-procurement
 
@@ -59,6 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
+          path: '${{ github.workspace }}/target/*.jar'
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -82,8 +83,9 @@ jobs:
         with:
           app-name: 'app-procurement'
           slot-name: 'Production'
-          package: '*.jar'
+          package: ${{ github.workspace }}/target/*.jar
           env: production
+
 
 
 # tentativa 3 - com as alteracoes de secrets para cloud
