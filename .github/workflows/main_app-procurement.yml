@@ -1,4 +1,4 @@
-# tentativa 6
+#tentativa 7
 
 name: Build and deploy JAR app to Azure Web App - app-procurement
 
@@ -39,11 +39,16 @@ jobs:
         run: |
           mvn clean install -B || (echo "Maven build failed. Printing Surefire reports:" && ls -R ${GITHUB_WORKSPACE}/target/surefire-reports)
 
+      - name: Create artifact directory
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/artifacts
+          cp -r $GITHUB_WORKSPACE/target/*.jar $GITHUB_WORKSPACE/artifacts/
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: $GITHUB_WORKSPACE/artifacts/*.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,11 +70,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
+          path: ${{ github.workspace }}/artifacts
 
       - name: Debug artifact
         run: |
-          ls -R ${{ github.workspace }}/target
-          ls -R ${{ github.workspace }}/target/*.jar
+          ls -R ${{ github.workspace }}/artifacts
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -93,8 +98,107 @@ jobs:
         with:
           app-name: 'app-procurement'
           slot-name: 'Production'
-          package: ${{ github.workspace }}/target/*.jar
+          package: ${{ github.workspace }}/artifacts/*.jar
           env: production
+
+
+# tentativa 6
+
+#name: Build and deploy JAR app to Azure Web App - app-procurement
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#  workflow_dispatch:
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Java version
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '17'
+#          distribution: 'adopt'
+#          server-id: github
+#          server-username: GITHUB_ACTOR
+#          server-password: ${{ secrets.GITHUB_TOKEN }}
+#          architecture: 'x64'
+#          check-latest: false
+#          overwrite-settings: true
+#          job-status: 'success'
+#
+#      - name: Debug information
+#        run: |
+#          echo "GitHub workspace: $GITHUB_WORKSPACE"
+#          echo "Contents of the workspace:"
+#          ls -R $GITHUB_WORKSPACE
+#
+#      - name: Build with Maven
+#        run: |
+#          mvn clean install -B || (echo "Maven build failed. Printing Surefire reports:" && ls -R ${GITHUB_WORKSPACE}/target/surefire-reports)
+#
+#      - name: Upload artifact for deployment job
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: java-app
+#          path: '${{ github.workspace }}/target/*.jar'
+#
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    environment:
+#      name: 'Production'
+#      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+#    permissions:
+#      id-token: write
+#
+#    steps:
+#      - name: Debug information
+#        run: |
+#          echo "GitHub workspace: $GITHUB_WORKSPACE"
+#          echo "Contents of the workspace:"
+#          ls -R $GITHUB_WORKSPACE
+#
+#      - name: Download artifact from build job
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: java-app
+#
+#      - name: Debug artifact
+#        run: |
+#          ls -R ${{ github.workspace }}/target
+#          ls -R ${{ github.workspace }}/target/*.jar
+#
+#      - name: Login to Azure
+#        uses: azure/login@v1
+#        with:
+#          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CCF2111C2C2A4A4A9DFB6B432C64081B }}
+#          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2AEA9D90035A46BF9C8CDBC0EC3AEDB5 }}
+#          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_83F35A71A9464F40840BB4F7ECD31CEA }}
+#
+#      - name: Set up environment variables
+#        run: |
+#          echo "DT_SOURCE_URL=${{ secrets.DT_SOURCE_URL }}" >> $GITHUB_ENV
+#          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
+#          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+#          echo "JPA_HIB_DDL=${{ secrets.JPA_HIB_DDL }}" >> $GITHUB_ENV
+#          echo "JPA_SHOW_SQL=${{ secrets.JPA_SHOW_SQL }}" >> $GITHUB_ENV
+#          echo "JPA_PROP_HIB_FORM_SQL=${{ secrets.JPA_PROP_HIB_FORM_SQL }}" >> $GITHUB_ENV
+#
+#      - name: Deploy to Azure Web App
+#        id: deploy-to-webapp
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'app-procurement'
+#          slot-name: 'Production'
+#          package: ${{ github.workspace }}/target/*.jar
+#          env: production
 
 
 
