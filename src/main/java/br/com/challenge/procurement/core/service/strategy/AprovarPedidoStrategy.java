@@ -1,7 +1,7 @@
 package br.com.challenge.procurement.core.service.strategy;
 
-import br.com.challenge.procurement.core.entities.PedidoDeCompra;
-import br.com.challenge.procurement.core.entities.SolicitacaoDeCompra;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import org.springframework.stereotype.Component;
 
 @Component
