@@ -1,5 +1,5 @@
 package br.com.challenge.procurement.core.model.entities;
-import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

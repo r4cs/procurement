@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.model.entities;
 
-import br.com.challenge.procurement.core.model.entities.DTO.PedidoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.PedidoDeCompraDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +29,7 @@ public class PedidoDeCompra {
         this.solicitacao = dto.solicitacao_id();
         this.tipoDePagamento = dto.tipoDePagamento();
         this.data_pedido = LocalDateTime.now();
-        this.aprovado = dto.aprovado();
+//        this.aprovado = dto.aprovado();
     }
     public PedidoDeCompra() {}
 }

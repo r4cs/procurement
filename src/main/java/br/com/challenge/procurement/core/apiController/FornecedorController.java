@@ -1,7 +1,7 @@
-package br.com.challenge.procurement.apiController;
+package br.com.challenge.procurement.core.apiController;
 
 
-import br.com.challenge.procurement.core.model.entities.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.service.FornecedorService;
 import jakarta.validation.Valid;

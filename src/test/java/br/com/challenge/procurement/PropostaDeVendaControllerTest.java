@@ -1,6 +1,6 @@
 package br.com.challenge.procurement;
 
-import br.com.challenge.procurement.core.model.entities.DTO.*;
+import br.com.challenge.procurement.core.model.DTO.*;
 import br.com.challenge.procurement.core.model.entities.*;
 import br.com.challenge.procurement.core.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,7 +56,7 @@ public class PropostaDeVendaControllerTest {
     public PropostaDeVendaControllerTest(MockMvc mockMvc, PropostaDeVendaService propostaDeVendaService) {
         this.mockMvc = mockMvc;
         this.propostaDeVendaService=propostaDeVendaService;
-        // Necessidade de configurar o Jackson (pasta config) para serialização/desserialização do LocalDateTime
+        // Foi necessário configurar o Jackson (pasta config) para serialização/desserialização do LocalDateTime
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         objectMapper.registerModule(javaTimeModule);
@@ -125,7 +125,6 @@ public class PropostaDeVendaControllerTest {
 
         PropostaDeVenda propostaDeVenda = new PropostaDeVenda(propostaDeVendaDTO);
 
-        // Mock dos serviços e repositórios
         Mockito.when(fornecedorService.criar(any(FornecedorDTO.class)))
                 .thenReturn(String.valueOf("Fornecedor criado com sucesso."));
 

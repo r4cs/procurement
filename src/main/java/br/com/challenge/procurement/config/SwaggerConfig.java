@@ -17,8 +17,9 @@ public class SwaggerConfig {
         Contact contact = new Contact();
         contact.setEmail("rm97373@fiap.com.br");
         contact.setName("Raquel");
-        Info info = new Info().title("Checkpoint 1 e 2")
+        Info info = new Info().title("Sprint3")
                 .version("0.1")
                 .contact(contact)
-                .description("Projeto referente a procurement.dawio");
-        return new OpenAPI().info(info).servers(List.of(devServer));  }}
+                .description("Projeto referente a procurement.drawio.dawio");
+        return new OpenAPI().info(info).servers(List.of(devServer));  }
+}

@@ -2,8 +2,9 @@ package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
-import br.com.challenge.procurement.core.model.entities.DTO.FornecedorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

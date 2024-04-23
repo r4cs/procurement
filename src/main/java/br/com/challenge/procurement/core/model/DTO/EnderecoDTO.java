@@ -1,4 +1,4 @@
-package br.com.challenge.procurement.core.model.entities.DTO;
+package br.com.challenge.procurement.core.model.DTO;
 
 import br.com.challenge.procurement.core.model.entities.Endereco;
 import jakarta.validation.constraints.NotBlank;

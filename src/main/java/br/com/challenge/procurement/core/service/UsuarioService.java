@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.model.entities.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.model.DTO.UsuarioDTO;
 import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.repositories.UsuarioRepo;
 import jakarta.transaction.Transactional;

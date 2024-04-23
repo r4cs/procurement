@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.service;
 
-import br.com.challenge.procurement.core.model.entities.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.repositories.SolicitacaoDeCompraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
