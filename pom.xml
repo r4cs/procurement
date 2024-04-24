@@ -127,6 +127,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+<!--			<version>10.2.2.jre11</version> &lt;!&ndash; Or the version you need &ndash;&gt;-->
+		</dependency>
+
+
 
 	</dependencies>
 

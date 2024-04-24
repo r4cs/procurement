@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/login").permitAll()
                                 .requestMatchers(
                                         "/logout",
+                                        "/swagger-ui/**",
                                         "/api/**").authenticated()
 //                                        "/api/swagger/**",
 //                                        "/api/swagger-ui/**",
@@ -43,7 +44,8 @@ public class SecurityConfig {
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .permitAll()
-                                .defaultSuccessUrl("/api/swagger-ui/index.html")
+                                .defaultSuccessUrl("/swagger-ui/index.html")
+//                                .defaultSuccessUrl("/api/swagger-ui/index.html")
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
@@ -56,7 +58,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**"
+                "/v3/api-docs/**", "/api/swagger.json/**", "/swagger-resources/**"
+//                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**"
         );
     }
 }

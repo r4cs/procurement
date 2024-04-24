@@ -11,8 +11,8 @@ public class MvcConfig  implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("home/homeNotSignedIn");
         registry.addViewController("/login").setViewName("home/homeNotSignedIn");
         registry.addViewController("/logout").setViewName("home/homeSignedIn");
-//        registry.addViewController("/swagger").setViewName("redirect:/api/swagger-ui/index.html");
     }
 }

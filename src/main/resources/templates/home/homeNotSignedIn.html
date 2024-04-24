@@ -7,7 +7,7 @@
     <title>Home: not signed in</title>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"> </div>
+    <div th:replace="~{fragments/header :: header}"> </div>
 
     <div class="jumbotron jumbotron-fluid ">
         <div class="d-flex justify-content-center w-100">
@@ -34,15 +34,12 @@
                     <li>
                         "/logout"
                     </li>
-                    <li>
-                        "/api/swagger"
-                    </li>
 
                 </ul>
             </div>
         </div>
     </div>
 
-    <div th:replace="fragments/footer :: footer"> </div>
+    <div th:replace="~{fragments/footer :: footer}"> </div>
 </body>
 </html>
