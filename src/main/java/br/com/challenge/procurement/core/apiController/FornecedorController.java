@@ -14,17 +14,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value="/api/fornecedor")
 public class FornecedorController {
 
     private final FornecedorService service;
-    private final FornecedorMapperImpl mapper;
 
     @Autowired
-    public FornecedorController(FornecedorService service, FornecedorMapperImpl mapper) {
+    public FornecedorController(FornecedorService service) {
         this.service = service;
-        this.mapper = mapper;
     }
 
     @PostMapping
@@ -49,7 +49,7 @@ public class FornecedorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FornecedorDTO> obterFornecedor(@PathVariable Long id){
+    public ResponseEntity<Optional<Fornecedor>> obterFornecedor(@PathVariable Long id){
         return ResponseEntity.ok(service.getById(id));
     }
 
