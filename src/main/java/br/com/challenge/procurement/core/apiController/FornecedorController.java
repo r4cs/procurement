@@ -4,6 +4,7 @@ package br.com.challenge.procurement.core.apiController;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.service.FornecedorService;
+import br.com.challenge.procurement.core.service.mapper.FornecedorMapperImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class FornecedorController {
 
     private final FornecedorService service;
+    private final FornecedorMapperImpl mapper;
 
     @Autowired
-    public FornecedorController(FornecedorService service) {
+    public FornecedorController(FornecedorService service, FornecedorMapperImpl mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @PostMapping
@@ -51,8 +54,10 @@ public class FornecedorController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<String> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
-        return ResponseEntity.ok(service.update(id, novoFornecedor));
+    public ResponseEntity<String> atualizarFornecedor(
+            @PathVariable Long id,
+            @RequestBody @Valid FornecedorDTO dto) {
+        return ResponseEntity.ok(service.update(id, mapper.dtoToEntity(dto)));
     }
 
     @DeleteMapping(value = "/{id}")
