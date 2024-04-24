@@ -5,7 +5,7 @@ import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {ProdutoMapper.class, UsuarioMapper.class})
+@Mapper
 public interface SolicitacaoDeCompraMapper {
     SolicitacaoDeCompraMapper INSTANCE = Mappers.getMapper(SolicitacaoDeCompraMapper.class);
 

@@ -16,17 +16,16 @@ import java.util.Optional;
 @Service
 public class FornecedorService {
     private final FornecedorRepo repo;
-    private final FornecedorMapperImpl mapper;
 
     @Autowired
-    public FornecedorService( FornecedorRepo repo, FornecedorMapperImpl mapper) {
+    public FornecedorService( FornecedorRepo repo) {
         this.repo = repo;
-        this.mapper = mapper;
     }
 
     @Transactional
     public String create(FornecedorDTO dto) {
-        repo.save(mapper.dtoToEntity(dto));
+        Fornecedor fornecedor = new Fornecedor(dto);
+        repo.save(fornecedor);
         return "Fornecedor criado com sucesso.";
     }
 
@@ -34,10 +33,8 @@ public class FornecedorService {
         return repo.findAll(pageable);
     }
 
-    public FornecedorDTO getById(Long id) {
-        Fornecedor fornecedor = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-        return mapper.entityToDto(fornecedor);
+    public Optional<Fornecedor> getById(Long id) {
+        return repo.findById(id);
     }
 
 

@@ -56,8 +56,8 @@ public class FornecedorController {
     @PatchMapping(value = "/{id}")
     public ResponseEntity<String> atualizarFornecedor(
             @PathVariable Long id,
-            @RequestBody @Valid FornecedorDTO dto) {
-        return ResponseEntity.ok(service.update(id, mapper.dtoToEntity(dto)));
+            @RequestBody @Valid Fornecedor novoFornecedor) {
+        return ResponseEntity.ok(service.update(id, novoFornecedor));
     }
 
     @DeleteMapping(value = "/{id}")

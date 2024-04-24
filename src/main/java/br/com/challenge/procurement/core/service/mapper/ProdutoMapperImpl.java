@@ -2,7 +2,9 @@ package br.com.challenge.procurement.core.service.mapper;
 
 import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
 import br.com.challenge.procurement.core.model.entities.Produto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProdutoMapperImpl implements  ProdutoMapper {
 
     @Override
