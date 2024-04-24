@@ -18,52 +18,45 @@ import java.util.Optional;
 @RequestMapping(value="/api/solicitacao")
 public class SolicitacaoDeCompraController {
 
-    private final SolicitacaoDeCompraService solicitacaoDeCompraService;
+    private final SolicitacaoDeCompraService service;
 
     @Autowired
-    public SolicitacaoDeCompraController(SolicitacaoDeCompraService solicitacaoDeCompraService) {
-        this.solicitacaoDeCompraService = solicitacaoDeCompraService;
+    public SolicitacaoDeCompraController(SolicitacaoDeCompraService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<SolicitacaoDeCompra> cadastrar(@RequestBody @Valid SolicitacaoDeCompraDTO dto) {
         System.out.println("Dados solicitacao de compra: " + dto);
-        return ResponseEntity.ok(solicitacaoDeCompraService.create(dto));
+        return ResponseEntity.ok(service.create(dto));
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(Pageable pageable) {
-//        Pageable defaultPageable = PageRequest.of(
-//                pageable.getPageNumber(),
-//                10,
-//                Sort.by("id")
-//        );
-//        Page<SolicitacaoDeCompra> solicitacoes = solicitacaoDeCompraService.list(pageable);
-//        return ResponseEntity.ok(solicitacoes);
-//    }
     @GetMapping
-    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
+    public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size
+    ) {
         Pageable defaultPageable = PageRequest.of(
                 page,
                 size,
                 Sort.by("id")
         );
-        Page<SolicitacaoDeCompra> solicitacoes = solicitacaoDeCompraService.list(defaultPageable);
+        Page<SolicitacaoDeCompra> solicitacoes = service.list(defaultPageable);
         return ResponseEntity.ok(solicitacoes);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<SolicitacaoDeCompra>> obterSolicitacaoDeCompra(@PathVariable Long id){
-        return ResponseEntity.ok(solicitacaoDeCompraService.getSolicitacaoDeCompraById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<SolicitacaoDeCompra> atualizarSolicitacaoDeCompra(@PathVariable Long id, @RequestBody @Valid SolicitacaoDeCompra novaSolicitacao) {
-        return ResponseEntity.ok(solicitacaoDeCompraService.update(id, novaSolicitacao));
+        return ResponseEntity.ok(service.update(id, novaSolicitacao));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteSolicitacaoDeCompra(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoDeCompraService.delete(id));
+    public ResponseEntity<String> deletarSolicitacaoDeCompra(@PathVariable Long id) {
+        return ResponseEntity.ok(service.delete(id));
     }
 }

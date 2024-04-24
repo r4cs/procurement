@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SolicitacaoDeCompraRepo extends JpaRepository<SolicitacaoDeCompra, Long> {
-
+    @Override
     Page<SolicitacaoDeCompra> findAll(Pageable pageable);
 
 }

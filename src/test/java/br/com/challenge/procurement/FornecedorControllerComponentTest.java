@@ -60,7 +60,7 @@ public class FornecedorControllerComponentTest {
 
         String jsonRequest = objectMapper.writeValueAsString(fornecedorDto);
 
-        Mockito.when(service.criar(any(FornecedorDTO.class))).thenReturn(String.valueOf("Fornecedor criado com sucesso."));
+        Mockito.when(service.create(any(FornecedorDTO.class))).thenReturn(String.valueOf("Fornecedor criado com sucesso."));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/fornecedor")
                         .contentType(MediaType.APPLICATION_JSON)

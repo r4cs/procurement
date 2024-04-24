@@ -1,16 +1,15 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-public class SolicitacaoDeCompraMapper {
+import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-//    SolicitacaoDeCompra toEntity(SolicitacaoDeCompraDTO dto) {
-//        SolicitacaoDeCompra solicitacaoDeCompra = new SolicitacaoDeCompra();
-//        solicitacaoDeCompra.setId(dto.)
-//        solicitacaoDeCompra.setQuantidade(dto.quantidade());
-//        return solicitacaoDeCompra;
-//    };
-//
-//    SolicitacaoDeCompraDTO toDTO(SolicitacaoDeCompra solicitacaoDeCompra) {
-//        return new SolicitacaoDeCompraDTO(solicitacaoDeCompra);
-//    }
+@Mapper(uses = {ProdutoMapper.class, UsuarioMapper.class})
+public interface SolicitacaoDeCompraMapper {
+    SolicitacaoDeCompraMapper INSTANCE = Mappers.getMapper(SolicitacaoDeCompraMapper.class);
 
+    SolicitacaoDeCompraDTO entityToDto(SolicitacaoDeCompra solicitacaoDeCompra);
+
+    SolicitacaoDeCompra dtoToEntity(SolicitacaoDeCompraDTO dto);
 }

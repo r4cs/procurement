@@ -125,7 +125,7 @@ public class PropostaDeVendaControllerTest {
 
         PropostaDeVenda propostaDeVenda = new PropostaDeVenda(propostaDeVendaDTO);
 
-        Mockito.when(fornecedorService.criar(any(FornecedorDTO.class)))
+        Mockito.when(fornecedorService.create(any(FornecedorDTO.class)))
                 .thenReturn(String.valueOf("Fornecedor criado com sucesso."));
 
         when(produtoService.create(any(ProdutoDTO.class)))
@@ -137,10 +137,10 @@ public class PropostaDeVendaControllerTest {
         when(solicitacaoDeCompraService.create(any(SolicitacaoDeCompraDTO.class)))
                 .thenReturn(solicitacaoDeCompra);
 
-        when(pedidoDeCompraService.criarPedidoDeCompra(any(PedidoDeCompraDTO.class)))
+        when(pedidoDeCompraService.create(any(PedidoDeCompraDTO.class)))
                 .thenReturn("Pedido de compra criado com sucesso.");
 
-        when(propostaDeVendaService.criar(any(PropostaDeVendaDTO.class)))
+        when(propostaDeVendaService.create(any(PropostaDeVendaDTO.class)))
                 .thenReturn(propostaDeVenda);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/proposta-fornecedor")

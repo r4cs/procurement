@@ -13,35 +13,35 @@ import java.util.Optional;
 @Service
 public class ProdutoService {
 
-    private final ProdutoRepo produtoRepo;
+    private final ProdutoRepo repo;
 
-    public ProdutoService(ProdutoRepo produtoRepo) {
-        this.produtoRepo=produtoRepo;
+    public ProdutoService(ProdutoRepo repo) {
+        this.repo=repo;
     }
     @Transactional
     public Produto create(ProdutoDTO dto) {
         Produto produto = new Produto(dto);
-        return produtoRepo.save(produto);
+        return repo.save(produto);
     }
 
     public Page<Produto> list(Pageable pageable) {
-        return produtoRepo.findAll(pageable);
+        return repo.findAll(pageable);
     }
 
-    public Optional<Produto> getProdutoById(Long id) {
-        return produtoRepo.findById(String.valueOf(id));
+    public Optional<Produto> getById(Long id) {
+        return repo.findById(String.valueOf(id));
     }
 
     @Transactional
     public Produto update(String sku, Produto updatedProduto) {
-        Optional<Produto> prodAntigo = produtoRepo.findById(sku);
+        Optional<Produto> prodAntigo = repo.findById(sku);
 
         if (prodAntigo.isPresent()) {
             Produto produto = prodAntigo.get();
 
             produto.setNome_produto(updatedProduto.getNome_produto());
 
-            return produtoRepo.save(produto);
+            return repo.save(produto);
         } else {
             System.out.println("criar classe ProdutoNotFoundException");
             return null;
@@ -50,7 +50,7 @@ public class ProdutoService {
 
     @Transactional
     public String delete(String sku) {
-        produtoRepo.deleteById(sku);
+        repo.deleteById(sku);
         return "Produto excluído";
     }
 }

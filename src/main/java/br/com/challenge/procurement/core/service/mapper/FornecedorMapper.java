@@ -1,20 +1,15 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-public class FornecedorMapper {
+import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-//    public Fornecedor toEntity(FornecedorDTO fornecedorDTO) {
-//        Fornecedor fornecedor = new Fornecedor();
-//        fornecedor.setRazao_social(fornecedorDTO.razao_social());
-//        fornecedor.setCnpj(fornecedorDTO.cnpj());
-//        fornecedor.setNome_contato(fornecedorDTO.nome_contato());
-//        fornecedor.setTelefone(fornecedorDTO.telefone());
-//        fornecedor.setEmail(fornecedorDTO.email());
-//        // nao funciona ):
-////        fornecedor.setEndereco(new EnderecoMapper().toEntity(fornecedorDTO.endereco()))));
-//        return fornecedor;
-//    }
-//
-//    public FornecedorDTO toDTO(Fornecedor fornecedor) {
-//        return new FornecedorDTO(fornecedor);
-//    }
+@Mapper(uses = {EnderecoMapper.class})
+public interface FornecedorMapper {
+    FornecedorMapper INSTANCE = Mappers.getMapper(FornecedorMapper.class);
+
+    FornecedorDTO entityToDto(Fornecedor fornecedor);
+
+    Fornecedor dtoToEntity(FornecedorDTO dto);
 }

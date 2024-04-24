@@ -1,20 +1,16 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-public class EnderecoMapper {
+import br.com.challenge.procurement.core.model.DTO.EnderecoDTO;
+import br.com.challenge.procurement.core.model.entities.Endereco;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-//    public static Endereco toEntity(EnderecoDTO enderecoDTO) {
-//        Endereco endereco = new Endereco();
-//        endereco.setLogradouro(enderecoDTO.logradouro());
-//        endereco.setNumero(enderecoDTO.numero());
-//        endereco.setComplemento(enderecoDTO.complemento());
-//        endereco.setBairro(enderecoDTO.bairro());
-//        endereco.setCidade(enderecoDTO.cidade());
-//        endereco.setEstado(enderecoDTO.estado());
-//        endereco.setCep(enderecoDTO.cep());
-//        return endereco;
-//    }
-//
-//    public EnderecoDTO toDTO(Endereco endereco) {
-//        return new EnderecoDTO(endereco);
-//    }
+@Mapper
+public interface EnderecoMapper {
+    EnderecoMapper INSTANCE = Mappers.getMapper(EnderecoMapper.class);
+
+    EnderecoDTO entityToDto(Endereco endereco);
+
+    Endereco dtoToEntity(EnderecoDTO dto);
 }
+

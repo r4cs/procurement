@@ -12,30 +12,30 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
-    private final UsuarioRepo usuarioRepo;
+    private final UsuarioRepo repo;
 
-    public UsuarioService(UsuarioRepo usuarioRepo) {
-        this.usuarioRepo = usuarioRepo;
+    public UsuarioService(UsuarioRepo repo) {
+        this.repo = repo;
     }
 
     @Transactional
     public String create(UsuarioDTO dto) {
         Usuario usuario = new Usuario(dto);
-        usuarioRepo.save(usuario);
+        repo.save(usuario);
         return "Usuário cadastrado com sucesso";
     }
 
     public Page<Usuario> list(Pageable pageable) {
-        return usuarioRepo.findAll(pageable);
+        return repo.findAll(pageable);
     }
 
-    public Optional<Usuario> getUsuarioById(Long id) {
-        return usuarioRepo.findById(id);
+    public Optional<Usuario> getById(Long id) {
+        return repo.findById(id);
     }
 
     @Transactional
     public String update(Long id, Usuario updatedUsuario) {
-        Optional<Usuario> endAntigo = usuarioRepo.findById(id);
+        Optional<Usuario> endAntigo = repo.findById(id);
 
         if (endAntigo.isPresent()) {
             Usuario usuario = endAntigo.get();
@@ -45,7 +45,7 @@ public class UsuarioService {
                     .ifPresent(usuario::setEmail);
             Optional.ofNullable(updatedUsuario.getSenha())
                     .ifPresent(usuario::setSenha);
-            usuarioRepo.save(usuario);
+            repo.save(usuario);
             return "Usuário alterado com sucesso: " + usuario.toString();
         } else {
             // throw  new UsuarioNotFoundException(id);
@@ -55,7 +55,7 @@ public class UsuarioService {
     }
 
     public String delete(Long id) {
-        usuarioRepo.deleteById(id);
+        repo.deleteById(id);
         return "Usuário excluído.";
     }
 }

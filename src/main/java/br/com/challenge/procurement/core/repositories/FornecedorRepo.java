@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FornecedorRepo extends JpaRepository<Fornecedor, Long> {
+    @Override
     Page<Fornecedor> findAll(Pageable pageable);
 
 }

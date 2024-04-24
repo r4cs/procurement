@@ -35,13 +35,13 @@ public class PropostaDeVendaService {
     };
 
     @Transactional
-    public PropostaDeVenda criar(PropostaDeVendaDTO dto) {
+    public PropostaDeVenda create(PropostaDeVendaDTO dto) {
         PropostaDeVenda propostaDeVenda = new PropostaDeVenda(dto);
         repo.save(propostaDeVenda);
         return propostaDeVenda;
     }
 
-    public Page<PropostaDeVenda> listar(Pageable pageable) {
+    public Page<PropostaDeVenda> list(Pageable pageable) {
         return repo.findAll(pageable);
     }
 

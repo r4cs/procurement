@@ -19,43 +19,46 @@ import java.util.Optional;
 @RequestMapping(value="/api/usuario")
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioService service;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public UsuarioController(UsuarioService service) {
+        this.service = service;
     }
 
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody @Valid UsuarioDTO dto) {
         System.out.println("Dados solicitacao de compra: " + dto);
-        return ResponseEntity.ok(usuarioService.create(dto));
+        return ResponseEntity.ok(service.create(dto));
     }
 
     @GetMapping
-    public ResponseEntity<Page<Usuario>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
+    public ResponseEntity<Page<Usuario>> listarTodos(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size
+    ) {
         Pageable defaultPageable = PageRequest.of(
                 page,
                 size,
                 Sort.by("id")
         );
-        Page<Usuario> usuarios = usuarioService.list(defaultPageable);
+        Page<Usuario> usuarios = service.list(defaultPageable);
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Usuario>> obterUsuario(@PathVariable Long id){
-        return ResponseEntity.ok(usuarioService.getUsuarioById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<String> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid Usuario novaSolicitacao) {
-        return ResponseEntity.ok(usuarioService.update(id, novaSolicitacao));
+        return ResponseEntity.ok(service.update(id, novaSolicitacao));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
-        return ResponseEntity.ok(usuarioService.delete(id));
+        return ResponseEntity.ok(service.delete(id));
     }
 }

@@ -1,17 +1,15 @@
 package br.com.challenge.procurement.core.service.mapper;
 
-public class ProdutoMapper {
+import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
+import br.com.challenge.procurement.core.model.entities.Produto;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-//    public Produto toEntity(ProdutoDTO dto) {
-//        Produto produto = new Produto();
-//        produto.setNome_produto(dto.nome_produto());
-//        produto.setMarca(dto.marca());
-//        produto.setModelo(dto.modelo());
-//        produto.setEspecificacoes(dto.especificacoes());
-//        return produto;
-//    }
-//
-//    public ProdutoDTO toDTO(Produto produto) {
-//        return new ProdutoDTO(produto);
-//    }
+@Mapper
+public interface ProdutoMapper {
+    ProdutoMapper INSTANCE = Mappers.getMapper(ProdutoMapper.class);
+
+    ProdutoDTO entityToDto(Produto produto);
+
+    Produto dtoToEntity(ProdutoDTO dto);
 }

@@ -15,31 +15,31 @@ import java.util.Optional;
 @Service
 public class SolicitacaoDeCompraService {
 
-    private final SolicitacaoDeCompraRepo solicitacaoDeCompraRepo;
+    private final SolicitacaoDeCompraRepo repo;
 
     @Autowired
-    public SolicitacaoDeCompraService(SolicitacaoDeCompraRepo solicitacaoDeCompraRepo) {
-        this.solicitacaoDeCompraRepo = solicitacaoDeCompraRepo;
+    public SolicitacaoDeCompraService(SolicitacaoDeCompraRepo repo) {
+        this.repo = repo;
     }
 
 
     @Transactional
     public SolicitacaoDeCompra create(SolicitacaoDeCompraDTO dto) {
         SolicitacaoDeCompra solicitacaoDeCompra = new SolicitacaoDeCompra(dto);
-        return solicitacaoDeCompraRepo.save(solicitacaoDeCompra);
+        return repo.save(solicitacaoDeCompra);
     }
 
     public Page<SolicitacaoDeCompra> list(Pageable pageable){
-        return solicitacaoDeCompraRepo.findAll(pageable);
+        return repo.findAll(pageable);
     }
 
-    public Optional<SolicitacaoDeCompra> getSolicitacaoDeCompraById(Long id) {
-        return solicitacaoDeCompraRepo.findById(id);
+    public Optional<SolicitacaoDeCompra> getById(Long id) {
+        return repo.findById(id);
     }
 
     @Transactional
     public SolicitacaoDeCompra update(Long id, SolicitacaoDeCompra updatedSolicitacaoDeCompra) {
-        Optional<SolicitacaoDeCompra> solicitacaoAntiga = solicitacaoDeCompraRepo.findById(id);
+        Optional<SolicitacaoDeCompra> solicitacaoAntiga = repo.findById(id);
         // só forneceremos update para os seguintes atributos:
         if(solicitacaoAntiga.isPresent()){
             SolicitacaoDeCompra solicitacaoDeCompra = solicitacaoAntiga.get();
@@ -52,16 +52,15 @@ public class SolicitacaoDeCompraService {
             }
             solicitacaoDeCompra.setData_solicitacao(LocalDateTime.now());
 
-            return solicitacaoDeCompraRepo.save(solicitacaoDeCompra);
+            return repo.save(solicitacaoDeCompra);
         } else {
-            System.out.println("criar classe SolicitacaoDeCompraNotFoundException" );
             return null;
         }
     }
 
     @Transactional
     public String delete(Long id) {
-        solicitacaoDeCompraRepo.deleteById(id);
+        repo.deleteById(id);
         return "Solicitação de compra excluída";
     }
 }
