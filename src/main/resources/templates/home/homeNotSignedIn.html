@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Home: not signed in</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"> </div>
+
+    <div class="jumbotron jumbotron-fluid ">
+        <div class="d-flex justify-content-center w-100">
+            <div>
+                <h1 class="display-4">Bem vinde !</h1>
+                <p class="lead">Este é um protótipo de login social</p>
+                <p>
+                    <a th:href="@{/login}" class="btn btn-large btn-success">Ir para login</a>
+                </p>
+                <hr class="my-4">
+                <h4> Endpoints disponíveis: </h4>
+                <br>
+                <h6> Todos podem acessar: </h6>
+                <ul>
+                    <li>
+                        "/"
+                    </li>
+                    <li>
+                        "/login"
+                    </li>
+                </ul>
+                <h6> Apenas autenticados podem acessar: </h6>
+                <ul>
+                    <li>
+                        "/logout"
+                    </li>
+                    <li>
+                        "/api/swagger"
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"> </div>
+</body>
+</html>
