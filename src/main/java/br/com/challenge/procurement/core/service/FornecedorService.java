@@ -2,6 +2,7 @@ package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
+import br.com.challenge.procurement.core.service.mapper.FornecedorMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
@@ -15,16 +16,17 @@ import java.util.Optional;
 @Service
 public class FornecedorService {
     private final FornecedorRepo repo;
+    private final FornecedorMapperImpl mapper;
 
     @Autowired
-    public FornecedorService( FornecedorRepo repo) {
+    public FornecedorService( FornecedorRepo repo, FornecedorMapperImpl mapper) {
         this.repo = repo;
+        this.mapper = mapper;
     }
 
     @Transactional
     public String create(FornecedorDTO dto) {
-        Fornecedor fornecedor = new Fornecedor(dto);
-        repo.save(fornecedor);
+        repo.save(mapper.dtoToEntity(dto));
         return "Fornecedor criado com sucesso.";
     }
 
@@ -32,8 +34,10 @@ public class FornecedorService {
         return repo.findAll(pageable);
     }
 
-    public Optional<Fornecedor> getById(Long id) {
-        return repo.findById(id);
+    public FornecedorDTO getById(Long id) {
+        Fornecedor fornecedor = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        return mapper.entityToDto(fornecedor);
     }
 
 

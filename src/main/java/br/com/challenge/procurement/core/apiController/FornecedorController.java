@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(value="/api/fornecedor")
 public class FornecedorController {
@@ -48,7 +46,7 @@ public class FornecedorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<Fornecedor>> obterFornecedor(@PathVariable Long id){
+    public ResponseEntity<FornecedorDTO> obterFornecedor(@PathVariable Long id){
         return ResponseEntity.ok(service.getById(id));
     }
 
