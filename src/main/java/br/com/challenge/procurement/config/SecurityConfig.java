@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
@@ -37,8 +39,16 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
+                                .loginPage("/login")
                                 .permitAll()
                                 .defaultSuccessUrl("/swagger-ui/index.html")
+                                .failureUrl("/login?error=true")
+                                .authorizationEndpoint(authorizationRequest ->
+                                        authorizationRequest.baseUri("/oauth2/authorize"))
+                                .tokenEndpoint(tokenEndpoint ->
+                                        tokenEndpoint
+                                                .accessTokenResponseClient(accessTokenResponseClient()))
+
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
@@ -53,5 +63,10 @@ public class SecurityConfig {
         return web -> web.ignoring().requestMatchers(
                 "/v3/api-docs/**", "/api/swagger.json/**", "/swagger-resources/**"
         );
+    }
+
+    @Bean
+    public DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient() {
+        return new DefaultAuthorizationCodeTokenResponseClient();
     }
 }
