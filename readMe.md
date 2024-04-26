@@ -15,10 +15,10 @@
 ### [Link github](https://github.com/r4cs/procurement)
 
 ## Documentação de de endpoints:
-### Use o [swagger](http://localhost:8080/swagger-ui/index.html) + documentação abaixo: 
+### Use o [swagger](https://app-procurement.azurewebsites.net/swagger-ui/index.html) + documentação abaixo: 
 
 ### Entidade de Usuários:
-#### Endpoint Base: http://localhost:8080/api/usuario
+#### Endpoint Base: https://app-procurement.azurewebsites.net/api/usuario
 * GET /api/usuario: Obter todos os usuários (200 OK, 404 Not Found se não houver usuários).
 * GET /api/usuario/{codigo_usuario}: Obter um usuário por código (200 OK, 404 Not Found se não encontrado).
 * POST /api/usuario: Criar um novo usuário (201 Created, 400 Bad Request se a entrada for inválida).
@@ -72,7 +72,7 @@
 }
 
 ### Entidade de Solicitações de Compra:
-#### Endpoint Base: http://localhost:8080/api/solicitacao
+#### Endpoint Base: https://app-procurement.azurewebsites.net/api/solicitacao
 * GET /api/solicitacao: Obter todas as solicitações de compra (200 OK, 404 Not Found se não houver solicitações).
 * GET /api/solicitacao/{codigo_solicitacao}: Obter uma solicitação de compra por código (200 OK, 404 Not Found se não encontrado).
 * POST /api/solicitacao: Criar uma nova solicitação de compra (201 Created, 400 Bad Request se a entrada for inválida).
@@ -87,7 +87,7 @@
 }
 
 ### Entidade de Pedidos de Compra:
-#### Endpoint Base: http://localhost:8080/api/pedido
+#### Endpoint Base: https://app-procurement.azurewebsites.net/api/pedido
 * GET /api/pedido: Obter todos os pedidos de compra (200 OK, 404 Not Found se não houver pedidos).
 * GET /api/pedido/{codigo_pedido}: Obter um pedido de compra por código (200 OK, 404 Not Found se não encontrado).
 * POST /api/pedido: Criar um novo pedido de compra (201 Created, 400 Bad Request se a entrada for inválida).
@@ -100,7 +100,7 @@
 }
 
 ### Entidade de Propostas de Venda:
-#### Endpoint Base: http://localhost:8080/api/proposta-venda
+#### Endpoint Base: https://app-procurement.azurewebsites.net/api/proposta-venda
 * #### GET /api/proposta-venda: Obter todas as propostas de venda (200 OK, 404 Not Found se não houver propostas).
 * #### GET /api/proposta-venda/{codigo_proposta}: Obter uma proposta de venda por código (200 OK, 404 Not Found se não encontrado).
 * #### POST /api/proposta-venda: Criar uma nova proposta de venda (201 Created, 400 Bad Request se a entrada for inválida).

@@ -31,7 +31,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/", "/login", "/login/**", "/home/homeNotSignedIn").permitAll()
                                 .requestMatchers(
                                         "/logout",
                                         "/swagger-ui/**",
@@ -41,7 +41,7 @@ public class SecurityConfig {
                         oauth2Login
                                 .loginPage("/login")
                                 .permitAll()
-                                .failureUrl("/login")
+                                .failureUrl("/")
 
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")
