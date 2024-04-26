@@ -12,7 +12,6 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI geraDocumentacao() {
         Server devServer = new Server();
-//        devServer.setUrl("https://localhost:8080/");
         devServer.setUrl("https://app-procurement.azurewebsites.net");
         devServer.description("Azure api procurement web app");
 
