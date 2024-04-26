@@ -41,13 +41,7 @@ public class SecurityConfig {
                         oauth2Login
                                 .loginPage("/login")
                                 .permitAll()
-                                .defaultSuccessUrl("/swagger-ui/index.html")
-                                .failureUrl("/login?error=true")
-                                .authorizationEndpoint(authorizationRequest ->
-                                        authorizationRequest.baseUri("/oauth2/authorize"))
-                                .tokenEndpoint(tokenEndpoint ->
-                                        tokenEndpoint
-                                                .accessTokenResponseClient(accessTokenResponseClient()))
+                                .failureUrl("/login")
 
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")

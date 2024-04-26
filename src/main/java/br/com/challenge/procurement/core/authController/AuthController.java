@@ -29,10 +29,22 @@ public class AuthController {
     public String loginWithGithub(HttpServletRequest request) {
         String redirectUri = "https://app-procurement.azurewebsites.net/.auth/login/github/callback";
         String clientId = "dea1fe6183f99a004c90";
-        String githubLoginUrl = "https://github.com/login/oauth/authorize" +
+        String githubLoginUrl = "https://github.com/login/oauth2/authorize" +
                 "?client_id=" + clientId +
                 "&redirect_uri=" + redirectUri;
         return "redirect:" + githubLoginUrl;
     }
+
+    @GetMapping("/login/google")
+    public String loginWithGoogle(HttpServletRequest request) {
+        String redirectUri = "TODO";
+        String clientId = "TODO";
+        String googleLoginUrl = "TODO" +
+                "?client_id=" + clientId +
+                "&redirect_uri=" + redirectUri;
+        return "redirect:" + googleLoginUrl;
+    }
+
+
 
 }
