@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -16,7 +17,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .cors(_cors ->
                         _cors.configurationSource(request -> {
                                     CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -33,19 +34,11 @@ public class SecurityConfig {
                                         "/logout",
                                         "/swagger-ui/**",
                                         "/api/**").authenticated()
-//                                        "/api/swagger/**",
-//                                        "/api/swagger-ui/**",
-//                                        "/configuration/ui",
-//                                        "/swagger-resources/**",
-//                                        "/configuration/security",
-//                                        "/webjars/**",
-//                                        "/v3/**").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .permitAll()
                                 .defaultSuccessUrl("/swagger-ui/index.html")
-//                                .defaultSuccessUrl("/api/swagger-ui/index.html")
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
@@ -59,7 +52,6 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
                 "/v3/api-docs/**", "/api/swagger.json/**", "/swagger-resources/**"
-//                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**"
         );
     }
 }
