@@ -97,6 +97,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Remove test files
+        run: rm -rf src/test/
+
       - name: Set up Java version
         uses: actions/setup-java@v2
         with:
