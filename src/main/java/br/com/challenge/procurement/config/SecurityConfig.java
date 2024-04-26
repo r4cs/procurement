@@ -31,11 +31,12 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login", "/login/**", "/home/homeNotSignedIn").permitAll()
+                                .requestMatchers("/", "/login", "/login/**", "/home/homeNotSignedIn", "/templates/**").permitAll()
                                 .requestMatchers(
                                         "/logout",
                                         "/swagger-ui/**",
-                                        "/api/**").authenticated()
+                                        "/api/**",
+                                        "/home/homeSignedIn").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
