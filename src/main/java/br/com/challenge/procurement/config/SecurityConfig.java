@@ -31,7 +31,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login", "/login/**", "/home/homeNotSignedIn", "/templates/**").permitAll()
+                                .requestMatchers("/", "/login", "/login/**").permitAll()
                                 .requestMatchers(
                                         "/logout",
                                         "/swagger-ui/**",
