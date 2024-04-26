@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class PropostaDeVenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "proposta_venda_procurement_seq_sprint3")
     private Long id;
     @ManyToOne

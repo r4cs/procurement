@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "solicitacao_procurement_sprint3")
 public class SolicitacaoDeCompra {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "solicitacao_procurement_seq_sprint3")
     Long id;
 

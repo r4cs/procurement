@@ -11,7 +11,7 @@ import lombok.*;
 @Table(name = "usuario_procurement_sprint3")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "usuario_procurement_seq_sprint3")
     private Long id;
     private String nome;

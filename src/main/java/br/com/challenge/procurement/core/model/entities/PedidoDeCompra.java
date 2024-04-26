@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class PedidoDeCompra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "pedido_procurement_seq_sprint3")
     Long id;
     @ManyToOne
