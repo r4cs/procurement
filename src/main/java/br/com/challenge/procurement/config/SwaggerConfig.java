@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI geraDocumentacao() {
         Server devServer = new Server();
-        devServer.setUrl("https://localhost:8080/");
+        devServer.setUrl("http://localhost:8080/");
         devServer.description("Development Azure api procurement web app");
 
         Contact contact = new Contact();
