@@ -9,9 +9,10 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark center" th:fragment="header">
         <ul class="navbar-nav mr-auto">
+            <!--            login -->
             <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">
                 <a class="nav-link" th:href="@{/login}">
-                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Login
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Logins
                 </a>
             </li>
 
@@ -21,10 +22,7 @@
                 </a>
             </li>
 
-            <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">
-                <a class="nav-link" th:href="@{/login/google}"><span class="glyphicon glyphicon-log-in" aria-hidden="true">Login com Google</span></a>
-            </li>
-
+            <!--            logout -->
             <li class="nav-item active" th:if="${#authorization.expression('isAuthenticated()')}">
                 <a class="nav-link" th:href="@{/logout}" onclick="$('#form').submit();">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout

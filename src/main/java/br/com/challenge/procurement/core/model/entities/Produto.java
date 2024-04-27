@@ -4,6 +4,7 @@ import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @ToString
 @Getter
 @Setter

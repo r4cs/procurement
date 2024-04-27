@@ -3,6 +3,7 @@ package br.com.challenge.procurement.core.model.entities;
 import br.com.challenge.procurement.core.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @ToString

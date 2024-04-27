@@ -27,24 +27,22 @@ public class AuthController {
 
     @GetMapping("/login/github")
     public String loginWithGithub(HttpServletRequest request) {
-        String redirectUri = "https://app-procurement.azurewebsites.net/.auth/login/github/callback";
         String clientId = "dea1fe6183f99a004c90";
-        String githubLoginUrl = "https://github.com/login/oauth2/authorize" +
+        String redirectUri = "http://localhost:8080/login/oauth2/code/github"; // Altere conforme necessário
+        String scope = "read:user"; // Escopo de acesso, altere conforme necessário
+        String state = "Mm0gKbrHrouZ72vbRvpo8zfKokcB5nC9cqMwPhXeUaE="; // Estado, altere conforme necessário
+
+        // Construindo a URL de login do GitHub
+        String githubLoginUrl = "https://github.com/login/oauth/authorize" +
                 "?client_id=" + clientId +
-                "&redirect_uri=" + redirectUri;
+                "&redirect_uri=" + redirectUri +
+                "&response_type=code" +
+                "&scope=" + scope +
+                "&state=" + state;
+
+        // Redirecionar para a URL de login do GitHub
         return "redirect:" + githubLoginUrl;
     }
-
-    @GetMapping("/login/google")
-    public String loginWithGoogle(HttpServletRequest request) {
-        String redirectUri = "TODO";
-        String clientId = "TODO";
-        String googleLoginUrl = "TODO" +
-                "?client_id=" + clientId +
-                "&redirect_uri=" + redirectUri;
-        return "redirect:" + googleLoginUrl;
-    }
-
 
 
 }
