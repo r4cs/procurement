@@ -8,9 +8,36 @@
 <body>
     <div th:replace="~{fragments/header :: header}"></div>
 
-    <div class="jumbotron jumbotron-fluid mt-5">
+    <div class="jumbotron jumbotron-fluid ">
         <div class="d-flex justify-content-center w-100">
-             <h1 class="display-4"> Você está logado! </h1>
+            <div>
+                <h1 class="display-4">Bem vinde !</h1>
+                <p class="lead">Acesse a api:</p>
+                <p>
+                    <a th:href="@{/swagger-ui/index.html}" class="btn btn-large btn-success">Ir para api</a>
+                </p>
+                <hr class="my-4">
+                <h4> Endpoints disponíveis: </h4>
+                <br>
+                <h6> Todos podem acessar: </h6>
+                <ul>
+                    <li>
+                        "/"
+                    </li>
+                    <li>
+                        "/login"
+                    </li>
+                </ul>
+                <h6> Apenas autenticados podem acessar: </h6>
+                <ul>
+                    <li>
+                        "/logout"
+                    </li>
+                    <li>
+                        api services
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
