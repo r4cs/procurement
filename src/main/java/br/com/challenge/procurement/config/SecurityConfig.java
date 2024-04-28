@@ -40,8 +40,8 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
-                                .loginPage("/login")
                                 .permitAll()
+                                .defaultSuccessUrl("/swagger-ui/index.html")
                                 .failureUrl("/")
 
                 ).logout((logout) -> logout

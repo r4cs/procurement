@@ -15,10 +15,10 @@ public class AuthController {
         return principal != null ? "home/homeSignedIn" : "home/homeNotSignedIn";
     }
 
-//    @GetMapping("/login")
-//    String login() {
-//        return "/home/homeNotSignedIn";
-//    }
+    @GetMapping("/login")
+    String login() {
+        return "/home/homeNotSignedIn";
+    }
 
     @GetMapping("/logout")
     String logout() {
