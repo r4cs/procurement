@@ -40,7 +40,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
-                                .loginPage("/login")
+                                .loginPage("/login-all")
                                 .permitAll()
                                 .failureUrl("/")
 
@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                 );
-
+        System.out.println("*** http security: " + http);
         return http.build();
     }
 
@@ -58,10 +58,5 @@ public class SecurityConfig {
         return web -> web.ignoring().requestMatchers(
                 "/v3/api-docs/**", "/api/swagger.json/**", "/swagger-resources/**"
         );
-    }
-
-    @Bean
-    public DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient() {
-        return new DefaultAuthorizationCodeTokenResponseClient();
     }
 }

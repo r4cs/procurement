@@ -16,8 +16,9 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    String login() {
-        return "/home/homeNotSignedIn";
+    String login(Principal principal) {
+        System.out.println("Principal em root /: " + principal);
+        return principal != null ? "redirect:swagger-ui/index.html" : "home/homeNotSignedIn";
     }
 
     @GetMapping("/logout")
