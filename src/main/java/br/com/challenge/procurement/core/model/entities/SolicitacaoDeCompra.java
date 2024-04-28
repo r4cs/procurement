@@ -8,11 +8,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="solicitacao")
-@Table(name = "solicitacao_procurement_sprint3")
+@Table(name = "solicitacao_procurement")
 public class SolicitacaoDeCompra {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "solicitacao_procurement_seq_sprint3")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
 

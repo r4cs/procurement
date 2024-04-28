@@ -10,11 +10,10 @@ import lombok.*;
 @Getter
 @Setter
 @Entity(name = "fornecedor")
-@Table(name = "fornecedor_procurement_sprint3")
+@Table(name = "fornecedor_procurement")
 public class Fornecedor {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "fornecedor_procurement_seq_sprint3")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String razao_social;
     private String cnpj;
