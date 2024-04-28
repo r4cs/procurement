@@ -40,7 +40,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
-                                .loginPage("/login-all")
+                                .loginPage("/login")
                                 .permitAll()
                                 .failureUrl("/")
 
