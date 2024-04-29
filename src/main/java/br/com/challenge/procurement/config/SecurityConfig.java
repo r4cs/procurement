@@ -6,10 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
-import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -20,9 +17,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-/*  //              .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-
- */
                 .cors(_cors ->
                         _cors.configurationSource(request -> {
                                     CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -38,21 +32,18 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/logout",
                                         "/swagger-ui/**",
-                                        "/api/**",
-                                        "/home/homeSignedIn").authenticated()
+                                        "/api/**").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .permitAll()
                                 .defaultSuccessUrl("/swagger-ui/index.html")
-                                .failureUrl("/")
-
                 ).logout((logout) -> logout
-                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
+                        .logoutSuccessUrl("/")
                 );
-        System.out.println("*** http security: " + http);
+
         return http.build();
     }
 
