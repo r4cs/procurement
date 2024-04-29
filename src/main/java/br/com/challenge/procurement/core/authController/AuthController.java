@@ -35,11 +35,9 @@ public class AuthController {
 
     @GetMapping("/login/github")
     public String loginWithGithub(HttpServletRequest request) {
-        String redirectUri = "https://app-procurement.azurewebsites.net/.auth/login/github/callback";
         String clientId = "dea1fe6183f99a004c90";
         String githubLoginUrl = "https://github.com/login/oauth/authorize" +
-                "?client_id=" + clientId +
-                "&redirect_uri=" + redirectUri;
+                "?client_id=" + clientId;
         return "redirect:" + githubLoginUrl;
     }
 
