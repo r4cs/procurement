@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark center" th:fragment="header">
         <p class ="text-white" th:text="${#authorization.expression('!isAuthenticated()')}">Expressao de !isAuthenticated()</p>
-        <p class ="text-white" th:text="${#authorization.getAuthentication()}">Expressao de getAuthention()</p>
+        <p class ="text-white" th:text="${#authorization.getAuthentication().isAuthenticated()}">Expressao de isAuthenticated()</p>
         <p class ="text-white" th:text="${#authorization.authentication}">authorization.authentication</p>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">
