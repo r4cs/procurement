@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="solicitacao")
-@Table(name = "solicitacao_procurement_sprint3")
+@Table(name = "solicitacao_procurement")
 public class SolicitacaoDeCompra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "solicitacao_procurement_seq_sprint3")
+            generator = "solicitacao_procurement_seq")
     Long id;
 
 
     @OneToOne()
-    @JoinColumn(name = "produto_id", foreignKey = @ForeignKey(name="produto_id"))
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     private Integer quantidade;

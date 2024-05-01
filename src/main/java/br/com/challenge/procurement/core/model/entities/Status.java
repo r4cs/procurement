@@ -1,5 +1,8 @@
 package br.com.challenge.procurement.core.model.entities;
 
+import lombok.Getter;
+
+@Getter
 public enum Status {
     PENDING("Pending", "O pedido está aguardando processamento."),
     PROCESSING("Processing", "O pedido está sendo processado."),
@@ -16,13 +19,6 @@ public enum Status {
         this.description = description;
     }
 
-    public String getStatus_code() {
-        return status_code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
     @Override
     public String toString() {
         return status_code;

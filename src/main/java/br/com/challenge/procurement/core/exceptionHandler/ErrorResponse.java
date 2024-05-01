@@ -1,9 +1,11 @@
 package br.com.challenge.procurement.core.exceptionHandler;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class ErrorResponse {
 
     private final LocalDateTime timestamp;
@@ -16,22 +18,6 @@ public class ErrorResponse {
         this.status = status.value();
         this.error = error;
         this.message = message;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 }

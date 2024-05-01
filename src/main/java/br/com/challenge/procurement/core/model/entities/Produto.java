@@ -8,12 +8,12 @@ import lombok.*;
 @Getter
 @Setter
 @Entity(name = "produto")
-@Table(name = "produto_procurement_sprint3")
+@Table(name = "produto_procurement")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "produto_procurement_seq_sprint3")
+            generator = "produto_procurement_seq")
     private Long id;
     private String nome_produto;
     private String modelo;

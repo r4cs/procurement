@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name="pedido_compra")
-@Table(name = "pedido_procurement_sprint3")
+@Table(name = "pedido_procurement")
 public class PedidoDeCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "pedido_procurement_seq_sprint3")
+            generator = "pedido_procurement_seq")
     Long id;
     @ManyToOne
     @JoinColumn(name = "solicitacao_id")

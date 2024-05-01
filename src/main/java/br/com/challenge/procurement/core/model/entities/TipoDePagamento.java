@@ -1,5 +1,8 @@
 package br.com.challenge.procurement.core.model.entities;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoDePagamento {
     PIX("Pix"),
     BOLETO("Boleto"),
@@ -11,7 +14,4 @@ public enum TipoDePagamento {
         this.tipoDePagamento=tipoDePagamento;
     }
 
-    public String getTipoDePagamento() {
-        return tipoDePagamento;
-    }
 }

@@ -12,12 +12,12 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity(name="proposta_venda")
-@Table(name = "proposta_venda_sprint3")
+@Table(name = "proposta_venda")
 public class PropostaDeVenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "proposta_venda_procurement_seq_sprint3")
+            generator = "proposta_venda_procurement_seq")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "pedido_compra_id")
