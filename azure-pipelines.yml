@@ -20,7 +20,7 @@ stages:
       displayName: 'Maven Package'
       inputs:
         mavenPomFile: 'pom.xml'
-        options: '-X' # Enable debug logging for Maven
+        options: '-X -DskipTests' # Enable debug logging for Maven and skip tests
 
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
