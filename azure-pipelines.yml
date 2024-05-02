@@ -1,7 +1,14 @@
+# Maven package Java project Web App to Linux on Azure
+# Build your Java project and deploy it to Azure as a Linux web app
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
 trigger:
-- sprint4
+  - azure-pipelines
 
 variables:
+  # Azure Resource Manager connection created during pipeline creation
+#  azureSubscription: 'a15b2964-e0ea-4c4a-ab72-b982011ddb1d'
   azureSubscription: '3f5da3c1-75c7-4252-948a-80dba11aa432'
   webAppName: 'procurement-level-group'
   environmentName: 'procurement-level-group'
@@ -15,18 +22,19 @@ stages:
     displayName: Maven Package and Publish Artifacts
     pool:
       vmImage: $(vmImageName)
+
     steps:
     - task: Maven@3
       displayName: 'Maven Package'
       inputs:
         mavenPomFile: 'pom.xml'
-        options: '-X -DskipTests' # Enable debug logging for Maven and skip tests
+        options: 'e -X -DskipTests' # Enable debug logging for Maven and skip tests
 
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)'
-        Contents: '**/target/*.?(war|jar)'
+        Contents: '**/target/*.jar'
         TargetFolder: $(Build.ArtifactStagingDirectory)
 
     - upload: $(Build.ArtifactStagingDirectory)
@@ -53,5 +61,3 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
-            env:
-              MAVEN_OPTS: '-Xmx3072m -XX:MaxPermSize=512m'
