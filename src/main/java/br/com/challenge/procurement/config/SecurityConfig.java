@@ -33,17 +33,7 @@ public class SecurityConfig {
                                         "/logout",
                                         "/api/**",
                                         "/swagger-ui/**",
-                                        "/dashboard/**",
-                                        "/templates/entitiesDashboard.js",
-                                        "/dashboard.js",
-                                        "/favicon.ico").authenticated()
-//                                        "/api/swagger/**",
-//                                        "/api/swagger-ui/**",
-//                                        "/configuration/ui",
-//                                        "/swagger-resources/**",
-//                                        "/configuration/security",
-//                                        "/webjars/**",
-//                                        "/v3/**").authenticated()
+                                        "/js/**").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
@@ -61,7 +51,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**"
+                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/css/**"
         );
     }
 }

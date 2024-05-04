@@ -3,7 +3,8 @@ function populateTable(entityName) {
 
     // Limpar o conteúdo da tabela
     let tableBody = document.querySelector('#entity-table tbody');
-    console.log("*** Table body: " + tableBody)
+    console.log("*** populate table :: Table body: " + tableBody)
+    console.log("*** populate table :: entityName: " + entityName)
     tableBody.innerHTML = '';
 
     // Fazer uma solicitação AJAX para obter os dados da entidade
