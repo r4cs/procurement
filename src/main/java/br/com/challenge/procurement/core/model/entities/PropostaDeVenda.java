@@ -16,8 +16,7 @@ import java.math.BigDecimal;
 public class PropostaDeVenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "proposta_venda_procurement_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "pedido_compra_id")

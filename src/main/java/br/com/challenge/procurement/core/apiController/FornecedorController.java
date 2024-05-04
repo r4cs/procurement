@@ -4,6 +4,7 @@ package br.com.challenge.procurement.core.apiController;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.service.FornecedorService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,25 +33,15 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedorService.criar(fornecedorDTO));
     }
 
-    // formato json
-//    @GetMapping
-//    public ResponseEntity<Page<Fornecedor>> listarTodos(Pageable pageable) {
-//        Pageable defaultPageable = PageRequest.of(
-//                pageable.getPageNumber(),
-//                10,
-//                Sort.by("id")
-//        );
-//        Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
-//        return ResponseEntity.ok(fornecedores);
-//    }
-    //formato com parametros
     @GetMapping
-    public ResponseEntity<Page<Fornecedor>> listarTodos(@RequestParam Integer page, @RequestParam Integer size) {
-        Pageable defaultPageable = PageRequest.of(
-                page,
-                size,
-                Sort.by("id")
-        );
+    public ResponseEntity<Page<Fornecedor>> listarTodos(
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
+            @Parameter(description = "Atributo para ordenação. Opções: id, razao_social, cnpj, nome_contato, telefone, email, endereco")
+            @RequestParam(required = false, defaultValue = "id") String orderBy) {
+
+        Pageable defaultPageable = PageRequest.of(page, size, Sort.by(orderBy));
+
         Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
         return ResponseEntity.ok(fornecedores);
     }

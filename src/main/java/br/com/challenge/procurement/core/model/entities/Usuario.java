@@ -11,8 +11,7 @@ import lombok.*;
 @Table(name = "usuario_procurement")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "usuario_procurement_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String senha;
@@ -22,6 +21,7 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(UsuarioDTO dto) {
+        this.id = dto.id();
         this.nome = dto.nome();
         this.senha = dto.senha();
         this.email = dto.email();

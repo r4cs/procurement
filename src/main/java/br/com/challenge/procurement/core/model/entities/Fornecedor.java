@@ -12,8 +12,7 @@ import lombok.*;
 @Table(name = "fornecedor_procurement")
 public class Fornecedor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
-            generator = "fornecedor_procurement_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String razao_social;
     private String cnpj;
