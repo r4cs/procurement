@@ -35,27 +35,35 @@
             </div>
         </header>
 
-        <div class="jumbotron jumbotron-fluid ">
-            <div class="d-flex justify-content-center w-100">
-                    <h4> Endpoints disponíveis: </h4>
-                    <br>
-                    <h6> Todos podem acessar: </h6>
-                    <ul>
-                        <li>
-                            "/"
-                        </li>
-                        <li>
-                            "/login"
-                        </li>
-                    </ul>
-                    <h6> Apenas autenticados podem acessar: </h6>
-                    <ul>
-                        <li>
-                            "/logout"
-                        </li>
-                    </ul>
+        <div class="jumbotron jumbotron-fluid p-3">
+            <div class="container">
+                <div class="text-center">
+                    <h4>Endpoints disponíveis:</h4>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-start">Todos podem acessar:</h6>
+                        <div class="text-center">
+                            <ul class="list-unstyled">
+                                <li>"/"</li>
+                                <li>"/login"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h6 class="text-end">Apenas autenticados podem acessar:</h6>
+                        <div class="text-center">
+                            <ul class="list-unstyled">
+                                <li>"/logout"</li>
+                                <li>api</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
 
         <div th:replace="~{fragments/footer :: footer}"> </div>
     </body>

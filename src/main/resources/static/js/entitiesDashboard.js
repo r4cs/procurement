@@ -1,62 +1,111 @@
 // Função para preencher a tabela com os dados da entidade
 function populateTable(entityName) {
-
     // Limpar o conteúdo da tabela
     let tableBody = document.querySelector('#entity-table tbody');
-    console.log("*** populate table :: Table body: " + tableBody)
-    console.log("*** populate table :: entityName: " + entityName)
     tableBody.innerHTML = '';
 
+    // Gerar os cabeçalhos da tabela com base no nome da entidade
+    generateTableHeaders(entityName);
+
     // Fazer uma solicitação AJAX para obter os dados da entidade
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('GET', '/api/' + entityName, true);
-    // xhr.onreadystatechange = function() {
-    //     if (xhr.readyState === 4) {
-    //         if (xhr.status === 200) {
-    //             const data = JSON.parse(xhr.responseText);
-    //             if (data.length === 0) {
-    //                 // Se não houver dados, exibir uma mensagem na tabela
-    //                 const row = tableBody.insertRow();
-    //                 const cell = row.insertCell();
-    //                 cell.textContent = 'Nenhum dado disponível';
-    //                 cell.colSpan = getNumberOfAttributes(data[0]);
-    //             } else {
-    //                 // Se houver dados, preencher a tabela com os dados da entidade
-    //                 const firstEntry = data[0];
-    //                 const attributes = Object.keys(firstEntry);
-    //
-    //                 // Criar o cabeçalho da tabela se ainda não existir
-    //                 const tableHeader = document.querySelector('#entity-table thead tr');
-    //                 if (tableHeader.innerHTML === '') {
-    //                     attributes.forEach(function(attribute) {
-    //                         const th = document.createElement('th');
-    //                         th.textContent = attribute;
-    //                         tableHeader.appendChild(th);
-    //                     });
-    //                 }
-    //
-    //                 // Preencher os dados da tabela
-    //                 data.forEach(function(entry) {
-    //                     const row = tableBody.insertRow();
-    //                     attributes.forEach(function(attribute) {
-    //                         const cell = row.insertCell();
-    //                         cell.textContent = entry[attribute];
-    //                     });
-    //                 });
-    //             }
-    //         } else {
-    //             // Se a solicitação falhar, exibir uma mensagem de erro na tabela
-    //             const row = tableBody.insertRow();
-    //             const cell = row.insertCell();
-    //             cell.textContent = 'Erro ao carregar os dados';
-    //             cell.colSpan = 3; // Supondo que sua entidade tenha 3 atributos
-    //         }
-    //     }
-    // };
-    // xhr.send();
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/api/' + entityName, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+
+                // Verificar se a resposta contém a propriedade 'content' que esperamos
+                if (response.hasOwnProperty('content')) {
+                    const data = response.content;
+
+                    // Preencher a tabela com os dados da resposta
+                    data.forEach(function(entry) {
+                        const row = tableBody.insertRow();
+                        // Mapear cada atributo e ajustar conforme necessário
+                        Object.keys(entry).forEach(function(key) {
+                            let value = entry[key];
+                            // Ajustes específicos para cada tipo de dado
+                            if (key === 'endereco' && entityName === 'fornecedor') {
+                                value = value.estado;
+                            }
+                            if (key === 'pedido_compra' || key === 'solicitacao' || key === 'fornecedor' || key === 'solicitante' || key === 'produto') {
+                                value = value.id
+                            }
+                            if (key === 'tipoDePagamento' && entityName === 'pedido') {
+                                // Se o tipo de pagamento for um enum, value = value
+                            } else if (Array.isArray(value)) {
+                                value = formatDate(value);
+                            }
+                            // Adicionar o valor à célula da linha
+                            const cell = row.insertCell();
+                            cell.textContent = value;
+                        });
+                    });
+                } else {
+                    console.error("Response does not contain 'content' property:", response);
+                }
+            } else {
+                // Se a solicitação falhar, exibir uma mensagem de erro na tabela
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.textContent = 'Erro ao carregar os dados';
+                cell.colSpan = 3; // Supondo que sua entidade tenha 3 atributos
+            }
+        }
+    };
+    xhr.send();
 }
 
-// Função para obter o número de atributos em uma entrada
-// function getNumberOfAttributes(entry) {
-//     return Object.keys(entry).length;
-// }
+
+// Função para gerar os cabeçalhos das tabelas
+function generateTableHeaders(entityName) {
+    // Obter a lista de atributos da entidade
+    let attributes = [];
+    switch (entityName) {
+        case 'usuario':
+            attributes = ['ID', 'Nome', 'Email'];
+            break;
+        case 'fornecedor':
+            attributes = ['ID', 'Razão Social', 'CNPJ', 'Nome Contato', 'Telefone', 'Email', 'Endereço'];
+            break;
+        case 'pedido':
+            attributes = ['ID', 'Solicitação', 'Tipo de Pagamento', 'Data do Pedido'];
+            break;
+        case 'produto':
+            attributes = ['ID', 'Nome do Produto', 'Modelo', 'Marca', 'Especificações'];
+            break;
+        case 'proposta':
+            attributes = ['ID', 'Pedido de Compra', 'Valor Unitário', 'Valor Total', 'Fornecedor'];
+            break;
+        case 'solicitacao':
+            attributes = ['ID', 'Produto', 'Quantidade', 'Solicitante', 'Status', 'Data da Solicitação'];
+            break;
+        default:
+            console.error('Entidade desconhecida:', entityName);
+            break;
+    }
+
+    // Obter a tabela
+    const tableHeader = document.querySelector('#entity-table thead tr');
+
+    // Limpar os cabeçalhos existentes
+    tableHeader.innerHTML = '';
+
+    // Adicionar os cabeçalhos à tabela
+    attributes.forEach(function(attribute) {
+        const th = document.createElement('th');
+        th.textContent = attribute;
+        tableHeader.appendChild(th);
+    });
+}
+
+// Função para lidar com o clique nas entidades
+function handleEntityClick(entityName) {
+    populateTable(entityName);
+}
+
+function formatDate(value) {
+    let date = new Date(value[0], value[1] - 1, value[2], value[3], value[4], value[5]);
+    return date.toLocaleString();
+}

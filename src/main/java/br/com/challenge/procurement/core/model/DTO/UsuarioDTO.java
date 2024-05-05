@@ -13,11 +13,6 @@ public record UsuarioDTO(
         @NotBlank
         @Size(max=255)
         String nome,
-
-        @NotBlank
-        @Size(min=2, max=10)
-        String senha,
-
         @NotBlank
         @Email
         String email
@@ -26,7 +21,6 @@ public record UsuarioDTO(
         this(
                 usuario.getId(),
                 usuario.getNome(),
-                usuario.getSenha(),
                 usuario.getEmail()
         );
     }

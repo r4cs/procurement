@@ -35,7 +35,7 @@ public class SolicitacaoDeCompraController {
     @GetMapping
     public ResponseEntity<Page<SolicitacaoDeCompra>> listarTodos(
             @RequestParam(required = false, defaultValue = "0") Integer page,
-            @RequestParam(required = false, defaultValue = "0") Integer size,
+            @RequestParam(required = false, defaultValue = "10") Integer size,
             @Parameter(description = "Atributo para ordenação. Opções: id, produto, quantidade, solicitante, status, data_solicitacao")
             @RequestParam(required = false, defaultValue = "id") String orderBy
         ) {
