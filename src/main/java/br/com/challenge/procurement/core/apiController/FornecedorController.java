@@ -20,17 +20,17 @@ import java.util.Optional;
 @RequestMapping(value="/api/fornecedor")
 public class FornecedorController {
 
-    private final FornecedorService fornecedorService;
+    private final FornecedorService service;
 
     @Autowired
-    public FornecedorController(FornecedorService fornecedorService) {
-        this.fornecedorService = fornecedorService;
+    public FornecedorController(FornecedorService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<String> cadastrar(@RequestBody @Valid FornecedorDTO fornecedorDTO) {
         System.out.println("dados fornecedor: " + fornecedorDTO);
-        return ResponseEntity.ok(fornecedorService.criar(fornecedorDTO));
+        return ResponseEntity.ok(service.criar(fornecedorDTO));
     }
 
     @GetMapping
@@ -42,22 +42,22 @@ public class FornecedorController {
 
         Pageable defaultPageable = PageRequest.of(page, size, Sort.by(orderBy));
 
-        Page<Fornecedor> fornecedores = fornecedorService.listaFornecedores(defaultPageable);
+        Page<Fornecedor> fornecedores = service.listaFornecedores(defaultPageable);
         return ResponseEntity.ok(fornecedores);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Fornecedor>> obterFornecedor(@PathVariable Long id){
-        return ResponseEntity.ok(fornecedorService.getFornecedorById(id));
+        return ResponseEntity.ok(service.getFornecedorById(id));
     }
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<String> atualizarFornecedor(@PathVariable Long id, @RequestBody @Valid Fornecedor novoFornecedor) {
-        return ResponseEntity.ok(fornecedorService.updateFornecedor(id, novoFornecedor));
+        return ResponseEntity.ok(service.updateFornecedor(id, novoFornecedor));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deletarFornecedor(@PathVariable Long id) {
-        return ResponseEntity.ok(fornecedorService.deleteFornecedor(id));
+        return ResponseEntity.ok(service.deleteFornecedor(id));
     }
 }
