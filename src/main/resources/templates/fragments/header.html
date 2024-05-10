@@ -27,10 +27,10 @@
 <!--                </a>-->
 <!--            </li>-->
 
-            <li class="nav-item active" sec:authorize="!isAuthenticated()">
-<!--            <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">-->
-                <a class="nav-link" th:href="@{/login/google}"><span class="glyphicon glyphicon-log-in" aria-hidden="true">Login com Google</span></a>
-            </li>
+<!--            <li class="nav-item active" sec:authorize="!isAuthenticated()">-->
+<!--&lt;!&ndash;            <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">&ndash;&gt;-->
+<!--                <a class="nav-link" th:href="@{/login/google}"><span class="glyphicon glyphicon-log-in" aria-hidden="true">Login com Google</span></a>-->
+<!--            </li>-->
 
             <li class="nav-item active" sec:authorize="isAuthenticated()">
 <!--            <li class="nav-item active" th:if="${#authorization.expression('isAuthenticated()')}">-->
