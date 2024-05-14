@@ -1,3 +1,4 @@
+
 package br.com.challenge.procurement.config;
 
 import org.springframework.context.annotation.Bean;
@@ -19,25 +20,30 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(_cors ->
                         _cors.configurationSource(request -> {
-                                    CorsConfiguration corsConfiguration = new CorsConfiguration();
-                                    corsConfiguration.addAllowedOrigin("*");
-                                    corsConfiguration.addAllowedHeader("*");
-                                    corsConfiguration.addAllowedMethod("*");
-                                    return corsConfiguration;
+                            CorsConfiguration corsConfiguration = new CorsConfiguration();
+                            corsConfiguration.addAllowedOrigin("*");
+                            corsConfiguration.addAllowedHeader("*");
+                            corsConfiguration.addAllowedMethod("*");
+                            return corsConfiguration;
                         })
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login", "/login/**", "/swagger-ui/index.html").permitAll()
+                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers(
+                                        "/logout",
+                                        "/api/**",
+                                        "/swagger-ui/**",
+                                        "/js/**").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .permitAll()
-                                .defaultSuccessUrl("/swagger-ui/index.html")
+                                .defaultSuccessUrl("/")
                 ).logout((logout) -> logout
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutSuccessUrl("/")
                 );
 
         return http.build();
@@ -46,7 +52,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/v3/api-docs/**", "/api/swagger.json/**", "/swagger-resources/**"
+                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/css/**", "https://lookerstudio.google.com/reporting/**"
         );
     }
 }
