@@ -1,8 +1,12 @@
 package br.com.challenge.procurement.core.apiController;
 
 import br.com.challenge.procurement.core.model.DTO.UsuarioDTO;
+import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
+import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.model.entities.Usuario;
+import br.com.challenge.procurement.core.repositories.UsuarioRepo;
 import br.com.challenge.procurement.core.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,10 +26,13 @@ import java.util.Optional;
 public class UsuarioController {
 
     private final UsuarioService service;
+    private final UsuarioRepo usuarioRepo;
 
     @Autowired
-    public UsuarioController(UsuarioService service) {
+    public UsuarioController(UsuarioService service,
+                             UsuarioRepo usuarioRepo) {
         this.service = service;
+        this.usuarioRepo = usuarioRepo;
     }
 
     @PostMapping
@@ -48,6 +56,14 @@ public class UsuarioController {
         Page<Usuario> usuarios = service.list(defaultPageable);
         return ResponseEntity.ok(usuarios);
     }
+
+
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<Usuario>> listAll() {
+        return ResponseEntity.ok(service.listAll());
+    }
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Usuario>> obterUsuario(@PathVariable Long id){

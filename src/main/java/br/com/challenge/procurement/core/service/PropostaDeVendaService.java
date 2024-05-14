@@ -1,6 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.TipoDePagamento;
 import br.com.challenge.procurement.core.repositories.PropostaDeVendaRepo;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +46,8 @@ public class PropostaDeVendaService {
     public Page<PropostaDeVenda> listar(Pageable pageable) {
         return repo.findAll(pageable);
     }
+
+    public List<PropostaDeVenda> listAll() {return repo.findAll();}
 
     public Optional<PropostaDeVenda> getById(Long id) {
         return repo.findById(id);

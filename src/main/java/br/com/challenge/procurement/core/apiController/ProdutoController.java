@@ -3,6 +3,7 @@ package br.com.challenge.procurement.core.apiController;
 import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
 import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.service.ProdutoService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,6 +46,12 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
 
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<Produto>> listAll() {
+        return ResponseEntity.ok(service.listAll());
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Produto>> obterProduto(@PathVariable Long id) {
         return ResponseEntity.ok(service.getProdutoById(id));
@@ -51,12 +59,12 @@ public class ProdutoController {
 
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody @Valid Produto novoProduto) {
-        return ResponseEntity.ok(service.update(String.valueOf(id), novoProduto));
+        return ResponseEntity.ok(service.update(id, novoProduto));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deletarProduto(@PathVariable Long id) {
-        return ResponseEntity.ok(service.delete(String.valueOf(id)));
+        return ResponseEntity.ok(service.delete(id));
     }
 
 }

@@ -1,8 +1,10 @@
 package br.com.challenge.procurement.core.apiController;
 
 import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.service.PropostaDeVendaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -50,6 +53,14 @@ public class PropostaDeVendaController {
         Page<PropostaDeVenda> proposta = service.listar(defaultPageable);
         return ResponseEntity.ok(proposta);
     }
+
+
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<PropostaDeVenda>> listAll() {
+        return ResponseEntity.ok(service.listAll());
+    }
+
     @PatchMapping(value = "{id}")
     public ResponseEntity<Optional<PropostaDeVenda>> atualizarPropostaDeVenda(@PathVariable Long id, @Valid PropostaDeVenda novaPropostaDeVenda) {
         return ResponseEntity.ok(service.update(id, novaPropostaDeVenda));

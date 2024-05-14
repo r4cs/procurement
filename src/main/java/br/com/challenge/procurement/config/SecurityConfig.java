@@ -51,7 +51,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/css/**"
+                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/css/**", "https://lookerstudio.google.com/reporting/**"
         );
     }
 }

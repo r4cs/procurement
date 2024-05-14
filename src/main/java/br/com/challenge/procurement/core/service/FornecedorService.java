@@ -1,6 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,36 +10,38 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class FornecedorService {
-    private final FornecedorRepo fornecedorRepo;
+    private final FornecedorRepo repo;
 
     @Autowired
-    public FornecedorService( FornecedorRepo fornecedorRepo) {
-        this.fornecedorRepo = fornecedorRepo;
+    public FornecedorService( FornecedorRepo repo) {
+        this.repo = repo;
     }
 
     @Transactional
     public String criar(FornecedorDTO dto) {
         Fornecedor fornecedor = new Fornecedor(dto);
-        fornecedorRepo.save(fornecedor);
+        repo.save(fornecedor);
         return "Fornecedor criado com sucesso.";
     }
 
     public Page<Fornecedor> listaFornecedores(Pageable pageable) {
-        return fornecedorRepo.findAll(pageable);
+        return repo.findAll(pageable);
     }
 
+    public List<Fornecedor> listAll() {return repo.findAll();}
     public Optional<Fornecedor> getFornecedorById(Long id) {
-        return fornecedorRepo.findById(id);
+        return repo.findById(id);
     }
 
 
     @Transactional
     public String updateFornecedor(Long id, Fornecedor updatedFornecedor) {
-        Optional<Fornecedor> fornecedorAntigo = fornecedorRepo.findById(id);
+        Optional<Fornecedor> fornecedorAntigo = repo.findById(id);
 
         if (fornecedorAntigo.isPresent()) {
             Fornecedor fornecedor = fornecedorAntigo.get();
@@ -52,7 +55,7 @@ public class FornecedorService {
                     .ifPresent(fornecedor::setTelefone);
             Optional.ofNullable(updatedFornecedor.getEmail())
                     .ifPresent(fornecedor::setEmail);
-            fornecedorRepo.save(fornecedor);
+            repo.save(fornecedor);
             return "Fornecedor alterado com sucesso";
         } else {
             System.out.println("criar classe FornecedorNotFoundException" );
@@ -62,7 +65,7 @@ public class FornecedorService {
 
     @Transactional
     public String deleteFornecedor(Long id) {
-        fornecedorRepo.deleteById(id);
+        repo.deleteById(id);
         return "Forncededor de id {%s} excluído.".formatted(id);
     }
 }

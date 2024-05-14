@@ -1,8 +1,10 @@
 package br.com.challenge.procurement.core.apiController;
 
 import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.service.SolicitacaoDeCompraService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -46,6 +49,13 @@ public class SolicitacaoDeCompraController {
         );
         Page<SolicitacaoDeCompra> solicitacoes = service.list(defaultPageable);
         return ResponseEntity.ok(solicitacoes);
+    }
+
+
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<SolicitacaoDeCompra>> listAll() {
+        return ResponseEntity.ok(service.listAll());
     }
 
     @GetMapping(value = "/{id}")

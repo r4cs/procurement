@@ -3,6 +3,7 @@ package br.com.challenge.procurement.core.service;
 import br.com.challenge.procurement.core.model.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.model.DTO.PropostaDeVendaDTO;
 import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
+import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.repositories.PedidoDeCompraRepo;
 import br.com.challenge.procurement.core.service.strategy.PagamentoBoletoPadrao;
 import br.com.challenge.procurement.core.service.strategy.PagamentoCartaoPadrao;
@@ -14,20 +15,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PedidoDeCompraService {
-    private final PedidoDeCompraRepo pedidoDeCompraRepo;
+    private final PedidoDeCompraRepo repo;
     private final PagamentoPixPadrao pagamentoPix;
     private final PagamentoBoletoPadrao pagamentoBoleto;
     private final PagamentoCartaoPadrao pagamentoCartao;
     @Autowired
-    public PedidoDeCompraService(PedidoDeCompraRepo pedidoDeCompraRepo,
+    public PedidoDeCompraService(PedidoDeCompraRepo repo,
                                  PagamentoPixPadrao pagamentoPix,
                                  PagamentoBoletoPadrao pagamentoBoleto,
                                  PagamentoCartaoPadrao pagamentoCartao) {
-        this.pedidoDeCompraRepo = pedidoDeCompraRepo;
+        this.repo = repo;
         this.pagamentoPix = pagamentoPix;
         this.pagamentoBoleto = pagamentoBoleto;
         this.pagamentoCartao = pagamentoCartao;
@@ -39,21 +41,23 @@ public class PedidoDeCompraService {
     public String criarPedidoDeCompra(PedidoDeCompraDTO dto) {
         PedidoDeCompra pedidoDeCompra = new PedidoDeCompra(dto);
 
-        pedidoDeCompraRepo.save(pedidoDeCompra);
+        repo.save(pedidoDeCompra);
         return "Pedido de compra criado com sucesso.";
     }
 
     public Page<PedidoDeCompra> listarPedidosDeCompra(Pageable pageable) {
-        return pedidoDeCompraRepo.findAll(pageable);
+        return repo.findAll(pageable);
     }
 
+    public List<PedidoDeCompra> listAll() {return repo.findAll();}
+
     public Optional<PedidoDeCompra> getPedidoDeCompraById(Long id) {
-        return pedidoDeCompraRepo.findById(id);
+        return repo.findById(id);
     }
 
     @Transactional
     public String updatePedidoDeCompra(Long id, PedidoDeCompra updatedPedidoDeCompra) {
-        Optional<PedidoDeCompra> pedDeCompAntigo = pedidoDeCompraRepo.findById(id);
+        Optional<PedidoDeCompra> pedDeCompAntigo = repo.findById(id);
         System.out.println("json do pedido de compra atualizado: "+ updatedPedidoDeCompra);
 
         if (pedDeCompAntigo.isPresent()) {
@@ -61,7 +65,7 @@ public class PedidoDeCompraService {
             Optional.ofNullable(updatedPedidoDeCompra.getSolicitacao())
                     .ifPresent(pedidoDeCompra::setSolicitacao);
             pedidoDeCompra.setData_pedido(LocalDateTime.now());
-            pedidoDeCompraRepo.save(pedidoDeCompra);
+            repo.save(pedidoDeCompra);
             return "Pedido de compra alterado com sucesso";
         } else {
             // throw  new EnderecoNotFoundException(id);
@@ -72,7 +76,7 @@ public class PedidoDeCompraService {
 
     @Transactional
     public String deletePedidoDeCompra(Long id) {
-        pedidoDeCompraRepo.deleteById(id);
+        repo.deleteById(id);
         return "Pedido de compra excluído";
     }
 

@@ -1,6 +1,7 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.DTO.SolicitacaoDeCompraDTO;
+import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
 import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
 import br.com.challenge.procurement.core.repositories.SolicitacaoDeCompraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +34,9 @@ public class SolicitacaoDeCompraService {
     public Page<SolicitacaoDeCompra> list(Pageable pageable){
         return solicitacaoDeCompraRepo.findAll(pageable);
     }
+
+
+    public List<SolicitacaoDeCompra> listAll() {return solicitacaoDeCompraRepo.findAll();}
 
     public Optional<SolicitacaoDeCompra> getSolicitacaoDeCompraById(Long id) {
         return solicitacaoDeCompraRepo.findById(id);
