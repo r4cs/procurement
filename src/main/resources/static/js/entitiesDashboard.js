@@ -9,43 +9,18 @@ function populateTable(entityName) {
 
     // Fazer uma solicitação AJAX para obter os dados da entidade
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/' + entityName + "/all", true);
+    xhr.open('GET', '/api/' + entityName, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-                console.log("response: " + response);
-                // console.log("response.content: " + response.content);
+
                 // Verificar se a resposta contém a propriedade 'content' que esperamos
                 if (response.hasOwnProperty('content')) {
                     const data = response.content;
 
                     // Preencher a tabela com os dados da resposta
-                    data.forEach(function (entry) {
-                        const row = tableBody.insertRow();
-                        // Mapear cada atributo e ajustar conforme necessário
-                        Object.keys(entry).forEach(function (key) {
-                            let value = entry[key];
-                            // Ajustes específicos para cada tipo de dado
-                            if (key === 'endereco' && entityName === 'fornecedor') {
-                                value = value.estado;
-                            }
-                            if (key === 'pedido_compra' || key === 'solicitacao' || key === 'fornecedor' || key === 'solicitante' || key === 'produto') {
-                                value = value.id;
-                            }
-                            if (key === 'tipoDePagamento' && entityName === 'pedido') {
-                                // Se o tipo de pagamento for um enum, value = value
-                            } else if (Array.isArray(value)) {
-                                value = formatDate(value);
-                            }
-                            // Adicionar o valor à célula da linha
-                            const cell = row.insertCell();
-                            cell.textContent = value;
-                        });
-                    });
-                } else if (Array.isArray(response)) {
-                    // Preencher a tabela com os dados da resposta
-                    response.forEach(function(entry) {
+                    data.forEach(function(entry) {
                         const row = tableBody.insertRow();
                         // Mapear cada atributo e ajustar conforme necessário
                         Object.keys(entry).forEach(function(key) {
@@ -55,7 +30,7 @@ function populateTable(entityName) {
                                 value = value.estado;
                             }
                             if (key === 'pedido_compra' || key === 'solicitacao' || key === 'fornecedor' || key === 'solicitante' || key === 'produto') {
-                                value = value.id;
+                                value = value.id
                             }
                             if (key === 'tipoDePagamento' && entityName === 'pedido') {
                                 // Se o tipo de pagamento for um enum, value = value
@@ -75,12 +50,13 @@ function populateTable(entityName) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
                 cell.textContent = 'Erro ao carregar os dados';
-                // cell.colSpan = 3; // Supondo que sua entidade tenha 3 atributos
+                cell.colSpan = 3; // Supondo que sua entidade tenha 3 atributos
             }
         }
     };
     xhr.send();
 }
+
 
 // Função para gerar os cabeçalhos das tabelas
 function generateTableHeaders(entityName) {
@@ -134,27 +110,13 @@ function formatDate(value) {
     return date.toLocaleString();
 }
 
-function toggleVisibility(tagId) {
-    // Ocultar todos os iframes dos dashboards
-    const iframes = document.querySelectorAll('.dashboard-iframe');
-    iframes.forEach(function(iframe) {
-        iframe.style.visibility = 'hidden';
-        iframe.style.display = 'none';
-    });
-
-    // Tornar visível o iframe correspondente ao ID passado
-    const iframe = document.getElementById(tagId);
-    iframe.style.visibility = 'visible';
-    iframe.style.display = 'block';
+function toggleVisibilityProcurement() {
+    var iframe = document.getElementById("procurement-dashboard");
+    iframe.style.visibility = "visible";
 }
 
-// Função para limpar a tabela
-function clearTable() {
-    // Limpar o conteúdo do corpo da tabela
-    let tableBody = document.querySelector('#entity-table tbody');
-    tableBody.innerHTML = '';
-
-    // Limpar os cabeçalhos da tabela
-    let tableHeader = document.querySelector('#entity-table thead tr');
-    tableHeader.innerHTML = '';
+function toggleVisibilityAudit() {
+    var iframe = document.getElementById("audit-dashboard");
+    iframe.style.visibility = "visible";
 }
+
