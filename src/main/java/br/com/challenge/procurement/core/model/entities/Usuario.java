@@ -4,6 +4,9 @@ import br.com.challenge.procurement.core.model.DTO.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ToString
 @Getter
 @Setter
@@ -13,10 +16,16 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     @Column(unique = true)
     private String email;
-    private Role role;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name="id_usuario", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> role = new ArrayList<>();
 
     public Usuario() {}
 

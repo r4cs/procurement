@@ -4,8 +4,8 @@ import br.com.challenge.procurement.core.model.DTO.RoleDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -14,10 +14,11 @@ import org.hibernate.type.SqlTypes;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private String role;
+
+    public Role() {}
 
     public Role(RoleDto dto) {
         this.id = dto.id();
