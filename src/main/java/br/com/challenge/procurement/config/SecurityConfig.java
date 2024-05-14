@@ -34,7 +34,7 @@ public class SecurityConfig {
                                         "/logout",
                                         "/api/**",
                                         "/swagger-ui/**",
-                                        "/static/js/**",
+                                        "/js/**",
                                         "/content").authenticated()
                 )
                 .oauth2Login(oauth2Login ->
@@ -53,7 +53,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
-                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/static/css/**", "https://lookerstudio.google.com/reporting/**"
+                "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" , "/css/**", "https://lookerstudio.google.com/reporting/**"
         );
     }
 }
