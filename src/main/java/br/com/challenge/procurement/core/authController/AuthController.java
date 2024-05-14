@@ -1,7 +1,6 @@
 package br.com.challenge.procurement.core.authController;
 
 import br.com.challenge.procurement.core.model.entities.*;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +45,7 @@ public class AuthController {
     @GetMapping("/logout")
     String logout() {
         logger.debug("Acessando a página de logout");
-        return "/";
-//        return "/home/homeNotSignedIn";
+        return "/home/homeNotSignedIn";
     }
 
 }
