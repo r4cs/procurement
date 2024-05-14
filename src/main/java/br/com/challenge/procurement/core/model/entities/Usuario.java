@@ -14,7 +14,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String senha;
     @Column(unique = true)
     private String email;
 
@@ -22,7 +21,6 @@ public class Usuario {
 
     public Usuario(UsuarioDTO dto) {
         this.nome = dto.nome();
-        this.senha = dto.senha();
         this.email = dto.email();
     }
 }

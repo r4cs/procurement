@@ -14,7 +14,6 @@ public class UsuarioMapperImpl implements UsuarioMapper{
         }
         return new UsuarioDTO(
                 usuario.getNome(),
-                usuario.getSenha(),
                 usuario.getEmail()
         );
     }

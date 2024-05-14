@@ -46,8 +46,6 @@ public class UsuarioService {
                     .ifPresent(usuario::setNome);
             Optional.ofNullable(updatedUsuario.getEmail())
                     .ifPresent(usuario::setEmail);
-            Optional.ofNullable(updatedUsuario.getSenha())
-                    .ifPresent(usuario::setSenha);
             repo.save(usuario);
             return "Usuário alterado com sucesso: " + usuario;
         } else {

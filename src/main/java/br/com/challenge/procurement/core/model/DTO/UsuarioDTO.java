@@ -8,15 +8,12 @@ public record UsuarioDTO(
         @NotBlank
         String nome,
         @NotBlank
-        String senha,
-        @NotBlank
         @Email
         String email
 ) {
     public UsuarioDTO(Usuario usuario) {
         this(
                 usuario.getNome(),
-                usuario.getSenha(),
                 usuario.getEmail()
         );
     }
