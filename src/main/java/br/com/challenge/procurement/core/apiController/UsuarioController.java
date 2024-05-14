@@ -3,6 +3,7 @@ package br.com.challenge.procurement.core.apiController;
 import br.com.challenge.procurement.core.model.DTO.UsuarioDTO;
 import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -46,6 +48,12 @@ public class UsuarioController {
         Page<Usuario> usuarios = service.list(defaultPageable);
         return ResponseEntity.ok(usuarios);
     }
+
+
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<Usuario>> getAll() { return ResponseEntity.ok(service.listAll());}
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<Usuario>> obterUsuario(@PathVariable Long id){

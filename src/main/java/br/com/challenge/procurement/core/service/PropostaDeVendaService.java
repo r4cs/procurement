@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,7 +33,7 @@ public class PropostaDeVendaService {
         this.pagamentoPix = pagamentoPix;
         this.pagamentoBoleto = pagamentoBoleto;
         this.pagamentoCartao = pagamentoCartao;
-    };
+    }
 
     @Transactional
     public PropostaDeVenda create(PropostaDeVendaDTO dto) {
@@ -44,6 +45,8 @@ public class PropostaDeVendaService {
     public Page<PropostaDeVenda> list(Pageable pageable) {
         return repo.findAll(pageable);
     }
+
+    public List<PropostaDeVenda> listAll() { return repo.findAll();}
 
     public Optional<PropostaDeVenda> getById(Long id) {
         return repo.findById(id);

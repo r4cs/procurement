@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +33,8 @@ public class SolicitacaoDeCompraService {
     public Page<SolicitacaoDeCompra> list(Pageable pageable){
         return repo.findAll(pageable);
     }
+
+    public List<SolicitacaoDeCompra> listAll() { return repo.findAll();}
 
     public Optional<SolicitacaoDeCompra> getById(Long id) {
         return repo.findById(id);

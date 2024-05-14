@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="pt-br">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="pt-br">
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>header</title>
@@ -8,6 +9,23 @@
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:fragment="header">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">Level Group</a>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">
+          <a class="nav-link" th:href="@{/login}">
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true">Login</span>
+          </a>
+        <li class="nav-item active mr3" th:if="${#authorization.expression('isAuthenticated()')}">
+          <a class="nav-link col-md-3 col-lg-2 me-0 px-3" th:href="@{/logout}" onclick="$('#form').submit();">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+          </a>
+          <form class="mr3" style="visibility: hidden" id="form" method="post" th:action="@{/logout}"></form>
+        </li>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>
 </body>
 </html>

@@ -2,7 +2,6 @@ package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
-import br.com.challenge.procurement.core.service.mapper.FornecedorMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
@@ -11,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +32,8 @@ public class FornecedorService {
     public Page<Fornecedor> list(Pageable pageable) {
         return repo.findAll(pageable);
     }
+
+    public List<Fornecedor> listAll() { return repo.findAll();}
 
     public Optional<Fornecedor> getById(Long id) {
         return repo.findById(id);

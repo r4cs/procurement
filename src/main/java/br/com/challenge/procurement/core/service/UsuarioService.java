@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,8 @@ public class UsuarioService {
         return repo.findAll(pageable);
     }
 
+    public List<Usuario> listAll() { return repo.findAll();}
+
     public Optional<Usuario> getById(Long id) {
         return repo.findById(id);
     }
@@ -46,7 +49,7 @@ public class UsuarioService {
             Optional.ofNullable(updatedUsuario.getSenha())
                     .ifPresent(usuario::setSenha);
             repo.save(usuario);
-            return "Usuário alterado com sucesso: " + usuario.toString();
+            return "Usuário alterado com sucesso: " + usuario;
         } else {
             // throw  new UsuarioNotFoundException(id);
             System.out.println("criar classe UsuarioNotFoundException" );

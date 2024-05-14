@@ -3,6 +3,7 @@ package br.com.challenge.procurement.core.apiController;
 import br.com.challenge.procurement.core.model.DTO.PedidoDeCompraDTO;
 import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
 import br.com.challenge.procurement.core.service.PedidoDeCompraService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -42,6 +44,12 @@ public class PedidoDeCompraController {
         Page<PedidoDeCompra> pedidosDeCompra = service.list(defaultPageable);
         return ResponseEntity.ok(pedidosDeCompra);
     }
+
+
+    @Operation(hidden = true)
+    @GetMapping("/all")
+    public ResponseEntity<List<PedidoDeCompra>> getAll() { return ResponseEntity.ok(service.listAll());}
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<PedidoDeCompra>> obterPedidoDeCompra(@PathVariable Long id){
