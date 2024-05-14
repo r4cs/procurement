@@ -20,6 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.mediaType("js", MediaType.valueOf("application/javascript"));
+        configurer
+                .mediaType("js", MediaType.valueOf("application/javascript"))
+                .mediaType("css", MediaType.valueOf("text/css"));
     }
 }
