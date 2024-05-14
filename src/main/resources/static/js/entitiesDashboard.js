@@ -9,11 +9,12 @@ function populateTable(entityName) {
 
     // Fazer uma solicitação AJAX para obter os dados da entidade
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/' + entityName, true);
+    xhr.open('GET', '/api/' + entityName, + "/all" + true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
+                console.log("*** response: "+ response)
 
                 // Verificar se a resposta contém a propriedade 'content' que esperamos
                 if (response.hasOwnProperty('content')) {
