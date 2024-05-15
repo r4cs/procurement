@@ -55,6 +55,7 @@ public class FornecedorControllerComponentTest {
                 faker.zelda().character(),
                 faker.phoneNumber().cellPhone(),
                 faker.internet().emailAddress(),
+                null,
                 endereco
         );
 
@@ -87,6 +88,7 @@ public class FornecedorControllerComponentTest {
             faker.zelda().character(),
             faker.phoneNumber().cellPhone(),
             faker.internet().emailAddress(),
+            null,
             endereco
     );
 

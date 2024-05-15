@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @ToString
 @Getter
 @Setter
@@ -22,10 +23,10 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name="id_usuario", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> role = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     public Usuario() {}
 
@@ -33,6 +34,7 @@ public class Usuario {
         this.id = dto.id();
         this.nome = dto.nome();
         this.email = dto.email();
+        this.roles = dto.roles();
     }
 
 }

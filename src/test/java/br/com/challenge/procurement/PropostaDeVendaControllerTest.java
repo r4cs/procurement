@@ -80,6 +80,7 @@ public class PropostaDeVendaControllerTest {
                 faker.zelda().character(),
                 faker.phoneNumber().cellPhone(),
                 faker.internet().emailAddress(),
+                null,
                 enderecoDTO
         );
         Fornecedor fornecedor = new Fornecedor(fornecedorDto);
@@ -96,7 +97,8 @@ public class PropostaDeVendaControllerTest {
         UsuarioDTO usuarioDTO = new UsuarioDTO(
                 null,
                 faker.name().fullName(),
-                faker.internet().emailAddress()
+                faker.internet().emailAddress(),
+                null
         );
         Usuario usuario = new Usuario(usuarioDTO);
 
