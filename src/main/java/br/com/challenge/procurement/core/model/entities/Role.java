@@ -15,11 +15,11 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private RoleName name;
+    private Permission name;
 
     public Role() {}
 
-    public Role(RoleName name) {
+    public Role(Permission name) {
         this.name = name;
     }
 }

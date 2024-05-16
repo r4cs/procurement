@@ -1,7 +1,9 @@
 package br.com.challenge.procurement.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -18,10 +20,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import java.util.HashSet;
 import java.util.Set;
 
-import static br.com.challenge.procurement.core.model.entities.RoleName.*;
+import static br.com.challenge.procurement.core.model.entities.Permission.*;
+import static br.com.challenge.procurement.core.model.entities.RoleEnum.ADMIN;
+import static br.com.challenge.procurement.core.model.entities.RoleEnum.USER;
+import static br.com.challenge.procurement.core.model.entities.RoleEnum.SUPPLYER;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -40,27 +48,76 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login").permitAll()
-                                // Fornececdores = users || Usuários = managers || r4cs = admin
+
+                                // SO ADMINS
                                 .requestMatchers(
                                         "/api/usuario/**",
-                                        "/api/fornecedor/**").hasRole(ROLE_ADMIN.getName())
+                                        "/api/fornecedor/**").hasRole(ADMIN.name())
+                                .requestMatchers(
+                                        GET, "/api/usuario/**",
+                                        "/api/fornecedor/**").hasAnyAuthority(ADMIN_READ.name())
+                                .requestMatchers(
+                                        POST, "/api/usuario/**",
+                                        "/api/fornecedor/**").hasAnyAuthority(ADMIN_CREATE.name())
+                                .requestMatchers(
+                                        PATCH, "/api/usuario/**",
+                                        "/api/fornecedor/**").hasAnyAuthority(ADMIN_UPDATE.name())
+                                .requestMatchers(
+                                        DELETE, "/api/usuario/**",
+                                        "/api/fornecedor/**").hasAnyAuthority(ADMIN_DELETE.name())
+
+
+                                // USERS e ADMINS
                                 .requestMatchers(
                                         "/api/produto/**",
                                         "/api/solicitacao/**",
                                         "/api/pedido/**")
-                                            .hasAnyRole(
-                                                ROLE_USER.getName(),
-                                                ROLE_ADMIN.getName()
-                                            )
+                                            .hasAnyRole( USER.name(), ADMIN.name())
+                                .requestMatchers(
+                                        GET, "/api/produto/**",
+                                        "/api/solicitacao/**",
+                                        "/api/pedido/**")
+                                            .hasAnyAuthority( USER_READ.name(), ADMIN_READ.name())
+                                .requestMatchers(
+                                        POST, "/api/produto/**",
+                                        "/api/solicitacao/**",
+                                        "/api/pedido/**")
+                                            .hasAnyAuthority(ADMIN_CREATE.name(), ADMIN_CREATE.name())
+                                .requestMatchers(
+                                        PATCH, "/api/produto/**",
+                                        "/api/solicitacao/**",
+                                        "/api/pedido/**")
+                                            .hasAnyAuthority(ADMIN_UPDATE.name(), ADMIN_UPDATE.name())
+                                .requestMatchers(
+                                        DELETE, "/api/produto/**",
+                                        "/api/solicitacao/**",
+                                        "/api/pedido/**")
+                                            .hasAnyAuthority( USER_DELETE.name(), ADMIN_DELETE.name())
+
+
+
                                 .requestMatchers(
                                         "/api/proposta/**")
-                                            .hasAnyRole(
-                                                    ROLE_SUPPLYER.getName(),
-                                                    ROLE_ADMIN.getName()
-                                            )
+                                            .hasAnyRole(SUPPLYER.name(), ADMIN.name())
+                                .requestMatchers(
+                                        GET, "/api/proposta/**")
+                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_READ.name())
+                                .requestMatchers(
+                                        POST, "/api/proposta/**")
+                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_CREATE.name())
+                                .requestMatchers(
+                                        PATCH, "/api/proposta/**")
+                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_UPDATE.name())
+                                .requestMatchers(
+                                        DELETE, "/api/proposta/**")
+                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_DELETE.name())
+
+
+
+                                // autenticados
                                 .requestMatchers(
                                         "/logout",
-//                                        "/api/**",
+                                        "/api/**",
                                         "/swagger-ui/**",
                                         "/js/**",
                                         "/content").authenticated()
@@ -103,14 +160,14 @@ public class SecurityConfig {
                 if (email != null) {
                     // Add your role mapping logic here
                     if ("r.guzansky@hotmail.com".equals(email)) {
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_ADMIN.getName()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(ADMIN.name()));
                     }
                     else if (email.contains("@gmail.com")) {
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_USER.getName()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(USER.name()));
                     } else {
 //                    } else if (email.contains("@outlook.com")){
                         // Example: Assuming all other users are supplyers for simplicity
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_SUPPLYER.getName()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(SUPPLYER.name()));
                     }
                 }
 

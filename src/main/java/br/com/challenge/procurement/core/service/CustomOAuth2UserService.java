@@ -2,7 +2,7 @@ package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
 import br.com.challenge.procurement.core.model.entities.Role;
-import br.com.challenge.procurement.core.model.entities.RoleName;
+import br.com.challenge.procurement.core.model.entities.Permission;
 import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.repositories.UsuarioRepo;
@@ -47,9 +47,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
                 // Additional logic to assign roles based on email
                 if ("r.guzansky@hotmail.com".equals(email)) {
-                    authorities.add(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_ADMIN.name()));
                 } else {
-                    authorities.add(new SimpleGrantedAuthority(RoleName.ROLE_USER.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_USER.name()));
                 }
 
                 return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), "email");
@@ -61,7 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 for (Role role : fornecedor.getRoles()) {
                     authorities.add(new SimpleGrantedAuthority(role.getName().name()));
                 }
-                authorities.add(new SimpleGrantedAuthority(RoleName.ROLE_SUPPLYER.name()));
+                authorities.add(new SimpleGrantedAuthority(Permission.ROLE_SUPPLYER.name()));
 
                 return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), "email");
             }
