@@ -95,7 +95,7 @@ public class SecurityConfig {
                                             .hasAnyAuthority( USER_DELETE.name(), ADMIN_DELETE.name())
 
 
-
+                                //  SUPPLYERs e ADMINs
                                 .requestMatchers(
                                         "/api/proposta/**")
                                             .hasAnyRole(SUPPLYER.name(), ADMIN.name())
