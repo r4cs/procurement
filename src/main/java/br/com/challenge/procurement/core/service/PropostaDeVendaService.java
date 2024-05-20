@@ -74,6 +74,7 @@ public class PropostaDeVendaService {
         return "Proposta de venda de id {%s} atualizado.".formatted(id);
     }
 
+
     public void processPayment(PropostaDeVendaDTO dto, TipoDePagamento tipoDePagamento) {
         // !!!!!!
         // deverá haver uma tela de preenchimento desses dados, por hora teremos um dummie input

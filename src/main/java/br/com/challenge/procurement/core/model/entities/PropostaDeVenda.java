@@ -28,6 +28,7 @@ public class PropostaDeVenda {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
+
     public PropostaDeVenda() {}
 
     public PropostaDeVenda(PropostaDeVendaDTO dto) {

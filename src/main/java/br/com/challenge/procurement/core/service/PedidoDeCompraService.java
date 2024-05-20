@@ -79,7 +79,7 @@ public class PedidoDeCompraService {
 
     public void processPayment(PedidoDeCompraDTO pedidoDeCompraDTO, PropostaDeVendaDTO propostaDeVendaDTO) {
         // !!!!!!
-        // deverá haver uma tela de preenchimento desses dados, por hora teremos um input mockado
+        // deverá haver uma tela de preenchimento desses dados
         // !!!!!!
         switch (pedidoDeCompraDTO.tipoDePagamento()) {
             case PIX: // valor total e chave pix (email) como parametros

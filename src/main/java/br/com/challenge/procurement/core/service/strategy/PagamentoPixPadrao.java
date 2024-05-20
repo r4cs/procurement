@@ -17,5 +17,10 @@ public class PagamentoPixPadrao implements PagamentoPixStrategy {
         System.out.println("Gerando PIX no valor de: " + valor + " na chave pix " + chavePix);
     }
 
+    @Override
+    public void receberEmPix(BigDecimal valor, String chavePix) {
+        System.out.println("Total de: R$"+ valor + "na chave: " + chavePix);
+    }
+
 
 }
