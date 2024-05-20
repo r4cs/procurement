@@ -9,19 +9,16 @@ function populateTable(entityName) {
 
     // Fazer uma solicitação AJAX para obter os dados da entidade
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/' + entityName, + "/all" + true);
+    xhr.open('GET', '/api/' + entityName + "/all", async = true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-                console.log("*** response: "+ response)
 
                 // Verificar se a resposta contém a propriedade 'content' que esperamos
-                if (response.hasOwnProperty('content')) {
-                    const data = response.content;
-
+                if (Array.isArray(response)) {
                     // Preencher a tabela com os dados da resposta
-                    data.forEach(function(entry) {
+                    response.forEach(function(entry) {
                         const row = tableBody.insertRow();
                         // Mapear cada atributo e ajustar conforme necessário
                         Object.keys(entry).forEach(function(key) {
@@ -31,7 +28,7 @@ function populateTable(entityName) {
                                 value = value.estado;
                             }
                             if (key === 'pedido_compra' || key === 'solicitacao' || key === 'fornecedor' || key === 'solicitante' || key === 'produto') {
-                                value = value.id
+                                value = value.id;
                             }
                             if (key === 'tipoDePagamento' && entityName === 'pedido') {
                                 // Se o tipo de pagamento for um enum, value = value
@@ -44,14 +41,13 @@ function populateTable(entityName) {
                         });
                     });
                 } else {
-                    console.error("Response does not contain 'content' property:", response);
+                    console.error("Response error: ", response);
                 }
             } else {
                 // Se a solicitação falhar, exibir uma mensagem de erro na tabela
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
                 cell.textContent = 'Erro ao carregar os dados';
-                cell.colSpan = 3; // Supondo que sua entidade tenha 3 atributos
             }
         }
     };
