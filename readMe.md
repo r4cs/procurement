@@ -12,7 +12,7 @@
 
 ### [PITCH](https://www.youtube.com/watch?v=BVj8tq1eWTI&feature=youtu.be)
 ### [Diagrama de classes](procurement.png)
-### [Apresentação Sprint4 Youtube]()
+### [Apresentação Sprint4 Youtube](https://youtu.be/ofkmjrldLgM)
 ### [Link github](https://github.com/r4cs/procurement)
 
 ## Documentação de de endpoints:
