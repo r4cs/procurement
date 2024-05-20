@@ -12,7 +12,7 @@
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" th:if="${#authorization.expression('!isAuthenticated()')}">
+        <li class="nav-item active mr3" th:if="${#authorization.expression('!isAuthenticated()')}">
           <a class="nav-link" th:href="@{/login}">
             <span class="glyphicon glyphicon-log-in" aria-hidden="true">Login</span>
           </a>
