@@ -1,4 +1,4 @@
-package br.com.challenge.procurement.core.authController;
+package br.com.challenge.procurement.core.controller.authController;
 
 import br.com.challenge.procurement.core.model.entities.*;
 import org.springframework.stereotype.Controller;

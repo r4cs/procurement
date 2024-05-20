@@ -1,6 +1,6 @@
 package br.com.challenge.procurement;
 
-import br.com.challenge.procurement.core.apiController.FornecedorController;
+import br.com.challenge.procurement.core.controller.apiController.FornecedorController;
 import br.com.challenge.procurement.core.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import br.com.challenge.procurement.core.service.FornecedorService;

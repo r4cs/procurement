@@ -1,4 +1,4 @@
-package br.com.challenge.procurement.core.apiController;
+package br.com.challenge.procurement.core.controller.apiController;
 
 import br.com.challenge.procurement.core.model.DTO.ProdutoDTO;
 import br.com.challenge.procurement.core.model.entities.Produto;
