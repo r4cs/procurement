@@ -43,20 +43,20 @@ public class SecurityConfig {
                                         // Fornececdores = users || Usuários = managers || r4cs = admin
                                         .requestMatchers(
                                                 "/api/usuario/**",
-                                                "/api/fornecedor/**").hasRole(ROLE_ADMIN.name())
+                                                "/api/fornecedor/**").hasRole(ADMIN.name())
                                         .requestMatchers(
                                                 "/api/produto/**",
                                                 "/api/solicitacao/**",
                                                 "/api/pedido/**")
                                         .hasAnyRole(
-                                                ROLE_USER.name(),
-                                                ROLE_ADMIN.name()
+                                                USER.name(),
+                                                ADMIN.name()
                                         )
                                         .requestMatchers(
                                                 "/api/proposta/**")
                                         .hasAnyRole(
-                                                ROLE_SUPPLYER.name(),
-                                                ROLE_ADMIN.name()
+                                                SUPPLYER.name(),
+                                                ADMIN.name()
                                         )
                                         .requestMatchers(
                                                 "/logout",
@@ -103,14 +103,14 @@ public class SecurityConfig {
                 if (email != null) {
                     // Add your role mapping logic here
                     if ("r.guzansky@hotmail.com".equals(email)) {
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_ADMIN.name()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(ADMIN.name()));
                     }
                     else if (email.contains("@gmail.com")) {
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_USER.name()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(USER.name()));
                     } else {
 //                    } else if (email.contains("@outlook.com")){
                         // Example: Assuming all other users are supplyers for simplicity
-                        mappedAuthorities.add(new SimpleGrantedAuthority(ROLE_SUPPLYER.name()));
+                        mappedAuthorities.add(new SimpleGrantedAuthority(SUPPLYER.name()));
                     }
                 }
 
@@ -128,7 +128,7 @@ public class SecurityConfig {
     }
 
 }
-
+/*
 //
 //package br.com.challenge.procurement.config;
 //
@@ -189,3 +189,4 @@ public class SecurityConfig {
 //        );
 //    }
 //}
+*/

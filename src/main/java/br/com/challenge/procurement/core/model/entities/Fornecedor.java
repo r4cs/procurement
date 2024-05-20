@@ -5,6 +5,9 @@ import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @ToString
 @Getter
 @Setter
@@ -22,6 +25,11 @@ public class Fornecedor {
     private String email;
     @Embedded
     private EnderecoDTO endereco;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "fornecedor_roles", joinColumns = @JoinColumn(name="fornecedor_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
 
     public Fornecedor(FornecedorDTO dto) {
         this.razao_social = dto.razao_social();
