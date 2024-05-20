@@ -38,7 +38,7 @@ public class AuthController {
                 .map(e -> e.getSimpleName().split("(?=[A-Z])")[0])
                 .collect(Collectors.toList());
         model.addAttribute("endpoints", endpoints);
-
+        System.out.println("Principal: " + principal);
         return "home/homeSignedIn";
     }
 

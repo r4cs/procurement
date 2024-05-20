@@ -20,10 +20,10 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name="usuario_id", referencedColumnName = "id"),
+//    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+//    private List<Role> roles = new ArrayList<>();
 
     public Usuario() {}
 

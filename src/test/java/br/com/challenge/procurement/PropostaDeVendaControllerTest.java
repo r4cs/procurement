@@ -95,7 +95,7 @@ public class PropostaDeVendaControllerTest {
 
         UsuarioDTO usuarioDTO = new UsuarioDTO(
                 faker.name().fullName(),
-                faker.internet().password(),
+//                faker.internet().password(),
                 faker.internet().emailAddress()
         );
         Usuario usuario = new Usuario(usuarioDTO);
