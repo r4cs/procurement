@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/proposta-fornecedor")
+@RequestMapping("/api/proposta")
 public class PropostaDeVendaController {
 
     private final PropostaDeVendaService service;
