@@ -15,13 +15,36 @@ public class SwaggerConfig {
         devServer.setUrl("https://app-procurement.azurewebsites.net");
         devServer.description("Azure api procurement web app");
 
-        Contact contact = new Contact();
-        contact.setEmail("rm97373@fiap.com.br");
-        contact.setName("Raquel");
+        Contact contact = getContact();
 
         Info info = new Info().title("Porucrement API")
                 .version("0.1")
                 .contact(contact)
                 .description("Api para procurement");
 
-        return new OpenAPI().info(info).servers(List.of(devServer));  }}
+        return new OpenAPI().info(info).servers(List.of(devServer));  }
+
+    private static Contact getContact() {
+        Contact contact = new Contact();
+
+        contact.setEmail("rm97373@fiap.com.br");
+        contact.setName("Raquel Calmon");
+
+//        Contact contact2 = new Contact();
+        contact.setEmail("rm97306@fiap.com.br");
+        contact.setName("Lau Costa");
+
+//        Contact contact3 = new Contact();
+        contact.setEmail("rm97041@fiap.com.br");
+        contact.setName("Johan Marzolla");
+
+//        Contact contact4 = new Contact();
+        contact.setEmail("rm96553@fiap.com.br");
+        contact.setName("Felipe Seiji");
+
+//        Contact contact5 = new Contact();
+        contact.setEmail("rm96542@fiap.com.br");
+        contact.setName("Gustavo Ballogh");
+        return contact;
+    }
+}
