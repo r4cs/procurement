@@ -5,8 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 import java.io.Serializable;
 import java.util.Collection;
 
-public interface FornecedorDetails extends Serializable {
+public interface AuthDetails extends Serializable {
     Collection<? extends GrantedAuthority> getAuthorities();
+
+    Long getId();
 
     String getPassword();
 

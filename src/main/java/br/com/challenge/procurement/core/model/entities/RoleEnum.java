@@ -1,5 +1,6 @@
 package br.com.challenge.procurement.core.model.entities;
 
+import br.com.challenge.procurement.core.model.authentication.Permission;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static br.com.challenge.procurement.core.model.entities.Permission.*;
+import static br.com.challenge.procurement.core.model.authentication.Permission.*;
 
 @Getter
 @RequiredArgsConstructor

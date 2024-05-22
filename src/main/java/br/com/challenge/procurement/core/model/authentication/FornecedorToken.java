@@ -1,6 +1,8 @@
-package br.com.challenge.procurement.core.model.entities;
+package br.com.challenge.procurement.core.model.authentication;
 
 
+import br.com.challenge.procurement.core.model.entities.Fornecedor;
+import br.com.challenge.procurement.core.repositories.authentication.TokenType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,18 +12,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Token {
+public class FornecedorToken {
 
     @Id
     @GeneratedValue
@@ -31,7 +30,7 @@ public class Token {
     public String token;
 
     @Enumerated(EnumType.STRING)
-    public OAuth2AccessToken.TokenType tokenType = OAuth2AccessToken.TokenType.BEARER;
+    public TokenType tokenType = TokenType.BEARER;
 
     public boolean revoked;
 

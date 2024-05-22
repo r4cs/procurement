@@ -1,44 +1,40 @@
 package br.com.challenge.procurement.core.model.entities;
 
-import br.com.challenge.procurement.core.model.DTO.EnderecoDTO;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
+import br.com.challenge.procurement.core.model.authentication.UserToken;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
-@Entity(name = "fornecedor")
-@Table(name = "fornecedor_procurement")
-public class Fornecedor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    private String razao_social;
+@NoArgsConstructor
+@Entity
+public class Fornecedor extends BaseUser {
+
+    private String razaoSocial;
     private String cnpj;
-    private String nome_contato;
     private String telefone;
-    @Column(unique = true)
-    private String email;
-    @Embedded
-    private EnderecoDTO endereco;
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
-    @JoinTable(name = "fornecedor_roles", joinColumns = @JoinColumn(name="id_fornecedor", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserToken> tokens = new ArrayList<>();
 
     public Fornecedor(FornecedorDTO dto) {
-        this.razao_social = dto.razao_social();
+        super(dto.id(), dto.nome(), dto.sobrenome(), dto.email(), dto.senha(), dto.role());
+        this.razaoSocial = dto.razao_social();
         this.cnpj = dto.cnpj();
-        this.nome_contato = dto.nome_contato();
         this.telefone = dto.telefone();
-        this.email = dto.email();
-        this.roles = dto.roles();
-        this.endereco = dto.endereco();
     }
 
-    public Fornecedor() {};
+    @Override
+    public String toString() {
+        return "Fornecedor{" +
+                "razaoSocial='" + razaoSocial + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", tokens=" + tokens +
+                '}';
+    }
 }

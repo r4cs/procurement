@@ -1,8 +1,7 @@
-package br.com.challenge.procurement.core.service;
+package br.com.challenge.procurement.core.service.authentication;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
-import br.com.challenge.procurement.core.model.entities.Role;
-import br.com.challenge.procurement.core.model.entities.Permission;
+import br.com.challenge.procurement.core.model.authentication.Permission;
 import br.com.challenge.procurement.core.model.entities.Usuario;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.repositories.UsuarioRepo;
@@ -33,23 +32,30 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) {
         OAuth2User oauth2User = super.loadUser(userRequest);
         String email = oauth2User.getAttribute("email");
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        Optional<Usuario> usuarioOptional = usuarioRepo.findByEmail(email);
+        Optional<Fornecedor> fornecedorOptional = fornecedorRepo.findByEmail(email);
 
         if (email != null) {
-            Optional<Usuario> usuarioOptional = usuarioRepo.findByEmail(email);
-            Optional<Fornecedor> fornecedorOptional = fornecedorRepo.findByEmail(email);
 
             if (usuarioOptional.isPresent()) {
                 Usuario usuario = usuarioOptional.get();
-                Set<GrantedAuthority> authorities = new HashSet<>();
-                for (Role role : usuario.getRoles()) {
-                    authorities.add(new SimpleGrantedAuthority(role.getName().name()));
+                authorities.add(new SimpleGrantedAuthority(usuario.getRole().name()));
                 }
 
                 // Additional logic to assign roles based on email
                 if ("r.guzansky@hotmail.com".equals(email)) {
-                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_ADMIN.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ADMIN_CREATE.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ADMIN_READ.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ADMIN_UPDATE.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.ADMIN_DELETE.name()));
+//                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_ADMIN.name()));
                 } else {
-                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_USER.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.USER_CREATE.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.USER_READ.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.USER_UPDATE.name()));
+                    authorities.add(new SimpleGrantedAuthority(Permission.USER_DELETE.name()));
+//                    authorities.add(new SimpleGrantedAuthority(Permission.ROLE_USER.name()));
                 }
 
                 return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), "email");
@@ -57,17 +63,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             if (fornecedorOptional.isPresent()) {
                 Fornecedor fornecedor = fornecedorOptional.get();
-                Set<GrantedAuthority> authorities = new HashSet<>();
-                for (Role role : fornecedor.getRoles()) {
-                    authorities.add(new SimpleGrantedAuthority(role.getName().name()));
-                }
-                authorities.add(new SimpleGrantedAuthority(Permission.ROLE_SUPPLYER.name()));
+                authorities.add(new SimpleGrantedAuthority(Permission.SUPPLYER_CREATE.name()));
+                authorities.add(new SimpleGrantedAuthority(Permission.SUPPLYER_READ.name()));
+                authorities.add(new SimpleGrantedAuthority(Permission.SUPPLYER_UPDATE.name()));
+                authorities.add(new SimpleGrantedAuthority(Permission.SUPPLYER_DELETE.name()));
+//                authorities.add(new SimpleGrantedAuthority(Permission.ROLE_SUPPLYER.name()));
 
                 return new DefaultOAuth2User(authorities, oauth2User.getAttributes(), "email");
             }
-
-
-        }
 
         return oauth2User;
     }

@@ -1,25 +1,32 @@
 package br.com.challenge.procurement.core.authController;
 
-import br.com.challenge.procurement.core.model.entities.Fornecedor;
-import br.com.challenge.procurement.core.model.entities.PedidoDeCompra;
-import br.com.challenge.procurement.core.model.entities.Produto;
-import br.com.challenge.procurement.core.model.entities.PropostaDeVenda;
-import br.com.challenge.procurement.core.model.entities.SolicitacaoDeCompra;
-import br.com.challenge.procurement.core.model.entities.Usuario;
+import br.com.challenge.procurement.core.model.entities.*;
+import br.com.challenge.procurement.core.service.authentication.UsuarioAuthService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class AuthController {
+
+    private final UsuarioAuthService service;
+
+    @Autowired
+    public AuthController(UsuarioAuthService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     String index(Principal principal, Model model) {
@@ -50,22 +57,34 @@ public class AuthController {
         return "/home/homeNotSignedIn";
     }
 
-    @GetMapping("/login/github")
-    public String loginWithGithub(HttpServletRequest request) {
-        String clientId = "dea1fe6183f99a004c90";
-        String redirectUri = "http://localhost:8080/login/oauth2/code/github"; // Altere conforme necessário
-        String scope = "read:user"; // Escopo de acesso, altere conforme necessário
-        String state = "Mm0gKbrHrouZ72vbRvpo8zfKokcB5nC9cqMwPhXeUaE="; // Estado, altere conforme necessário
-
-        // Construindo a URL de login do GitHub
-        String githubLoginUrl = "https://github.com/login/oauth/authorize" +
-                "?client_id=" + clientId +
-                "&redirect_uri=" + redirectUri +
-                "&response_type=code" +
-                "&scope=" + scope +
-                "&state=" + state;
-
-        // Redirecionar para a URL de login do GitHub
-        return "redirect:" + githubLoginUrl;
+    @PostMapping("/register-supplyer")
+    public ResponseEntity<AuthResponse> register_Supplyer(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.registerSupplier(request));
     }
+
+    @PostMapping("/register-user")
+    public ResponseEntity<AuthResponse> register_User(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.registerSupplier(request));
+    }
+
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthResponse> authenticate(
+            @RequestBody AuthRequest request
+    ) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @PostMapping("/refresh-token")
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        service.refreshToken(request, response);
+    }
+
 }

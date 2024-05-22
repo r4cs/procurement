@@ -1,7 +1,6 @@
 package br.com.challenge.procurement.core.service;
 
 import br.com.challenge.procurement.core.model.entities.Fornecedor;
-import br.com.challenge.procurement.core.model.entities.Produto;
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
 import br.com.challenge.procurement.core.model.DTO.FornecedorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +48,8 @@ public class FornecedorService {
                     .ifPresent(fornecedor::setRazao_social);
             Optional.ofNullable(updatedFornecedor.getCnpj())
                     .ifPresent(fornecedor::setCnpj);
-            Optional.ofNullable(updatedFornecedor.getNome_contato())
-                    .ifPresent(fornecedor::setNome_contato);
+            Optional.ofNullable(updatedFornecedor.getNome())
+                    .ifPresent(fornecedor::setNome);
             Optional.ofNullable(updatedFornecedor.getTelefone())
                     .ifPresent(fornecedor::setTelefone);
             Optional.ofNullable(updatedFornecedor.getEmail())
