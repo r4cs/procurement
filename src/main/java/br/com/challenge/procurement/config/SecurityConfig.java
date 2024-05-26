@@ -1,7 +1,8 @@
 package br.com.challenge.procurement.config;
 
 import br.com.challenge.procurement.core.repositories.FornecedorRepo;
-import br.com.challenge.procurement.core.repositories.UsuarioRepo;
+import br.com.challenge.procurement.core.repositories.FuncionarioRepo;
+import br.com.challenge.procurement.core.services.authentication.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -32,10 +30,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import java.util.HashSet;
 import java.util.Set;
 
-import static br.com.challenge.procurement.core.model.authentication.Permission.*;
-import static br.com.challenge.procurement.core.model.entities.RoleEnum.ADMIN;
-import static br.com.challenge.procurement.core.model.entities.RoleEnum.USER;
-import static br.com.challenge.procurement.core.model.entities.RoleEnum.SUPPLYER;
+import static br.com.challenge.procurement.core.models.authentication.Permission.*;
+import static br.com.challenge.procurement.core.models.authentication.RoleEnum.ADMIN;
+import static br.com.challenge.procurement.core.models.authentication.RoleEnum.USER;
+import static br.com.challenge.procurement.core.models.authentication.RoleEnum.SUPPLYER;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -44,7 +42,7 @@ import static org.springframework.http.HttpMethod.*;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final UsuarioRepo usuarioRepo;
+    private final FuncionarioRepo funcionarioRepo;
     private final FornecedorRepo fornecedorRepo;
 
     @Bean
@@ -62,7 +60,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/", "/login", "/auth/fornecedor/register", "/auth/fornecedor/authenticate").permitAll()
 
                                 // SO ADMINS
                                 .requestMatchers(
@@ -92,22 +90,22 @@ public class SecurityConfig {
                                         GET, "/api/produto/**",
                                         "/api/solicitacao/**",
                                         "/api/pedido/**")
-                                            .hasAnyAuthority( USER_READ.name(), ADMIN_READ.name())
+                                            .hasAnyAuthority( ADMIN_READ.name(), USER_READ.name())
                                 .requestMatchers(
                                         POST, "/api/produto/**",
                                         "/api/solicitacao/**",
                                         "/api/pedido/**")
-                                            .hasAnyAuthority(ADMIN_CREATE.name(), ADMIN_CREATE.name())
+                                            .hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
                                 .requestMatchers(
                                         PATCH, "/api/produto/**",
                                         "/api/solicitacao/**",
                                         "/api/pedido/**")
-                                            .hasAnyAuthority(ADMIN_UPDATE.name(), ADMIN_UPDATE.name())
+                                            .hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
                                 .requestMatchers(
                                         DELETE, "/api/produto/**",
                                         "/api/solicitacao/**",
                                         "/api/pedido/**")
-                                            .hasAnyAuthority( USER_DELETE.name(), ADMIN_DELETE.name())
+                                            .hasAnyAuthority( ADMIN_DELETE.name(), USER_DELETE.name())
 
 
                                 //  SUPPLYERs e ADMINs
@@ -119,13 +117,13 @@ public class SecurityConfig {
                                             .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_READ.name())
                                 .requestMatchers(
                                         POST, "/api/proposta/**")
-                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_CREATE.name())
+                                            .hasAnyAuthority(SUPPLYER_CREATE.name(), ADMIN_CREATE.name())
                                 .requestMatchers(
                                         PATCH, "/api/proposta/**")
-                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_UPDATE.name())
+                                            .hasAnyAuthority(SUPPLYER_UPDATE.name(), ADMIN_UPDATE.name())
                                 .requestMatchers(
                                         DELETE, "/api/proposta/**")
-                                            .hasAnyAuthority(SUPPLYER_READ.name(), ADMIN_DELETE.name())
+                                            .hasAnyAuthority(SUPPLYER_DELETE.name(), ADMIN_DELETE.name())
 
 
 
@@ -154,7 +152,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(
                 "/v3/api-docs/**", "api/swagger.json/**", "/swagger-resources/**" ,
-                "/css/**", "https://lookerstudio.google.com/reporting/**"
+                "/css/**", "https://lookerstudio.google.com/reporting/**",
+                "/h2-console/**"
         );
     }
 
@@ -200,23 +199,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userUsuarioDetailsService() {
-        return username -> (UserDetails) usuarioRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public CustomUserDetailsService customUserDetailsService() {
+//    public UserDetailsService customUserDetailsService() {
+        return new CustomUserDetailsService(funcionarioRepo, fornecedorRepo);
     }
-
-    @Bean
-    public UserDetailsService userFornecedorDetailsService() {
-        return username -> (UserDetails) fornecedorRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
-
 
 
     @Bean
     public AuthenticationProvider usuarioAuthenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userUsuarioDetailsService());
+        authProvider.setUserDetailsService(customUserDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -224,7 +216,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider fornecedorAuthenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userFornecedorDetailsService());
+        authProvider.setUserDetailsService(customUserDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }

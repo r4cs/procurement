@@ -1,0 +1,8 @@
+package br.com.challenge.procurement.core.services.strategy;
+
+import java.math.BigDecimal;
+
+public interface PagamentoBoletoStrategy {
+    String gerarBoleto(BigDecimal valor, String nomeCliente, String cpfCliente);
+    String pagarBoleto(BigDecimal valor, String nomeCliente, String cpfCliente);
+}

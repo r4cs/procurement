@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.config;
 
-import br.com.challenge.procurement.core.model.entities.AuthDetails;
+import br.com.challenge.procurement.core.services.authentication.AuthDetails;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,6 @@
 package br.com.challenge.procurement.core.repositories;
 
-import br.com.challenge.procurement.core.models.entities.Fornecedor;
+import br.com.challenge.procurement.core.models.entities.Funcionario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FornecedorRepo extends JpaRepository<Fornecedor, Long> {
-    Page<Fornecedor> findAll(Pageable pageable);
+public interface FuncionarioRepo extends JpaRepository<Funcionario, Long> {
 
-    Optional<Fornecedor> findByEmail(String email);
+    @Override
+    Page<Funcionario> findAll(Pageable pageable);
+
+    Optional<Funcionario> findByEmail(String email);
+
 }

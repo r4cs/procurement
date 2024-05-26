@@ -34,10 +34,10 @@
                         > Cadastre-se
                         </button>
                     </div>
-                    <form class="mt-3" method="get" action="http://localhost:8080/api/fornecedor">
+                    <form id="loginForm" class="mt-3" method="post" action="/auth/fornecedor/authenticate">
                         <div class="input-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required>
-                            <input type="password" class="form-control" name="senha" placeholder="Senha" required>
+                            <input id="emailLogin" type="email" class="form-control" name="email" placeholder="Email" required>
+                            <input id="passwordLogin" type="password" class="form-control" name="senha" placeholder="Senha" required>
                             <button class="btn btn-primary" type="submit">Login</button>
                         </div>
                     </form>
@@ -63,7 +63,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="http://localhost:8080/api/fornecedor">
+                <form id="cadastroForm" method="post" action="/auth/fornecedor/register">
                     <div class="row">
                         <!-- Coluna Esquerda - Dados do Fornecedor -->
                         <div class="col-md-6">
@@ -87,6 +87,11 @@
                                 <label for="emailCadastro" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="emailCadastro" name="email" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
                         </div>
                         <!-- Coluna Direita - Dados do Endereço -->
                         <div class="col-md-6">
@@ -142,79 +147,84 @@
         $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
         $('#telefone').mask('(00) 00000-0000');
         $('#cep').mask('00000-000');
+
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                const token = localStorage.getItem('jwt');
+                if (token) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                }
+            }
+        });
+
+        $('#loginForm').on('submit', function (event) {
+            event.preventDefault();
+            let formData = {
+                email: $('#emailLogin').val(),
+                password: $('#passwordLogin').val()
+            }
+            alert("login form data: " + formData);
+            console.log("login form data: " + formData.email);
+            console.log("login form data: " + formData.password);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('Logou com sucesso!');
+                    localStorage.setItem('jwt', response.token);
+                    window.location.href = '/';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao logar fornecedor:', xhr.responseText); // Log detalhado do erro
+                    alert('Erro ao logar fornecedor. Verifique o console para mais detalhes.');
+                }
+            })
+        })
+
+        $('#cadastroForm').on('submit', function(event) {
+            // Evitar que o formulário seja enviado normalmente
+            event.preventDefault();
+
+            let formData = {
+                nome: $('#nomeContato').val(),
+                email: $('#emailCadastro').val(),
+                password: $('#password').val(),  // Adicione uma senha padrão ou adicione um campo no formulário
+                role: 'SUPPLYER',
+                razaoSocial: $('#razaoSocial').val(),
+                cnpj: $('#cnpj').val(),
+                telefone: $('#telefone').val(),
+                endereco: {
+                    logradouro: $('#logradouro').val(),
+                    numero: $('#numero').val(),
+                    complemento: $('#complemento').val(),
+                    bairro: $('#bairro').val(),
+                    cidade: $('#cidade').val(),
+                    estado: $('#estado').val(),
+                    cep: $('#cep').val()
+                }
+            };
+            alert("cadastro form data: " + formData);
+            console.log("cadastro form data: " + formData);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('Cadastro realizado com sucesso!');
+                    window.location.href = '/';
+                },
+                error: function(xhr, status, error) {
+                    alert('Erro ao cadastrar fornecedor. Por favor, tente novamente.');
+                }
+            });
+        });
     });
+
 </script>
 </body>
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"-->
-<!--      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="pt-br">-->
-<!--    <head>-->
-<!--        <meta charset="utf-8">-->
-<!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--        <meta name="description" content="">-->
-<!--        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">-->
-<!--        <meta name="generator" content="Hugo 0.84.0">-->
-<!--        <title>Dashboard Template · Bootstrap v5.0</title>-->
-
-<!--        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">-->
-<!--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
-<!--        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
-<!--        <title>Home: not signed in</title>-->
-<!--    </head>-->
-<!--    <body>-->
-<!--        <div th:replace="~{fragments/header :: header}"> </div>-->
-
-<!--        <header class="bg-dark py-5">-->
-<!--            <div class="container px-5">-->
-<!--                <div class="row gx-5 align-items-center justify-content-center">-->
-<!--                    <div class="col-lg-8 col-xl-7 col-xxl-6">-->
-<!--                        <div class="my-5 text-center text-xl-start">-->
-<!--                            <h1 class="display-5 fw-bolder text-white mb-2">Proc Level</h1>-->
-<!--                            <p class="lead fw-normal text-white-50 mb-4">Supply à um clique</p>-->
-<!--                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">-->
-<!--                                <a th:href="@{/login}" class="btn btn-primary btn-lg px-4 me-sm-3">Logue para começar</a>-->
-<!--                                <a class="btn btn-outline-light btn-lg px-4" href="#">Saiba mais</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..."></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </header>-->
-
-<!--        <div class="jumbotron jumbotron-fluid p-3">-->
-<!--            <div class="container">-->
-<!--                <div class="text-center">-->
-<!--                    <h4>Endpoints disponíveis:</h4>-->
-<!--                    <hr>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <div class="col">-->
-<!--                        <h6 class="text-start">Todos podem acessar:</h6>-->
-<!--                        <div class="text-center">-->
-<!--                            <ul class="list-unstyled">-->
-<!--                                <li>"/"</li>-->
-<!--                                <li>"/login"</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col">-->
-<!--                        <h6 class="text-end">Apenas autenticados podem acessar:</h6>-->
-<!--                        <div class="text-center">-->
-<!--                            <ul class="list-unstyled">-->
-<!--                                <li>"/logout"</li>-->
-<!--                                <li>api</li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
-<!--        <div th:replace="~{fragments/footer :: footer}"> </div>-->
-<!--    </body>-->
-<!--</html>-->
