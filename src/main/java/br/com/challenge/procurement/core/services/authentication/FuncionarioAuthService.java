@@ -56,8 +56,8 @@ public class FuncionarioAuthService {
                 .map((Function<? super Funcionario, ? extends Optional<BaseUser>>) Optional::of)
                 .orElseThrow();
         BaseUser user = userOpt.orElseThrow();
-        String jwtToken = jwtService.generateToken((AuthDetails) user);
-        String refreshToken = jwtService.generateRefreshToken((AuthDetails) user);
+        String jwtToken = jwtService.generateToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return new AuthResponse(jwtToken, refreshToken);
@@ -75,8 +75,8 @@ public class FuncionarioAuthService {
                     .map((Function<? super Funcionario, ? extends Optional<BaseUser>>) Optional::of)
                     .orElseThrow();
             BaseUser user = userOpt.orElseThrow();
-            if (jwtService.isTokenValid(refreshToken, (AuthDetails) user)) {
-                String accessToken = jwtService.generateToken((AuthDetails) user);
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                String accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
                 saveUserToken(user, accessToken);
                 AuthResponse authResponse = new AuthResponse(accessToken, refreshToken);
@@ -108,7 +108,7 @@ public class FuncionarioAuthService {
 }
 
 
-
+/*
 //package br.com.challenge.procurement.core.service.authentication;
 //
 //import br.com.challenge.procurement.core.model.authentication.AuthRequest;
@@ -229,3 +229,5 @@ public class FuncionarioAuthService {
 //        // Implemente a revogação de todos os tokens do usuário conforme necessário
 //    }
 //}
+
+ */

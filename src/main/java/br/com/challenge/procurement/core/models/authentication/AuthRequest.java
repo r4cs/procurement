@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor
-public record AuthRequest (
-        String email,
-        String password
-) { }
+public class AuthRequest {
+    private String email;
+    private String password;
+}

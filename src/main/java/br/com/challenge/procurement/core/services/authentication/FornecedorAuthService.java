@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -156,7 +157,7 @@ public class FornecedorAuthService {
 }
 
 
-
+/*
 //package br.com.challenge.procurement.core.service.authentication;
 //
 //import br.com.challenge.procurement.core.model.authentication.AuthRequest;
@@ -260,3 +261,5 @@ public class FornecedorAuthService {
 //        tokenRepo.saveAll(validUserTokens);
 //    }
 //}
+
+ */

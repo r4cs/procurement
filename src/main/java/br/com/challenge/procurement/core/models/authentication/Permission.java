@@ -16,10 +16,10 @@ public enum Permission {
     USER_CREATE("user:create"),
     USER_DELETE("user:delete"),
 
-    SUPPLYER_READ("user:read"),
-    SUPPLYER_UPDATE("user:update"),
-    SUPPLYER_CREATE("user:create"),
-    SUPPLYER_DELETE("user:delete");
+    SUPPLYER_READ("supplyer:read"),
+    SUPPLYER_UPDATE("supplyer:update"),
+    SUPPLYER_CREATE("supplyer:create"),
+    SUPPLYER_DELETE("supplyer:delete");
 
     private final String permission;
 }
