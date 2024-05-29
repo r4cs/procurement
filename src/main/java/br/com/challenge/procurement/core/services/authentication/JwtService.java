@@ -1,6 +1,5 @@
 package br.com.challenge.procurement.core.services.authentication;
 
-import br.com.challenge.procurement.core.models.authentication.RoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,11 +14,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -42,12 +41,12 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(AuthDetails userDetails) {
+    public String generateToken(UserDetails userDetails) {
         System.out.println("*** generateToken() para userDetails: " + userDetails);
         return generateTokenn(new HashMap<>(), userDetails);
     }
 
-    public String generateTokenn(Map<String, Object> extraClaims, AuthDetails userDetails) {
+    public String generateTokenn(Map<String, Object> extraClaims, UserDetails userDetails) {
         System.out.println("*** userDetails.getAuthorities em generateTokenn: " + userDetails.getAuthorities().toString());
         List<String> authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -57,25 +56,15 @@ public class JwtService {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
-//    public String generateTokenn(
-//            Map<String, Object> extraClaims,
-//            AuthDetails userDetails
-//    ) {
-//        System.out.println("*** userDetails.getAuthorities em generateTokenn: " + userDetails.getAuthorities().toString());
-//        extraClaims.put("roles", userDetails.getAuthorities());
-//        System.out.println("*** extra claims em genTokenn: " + extraClaims);
-//        return buildToken(extraClaims, userDetails, jwtExpiration);
-//    }
-
     public String generateRefreshToken(
-            AuthDetails userDetails
+            UserDetails userDetails
     ) {
         return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
     private String buildToken(
             Map<String, Object> extraClaims,
-            AuthDetails userDetails,
+            UserDetails userDetails,
             long expiration
     ) {
         return Jwts
@@ -88,7 +77,7 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, AuthDetails userDetails) {
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         System.out.println("\n\n*** Iniciando DEBUG em JwtService - isTokenValid(): ");
         final String username = extractUsername(token);
         System.out.println("* username = extractUsername(token): " + username);
@@ -103,23 +92,6 @@ public class JwtService {
                 userDetails.getAuthorities().containsAll(tokenAuthorities);
     }
 
-
-//    public boolean isTokenValid(String token, AuthDetails userDetails) {
-//        System.out.println("\n\n*** Iniciando DEBUG em JwtService - isTokenValid(): ");
-//        final String username = extractUsername(token);
-//        System.out.println("* username = extractUsername(token): " + username);
-//        final RoleEnum role = RoleEnum.valueOf(extractClaim(token, claims -> claims.get("role", String.class)));
-//        System.out.println("role: " + role);
-//        return (username.equals(userDetails.getUsername())) &&
-//                !isTokenExpired(token) &&
-//                userDetails.getAuthorities()
-//                        .contains(new SimpleGrantedAuthority("ROLE_" + role.name()));
-//    }
-//    public boolean isTokenValid(String token, AuthDetails userDetails) {
-//        final String username = extractUsername(token);
-//        final RoleEnum role = RoleEnum.valueOf(extractClaim(token, claims -> claims.get("role", String.class)));
-//        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && userDetails.getAuthorities().equals("role");
-//    }
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
@@ -142,6 +114,7 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
     public boolean isFornecedor(String jwt) {
         System.out.println("\n\n*** Iniciando DEBUG em JwtService - isFornecedor(....): ");
         Claims claims = extractAllClaims(jwt);
@@ -149,7 +122,6 @@ public class JwtService {
         List<String> roles = claims.get("roles", List.class);
         System.out.println("*roles: " + roles.toString());
         return  roles.contains("SUPPLYER");
-//        return roles != null && roles.contains("SUPPLYER");
     }
 }
 

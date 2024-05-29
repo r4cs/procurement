@@ -43,8 +43,8 @@ public class FuncionarioAuthService {
     public AuthResponse register(RegisterRequest request) {
         Funcionario user = new Funcionario(request.getNome(), request.getSobrenome(), request.getEmail(), passwordEncoder.encode(request.getPassword()), RoleEnum.USER);
         Funcionario savedUser = funcionarioRepo.save(user);
-        String jwtToken = jwtService.generateToken((AuthDetails) savedUser);
-        String refreshToken = jwtService.generateRefreshToken((AuthDetails) savedUser);
+        String jwtToken = jwtService.generateToken(savedUser);
+        String refreshToken = jwtService.generateRefreshToken(savedUser);
         saveUserToken(savedUser, jwtToken);
         return new AuthResponse(jwtToken, refreshToken);
     }

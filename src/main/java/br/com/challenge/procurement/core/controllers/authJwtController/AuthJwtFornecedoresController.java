@@ -6,10 +6,8 @@ import br.com.challenge.procurement.core.models.authentication.RegisterRequest;
 import br.com.challenge.procurement.core.services.authentication.FornecedorAuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @Controller
@@ -33,7 +32,7 @@ public class AuthJwtFornecedoresController {
     public ResponseEntity<AuthResponse> registerSupplyer(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(fornecedorService.register(request));
+        return fornecedorService.register(request);
     }
 
 
@@ -41,16 +40,8 @@ public class AuthJwtFornecedoresController {
     public ResponseEntity<AuthResponse> authenticate(
             @RequestBody AuthRequest request
     ) {
-        return ResponseEntity.ok(fornecedorService.authenticate(request));
+        return fornecedorService.authenticate(request);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<AuthResponse> login(
-//            @RequestBody @Valid AuthRequest request
-//    ) {
-//        return ResponseEntity.ok(fornecedorService.authenticate(request));
-//    }
-
 
 
     @PostMapping("/refresh-token")

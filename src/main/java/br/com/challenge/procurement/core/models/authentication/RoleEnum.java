@@ -57,14 +57,11 @@ public enum RoleEnum {
     private final Set<Permission> permissions;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
-        System.out.println("\n\n*** Iniciando DEBUG em RoleEnum - getAuthorities(): ");
         var authorities = getPermissions()
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toList());
-        System.out.println("* var authorities: " + authorities);
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-        System.out.println("* var authorities add SimpleGrantedAuth: " + authorities);
         return authorities;
     }
 }

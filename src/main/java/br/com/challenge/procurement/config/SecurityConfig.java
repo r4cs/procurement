@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,6 +59,7 @@ public class SecurityConfig {
                                     return corsConfiguration;
                         })
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/", "/login", "/auth/fornecedor/register", "/auth/fornecedor/authenticate").permitAll()
@@ -138,7 +140,7 @@ public class SecurityConfig {
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .permitAll()
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/content")
                 ).logout((logout) -> logout
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
@@ -200,7 +202,6 @@ public class SecurityConfig {
 
     @Bean
     public CustomUserDetailsService customUserDetailsService() {
-//    public UserDetailsService customUserDetailsService() {
         return new CustomUserDetailsService(funcionarioRepo, fornecedorRepo);
     }
 
@@ -221,12 +222,10 @@ public class SecurityConfig {
         return authProvider;
     }
 
-
-
-    @Bean
-    public AuditorAware<Long> auditorAware() {
-        return new ApplicationAuditAware();
-    }
+//    @Bean
+//    public AuditorAware<Long> auditorAware() {
+//        return new ApplicationAuditAware();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

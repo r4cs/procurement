@@ -2,7 +2,6 @@ package br.com.challenge.procurement.core.models.entities;
 
 import br.com.challenge.procurement.core.models.authentication.RoleEnum;
 import br.com.challenge.procurement.core.models.authentication.UserToken;
-import br.com.challenge.procurement.core.services.authentication.AuthDetails;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BaseUser implements AuthDetails {
+public abstract class BaseUser implements UserDetails {
 //public abstract class BaseUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

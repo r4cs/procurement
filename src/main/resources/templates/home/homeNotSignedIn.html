@@ -174,8 +174,11 @@
                 contentType: 'application/json',
                 success: function (response) {
                     alert('Logou com sucesso!');
+                    console.log("response: "+ response)
                     localStorage.setItem('jwt', response.token);
-                    window.location.href = '/';
+                    console.log("localStorage: " + localStorage);
+                    window.location.href = '/content';
+                    // window.location.href = '/';
                 },
                 error: function(xhr, status, error) {
                     console.error('Erro ao logar fornecedor:', xhr.responseText); // Log detalhado do erro
