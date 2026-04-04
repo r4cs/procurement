@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI geraDocumentacao() {
         Server devServer = new Server();
-        devServer.setUrl("https://app-procurement.azurewebsites.net");
+        devServer.setUrl("http://localhost:8080");
         devServer.description("Azure api procurement web app");
 
         Contact contact = getContact();
@@ -29,22 +29,6 @@ public class SwaggerConfig {
 
         contact.setEmail("rm97373@fiap.com.br");
         contact.setName("Raquel Calmon");
-
-//        Contact contact2 = new Contact();
-        contact.setEmail("rm97306@fiap.com.br");
-        contact.setName("Lau Costa");
-
-//        Contact contact3 = new Contact();
-        contact.setEmail("rm97041@fiap.com.br");
-        contact.setName("Johan Marzolla");
-
-//        Contact contact4 = new Contact();
-        contact.setEmail("rm96553@fiap.com.br");
-        contact.setName("Felipe Seiji");
-
-//        Contact contact5 = new Contact();
-        contact.setEmail("rm96542@fiap.com.br");
-        contact.setName("Gustavo Ballogh");
         return contact;
     }
 }
